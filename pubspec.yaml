@@ -1,8 +1,8 @@
 name: flutter_alibc
 description: 阿里百川
 version: 0.0.1
-author:
-homepage:
+author: wx <329106954@qq.com,983598009@qq.com>
+homepage: https://github.com/FlutterTaoBaoKe/flutter_alibc.git
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
