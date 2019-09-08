@@ -82,10 +82,10 @@ FlutterAlibc.loginOut();
    *		errorMessage,
    *		type,			//0为添加购物车，1为付款成功
    *		payResult,	//type为1时返回
-	 *  	tradeFailResult:{//errorCode不为0时返回
+   *  	tradeFailResult:{//errorCode不为0时返回
    *		 	orderIdList,			//失败的orderIdList
-	 *	  },	
-	 *  }
+   *	  },	
+   *  }
    */
  var result = await FlutterAlibc.openByUrl(
                     url:"",	//必须参数
@@ -106,7 +106,7 @@ FlutterAlibc.loginOut();
    * itemID 商品id，可以是真实的也可以是混淆的，必须参数
    * trackParam	需要额外追踪的业务数据
    * 其他同上
-   * @return: 
+   * @return: 同openByUrl
    */
 var result = await FlutterAlibc.openItemDetail(
 										itemID:"",	//必须参数
@@ -127,7 +127,7 @@ var result = await FlutterAlibc.openItemDetail(
    * @param 
    * shopId 店铺id，必须参数
    * 其他同上
-   * @return: 
+   * @return: 同openByUrl
    */
 var result = await FlutterAlibc.openShop(
 										shopId:"",	//必须参数
@@ -148,7 +148,7 @@ var result = await FlutterAlibc.openShop(
    * @param 
    * 无必须参数
    * 其他同上
-   * @return: 
+   * @return: 同openByUrl
    */
 var result = await FlutterAlibc.openCart(
                     openType : AlibcOpenType.AlibcOpenTypeAuto,
