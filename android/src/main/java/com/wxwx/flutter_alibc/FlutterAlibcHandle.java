@@ -26,6 +26,8 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.MethodCall;
 import java.util.HashMap;
 import android.app.AlertDialog;
+import static com.wxwx.flutter_alibc.PluginConstants.*;
+import static com.wxwx.flutter_alibc.PluginUtil.*;
 
 import java.util.Map;
 
@@ -124,10 +126,27 @@ public class FlutterAlibcHandle{
      */
     public void openByUrl(MethodCall call, Result result){
         AlibcShowParams showParams = new AlibcShowParams();
-        showParams.setOpenType(OpenType.Auto);
-        showParams.setClientType("taobao");
-        showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeNONE);
-        AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
+        AlibcTaokeParams taokeParams = new AlibcTaokeParams("","","");
+
+        showParams.setBackUrl(call.argument(key_BackUrl));
+
+        if (call.argument(key_OpenType) != null){
+            System.out.println("openType" + call.argument(key_OpenType));
+            showParams.setOpenType(getOpenType(""+call.argument(key_OpenType)));
+        }
+        if (call.argument(key_ClientType) != null){
+            System.out.println("clientType " + call.argument(key_ClientType));
+            showParams.setClientType(getClientType(""+call.argument(key_ClientType)));
+        }
+        if (call.argument("taokeParams") != null){
+            taokeParams  = getTaokeParams(call.argument("taokeParams"));
+        }
+        if ("false".equals(call.argument("isNeedCustomNativeFailMode"))){
+            showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeNONE);
+        }else if (call.argument(key_NativeFailMode) != null){
+            showParams.setNativeOpenFailedMode(getFailModeType(""+call.argument(key_NativeFailMode)));
+        }
+
         Map<String, String> trackParams = new HashMap<>();
         String url = call.argument("url");
         // 以显示传入url的方式打开页面（第二个参数是套件名称）
@@ -152,16 +171,16 @@ public class FlutterAlibcHandle{
      */
     public void openShop(MethodCall call, Result result){
         AlibcBasePage page = new AlibcShopPage(call.argument("shopId"));
-        openByBizCode(page, "shop", result);
+        openByBizCode(page, "shop", call, result);
     }
 
     /**
      * 打开购物车
      * @param result
      */
-    public void openCart(Result result){
+    public void openCart(MethodCall call, Result result){
         AlibcBasePage page = new AlibcMyCartsPage();
-        openByBizCode(page, "cart", result);
+        openByBizCode(page, "cart",call, result);
     }
 
     /**
@@ -171,16 +190,31 @@ public class FlutterAlibcHandle{
      */
     public void openItemDetail(MethodCall call, Result result){
         AlibcBasePage page = new AlibcDetailPage(call.argument("itemID"));
-        openByBizCode(page, "detail", result);
+        openByBizCode(page, "detail", call, result);
     }
 
-    private void openByBizCode(AlibcBasePage page,String type, Result result){
-        //自定义参数
+    private void openByBizCode(AlibcBasePage page,String type, MethodCall call, Result result){
         AlibcShowParams showParams = new AlibcShowParams();
-        showParams.setOpenType(OpenType.Auto);
-        showParams.setClientType("taobao");
-        showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeNONE);
         AlibcTaokeParams taokeParams = new AlibcTaokeParams("", "", "");
+
+        showParams.setBackUrl(call.argument(key_BackUrl));
+
+        if (call.argument(key_OpenType) != null){
+            showParams.setOpenType(getOpenType(""+call.argument(key_OpenType)));
+        }
+        if (call.argument(key_ClientType) != null){
+            showParams.setClientType(getClientType(""+call.argument(key_ClientType)));
+        }
+        if (call.argument("taokeParams") != null){
+            taokeParams  = getTaokeParams(call.argument("taokeParams"));
+        }
+
+        if ("false".equals(call.argument("isNeedCustomNativeFailMode"))){
+            showParams.setNativeOpenFailedMode(AlibcFailModeType.AlibcNativeFailModeNONE);
+        }else if (call.argument(key_NativeFailMode) != null){
+            showParams.setNativeOpenFailedMode(getFailModeType(""+call.argument(key_NativeFailMode)));
+        }
+
         Map<String, String> trackParams = new HashMap<>();
         AlibcTrade.openByBizCode(register.activity(), page, null, new WebViewClient(),
                 new WebChromeClient(), type, showParams, taokeParams,
@@ -213,4 +247,6 @@ public class FlutterAlibcHandle{
     public void useAlipayNative(MethodCall call){
         AlibcTradeSDK.setShouldUseAlipay(call.argument("isNeed"));
     }
+
+
 }

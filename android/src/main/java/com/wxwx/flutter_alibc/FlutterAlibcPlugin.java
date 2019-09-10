@@ -19,7 +19,9 @@ public class FlutterAlibcPlugin implements MethodCallHandler {
 
   @Override
   public void onMethodCall(MethodCall call, Result result) {
-    if (call.method.equals("initAlibc")){
+    if (call.method.equals("getPlatformVersion")) {
+      result.success("Android " + android.os.Build.VERSION.RELEASE);
+    } else if (call.method.equals("initAlibc")){
       handle.initAlibc(call, result);
     }else if (call.method.equals("openItemDetail")){
       handle.openItemDetail(call, result);
@@ -32,7 +34,7 @@ public class FlutterAlibcPlugin implements MethodCallHandler {
     }else if (call.method.equals("openShop")){
       handle.openShop(call, result);
     }else if (call.method.equals("openCart")){
-      handle.openCart(result);
+      handle.openCart(call, result);
     }else if (call.method.equals("syncForTaoke")){
       handle.syncForTaoke(call);
     }else if (call.method.equals("useAlipayNative")){
