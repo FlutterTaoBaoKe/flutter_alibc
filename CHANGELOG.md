@@ -3,3 +3,5 @@
 * TODO: Describe initial release.
 ## 0.0.2
 修改readme
+## 0.0.3
+Android 修正缺少的接口参数
