@@ -59,7 +59,7 @@ class TradeResult {
   PayResult payResult;
   // AddCardResult addCardResult;
   TradeFailResult tradeFailResult;
-  
+
   TradeResult(
     this.errorCode,
     this.errorMessage, {
@@ -89,7 +89,6 @@ class TradeFailResult {
   final List<String> orderIdList;
 
   TradeFailResult(this.orderIdList);
-  
 }
 
 // class TaoKeParams {

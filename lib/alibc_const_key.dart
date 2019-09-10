@@ -1,9 +1,9 @@
-/*
- * @Author: 无星 
- * @Date: 2019-08-30 15:55:44 
- * @Last Modified by: 无星
- * @Last Modified time: 2019-08-30 17:17:07
- */
+ ///
+ /// @Author: 无星 
+ /// @Date: 2019-08-30 15:55:44 
+ /// @Last Modified by: 无星
+ /// @Last Modified time: 2019-08-30 17:17:07
+ ///
 
 import 'package:flutter/foundation.dart';
 
@@ -21,15 +21,15 @@ class AlibcConstKey {
   static String platform_andriod = "andriod";
 }
 
-// /** 成功添加到购物车 */
-// /** 成功支付 */
+///  成功添加到购物车   
+///  成功支付   
 enum TradeResultType {
   AlibcTradeResultTypeAddCard,
   AlibcTradeResultTypePaySuccess
 }
 
-// /** 智能判断 */
-// /** 强制拉端(手淘/天猫) */
+///  智能判断   
+///  强制拉端(手淘/天猫)   
 enum AlibcOpenType { AlibcOpenTypeAuto, AlibcOpenTypeNative }
 
 //  拉起手淘失败后的处理策略

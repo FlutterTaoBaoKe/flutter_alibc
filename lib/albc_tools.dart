@@ -1,10 +1,10 @@
-/*
- * @Description: 工具类
- * @Author: wuxing
- * @Date: 2019-09-06 22:51:22
- * @LastEditors: wuxing
- * @LastEditTime: 2019-09-06 22:52:48
- */
+///
+ /// @Description: 工具类
+ /// @Author: wuxing
+ /// @Date: 2019-09-06 22:51:22
+ /// @LastEditors: wuxing
+ /// @LastEditTime: 2019-09-06 22:52:48
+ ///
 
 import 'alibc_const_key.dart';
 import 'alibc_model.dart';
