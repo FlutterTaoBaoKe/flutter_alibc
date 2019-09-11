@@ -21,11 +21,11 @@ class AlibcConstKey {
   static String platform_andriod = "andriod";
 }
 
-///  成功添加到购物车   
 ///  成功支付   
+///  成功添加到购物车   
 enum TradeResultType {
-  AlibcTradeResultTypeAddCard,
-  AlibcTradeResultTypePaySuccess
+  AlibcTradeResultTypePaySuccess,
+  AlibcTradeResultTypeAddCard
 }
 
 ///  智能判断   

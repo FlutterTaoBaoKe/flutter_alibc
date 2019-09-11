@@ -19,8 +19,8 @@ Pod::Spec.new do |s|
   s.vendored_frameworks ="AliBaichuan/Frameworks/*.framework"
   s.resource = "AliBaichuan/Resources/*.bundle"
 
-  s.frameworks = "MobileCoreServices","AssetsLibrary","CoreMotion","ImageIO","CoreData","CoreLocation","Security","SystemConfiguration","CoreTelephony","CFNetwork","CoreGraphics","UIKit","Foundation"
-  s.libraries = "z","stdc++","sqlite3.0"
+  s.frameworks = "CoreTelephony","CoreMotion","UIKit","Foundation"
+  s.libraries = "z","c++","sqlite3.0"
 
   s.ios.deployment_target = '8.0'
 end

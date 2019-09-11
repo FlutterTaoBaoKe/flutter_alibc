@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1024AF9A232357FA008B147B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1024AF99232357F9008B147B /* CoreMotion.framework */; };
-		1024AF9C23235804008B147B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1024AF9B23235804008B147B /* CoreTelephony.framework */; };
-		1024AF9E2323580E008B147B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1024AF9D2323580E008B147B /* libsqlite3.tbd */; };
-		1024AFA023235865008B147B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1024AF9F23235865008B147B /* libc++.tbd */; };
-		1024AFA223235871008B147B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1024AFA123235871008B147B /* libz.tbd */; };
 		1024AFA423235967008B147B /* mtopsdk_configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1024AFA323235967008B147B /* mtopsdk_configuration.plist */; };
 		106E9BCC23180D8700A2C080 /* yw_1222.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 106E9BCB23180D8700A2C080 /* yw_1222.jpg */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
@@ -79,11 +74,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1024AFA223235871008B147B /* libz.tbd in Frameworks */,
-				1024AFA023235865008B147B /* libc++.tbd in Frameworks */,
-				1024AF9E2323580E008B147B /* libsqlite3.tbd in Frameworks */,
-				1024AF9C23235804008B147B /* CoreTelephony.framework in Frameworks */,
-				1024AF9A232357FA008B147B /* CoreMotion.framework in Frameworks */,
 				9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */,
 				3B80C3941E831B6300D905FE /* App.framework in Frameworks */,
 				29D91E0DDA39BD518B58A83A /* libPods-Runner.a in Frameworks */,

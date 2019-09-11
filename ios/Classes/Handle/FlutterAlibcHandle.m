@@ -26,7 +26,7 @@
         [[AlibcTradeSDK sharedInstance] setIsvAppName:appName]; //设置三方App名称,可用于标识App
     }
     [[AlibcTradeSDK sharedInstance] setDebugLogOpen:YES];//开发阶段打开日志开关，方便排查错误信息
-    
+    [[AlibcTradeSDK sharedInstance] setEnv:AlibcEnvironmentRelease];//线上环境
     
     
     [[AlibcTradeSDK sharedInstance] asyncInitWithSuccess:^{
@@ -34,7 +34,7 @@
         result(@{FlutterAlibcConstKey_ErrorCode:@"0",FlutterAlibcConstKey_ErrorMessage:@"success"});
     } failure:^(NSError *error) {
         //        NSLog(@"Init failed: %@", error.description);
-        result(@{FlutterAlibcConstKey_ErrorCode:@"1",FlutterAlibcConstKey_ErrorMessage:error.description});
+        result(@{FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],FlutterAlibcConstKey_ErrorMessage:error.description});
     }];
 }
 #pragma mark --淘宝登录
@@ -64,7 +64,7 @@
         } failureCallback:^(ALBBSession *session, NSError *error) {
             //            登录失败
             result(@{
-                     FlutterAlibcConstKey_ErrorCode:@"1",
+                     FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],
                      FlutterAlibcConstKey_ErrorMessage:error.localizedDescription,
                      FlutterAlibcConstKey_Data:@{}
                      });
@@ -149,9 +149,10 @@
         result(@{
                    FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],
                    FlutterAlibcConstKey_ErrorMessage:[error localizedDescription],
-                   FlutterAlibcConstKey_Data:@{
-                           @"orderIdList":[[error userInfo] objectForKey:@"orderIdList"],
-                           }
+//                   android没有，直接去掉
+//                   FlutterAlibcConstKey_Data:@{
+//                           @"orderIdList":[[error userInfo] objectForKey:@"orderIdList"],
+//                           }
                    });
     }];
 }
@@ -282,9 +283,10 @@
             callback(@{
                        FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],
                        FlutterAlibcConstKey_ErrorMessage:[error localizedDescription],
-                       FlutterAlibcConstKey_Data:@{
-                               @"orderIdList":[[error userInfo] objectForKey:@"orderIdList"],
-                               }
+//                       Android没有，所以去掉
+//                       FlutterAlibcConstKey_Data:@{
+//                               @"orderIdList":[[error userInfo] objectForKey:@"orderIdList"],
+//                               }
                        });
         }];
 //    }
@@ -354,13 +356,13 @@
 
 //打开类型
 -(NSString*)schemeType:(int)mode{
-    NSString*  linkKey=@"tmall";
+    NSString *linkKey=@"tmall";
     switch (mode) {
         case 0:
-            linkKey=@"taobao";
+            linkKey=@"tmall";
             break;
         case 1:
-            linkKey=@"tmall";
+            linkKey=@"taobao";
             break;
         default:
             break;

@@ -58,14 +58,15 @@ class TradeResult {
 
   PayResult payResult;
   // AddCardResult addCardResult;
-  TradeFailResult tradeFailResult;
+  // Android没有，所以去掉
+  // TradeFailResult tradeFailResult;
 
   TradeResult(
     this.errorCode,
     this.errorMessage, {
     this.type,
     this.payResult,
-    this.tradeFailResult,
+    // this.tradeFailResult,
   });
 }
 
@@ -83,13 +84,13 @@ class PayResult {
 // 因为没什么好返回的，所以不写
 // class AddCardResult {}
 
-// 失败
-class TradeFailResult {
-  // 失败的订单list
-  final List<String> orderIdList;
+// 失败，Android没有，所以去掉
+// class TradeFailResult {
+//   // 失败的订单list
+//   final List<String> orderIdList;
 
-  TradeFailResult(this.orderIdList);
-}
+//   TradeFailResult(this.orderIdList);
+// }
 
 // class TaoKeParams {
 //   // 淘客ID

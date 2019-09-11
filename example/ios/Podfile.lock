@@ -14,8 +14,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_alibc/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
-  flutter_alibc: cec1f1fa4e3520d82bd4df52cc2c4424835222ca
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_alibc: 2041d1c902019de53fead0ef952f9dfe26018777
 
 PODFILE CHECKSUM: 7fb83752f59ead6285236625b82473f90b1cb932
 
