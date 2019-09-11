@@ -4,6 +4,8 @@ import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import com.ali.auth.third.core.model.Session;
+import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
 import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.AlibcUrlCenter;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
@@ -62,7 +64,7 @@ public class FlutterAlibcHandle{
         AlibcTradeSDK.asyncInit(register.activity().getApplication(), new AlibcTradeInitCallback() {
             @Override
             public void onSuccess() {
-                //do something
+                result.success(PluginResponse.success(null).toMap());
             }
             @Override
             public void onFailure(int code, String msg) {
@@ -77,14 +79,29 @@ public class FlutterAlibcHandle{
      */
     public void loginTaoBao(Result result){
         final AlibcLogin alibcLogin = AlibcLogin.getInstance();
+        if (alibcLogin.isLogin()){
+            Session session = AlibcLogin.getInstance().getSession();
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("nick", session.nick);
+            userInfo.put("avatarUrl", session.avatarUrl);
+            userInfo.put("openId", session.openId);
+            userInfo.put("openSid", session.openSid);
+            userInfo.put("topAccessToken", session.topAccessToken);
+            userInfo.put("topAuthCode", session.topAuthCode);
+            result.success(PluginResponse.success(userInfo).toMap());
+            return;
+        }
         alibcLogin.showLogin(new AlibcLoginCallback() {
             @Override
             public void onSuccess(int loginResult, String openId, String userNick) {
                 Map<String, Object> userInfo = new HashMap<>();
-                userInfo.put("loginResult", Integer.toString(loginResult));// loginResult(0--登录初始化成功；1--登录初始化完成；2--登录成功)
-                userInfo.put("openId", openId); // openId：用户id
-                userInfo.put("userNick", userNick); // userNick: 用户昵称
-                userInfo.put("session", AlibcLogin.getInstance().getSession());
+                Session session = AlibcLogin.getInstance().getSession();
+                userInfo.put("nick", session.nick);
+                userInfo.put("avatarUrl", session.avatarUrl);
+                userInfo.put("openId", session.openId);
+                userInfo.put("openSid", session.openSid);
+                userInfo.put("topAccessToken", session.topAccessToken);
+                userInfo.put("topAuthCode", session.topAuthCode);
                 result.success(PluginResponse.success(userInfo).toMap());
             }
             @Override
@@ -104,17 +121,10 @@ public class FlutterAlibcHandle{
         alibcLogin.logout(new AlibcLoginCallback() {
             @Override
             public void onSuccess(int loginResult, String openId, String userNick) {
-                Toast.makeText(register.activity(), "登出成功", Toast.LENGTH_SHORT).show();
-                Map<String, String> userInfo = new HashMap<>();
-                userInfo.put("loginResult", Integer.toString(loginResult)); // loginResult(3--登出成功)
-                userInfo.put("openId", openId); // openId：用户id
-                userInfo.put("userNick", userNick); // userNick: 用户昵称
-                result.success(PluginResponse.success(userInfo).toMap());
             }
             @Override
             public void onFailure(int code, String msg) {
                 // code：错误码  msg： 错误信息
-                result.success(new PluginResponse(Integer.toString(code), msg, null).toMap());
             }
         });
     }
@@ -155,7 +165,15 @@ public class FlutterAlibcHandle{
                 taokeParams, trackParams, new AlibcTradeCallback() {
                     @Override
                     public void onTradeSuccess(AlibcTradeResult tradeResult) {
-                        result.success(PluginResponse.success(tradeResult).toMap());
+                        Map<String, Object> results = new HashMap<>();
+                        if (AlibcResultType.TYPECART == tradeResult.resultType){
+                            results.put("type", 1);
+                        }else if (AlibcResultType.TYPEPAY == tradeResult.resultType){
+                            results.put("type", 0);
+                            results.put("payFailedOrders", tradeResult.payResult.payFailedOrders);
+                            results.put("paySuccessOrders", tradeResult.payResult.paySuccessOrders);
+                        }
+                        result.success(PluginResponse.success(results).toMap());
                     }
                     @Override
                     public void onFailure(int code, String msg) {
@@ -221,8 +239,15 @@ public class FlutterAlibcHandle{
                 trackParams, new AlibcTradeCallback() {
                     @Override
                     public void onTradeSuccess(AlibcTradeResult tradeResult) {
-                        // 交易成功回调（其他情形不回调）
-                        result.success(PluginResponse.success(tradeResult).toMap());
+                        Map<String, Object> results = new HashMap<>();
+                        if (AlibcResultType.TYPECART == tradeResult.resultType){
+                            results.put("type", 1);
+                        }else if (AlibcResultType.TYPEPAY == tradeResult.resultType){
+                            results.put("type", 0);
+                            results.put("payFailedOrders", tradeResult.payResult.payFailedOrders);
+                            results.put("paySuccessOrders", tradeResult.payResult.paySuccessOrders);
+                        }
+                        result.success(PluginResponse.success(results).toMap());
                     }
                     @Override
                     public void onFailure(int code, String msg) {
