@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: wuxing
+ * @Date: 2019-08-28 21:00:18
+ * @LastEditors: wuxing
+ * @LastEditTime: 2019-09-11 20:55:18
+ -->
 # flutter_alibc
 
 Flutter版本的阿里百川
@@ -82,9 +89,6 @@ FlutterAlibc.loginOut();
    *		errorMessage,
    *		type,			//0为添加购物车，1为付款成功
    *		payResult,	//type为1时返回
-   *  	tradeFailResult:{//errorCode不为0时返回
-   *		 	orderIdList,			//失败的orderIdList
-   *	  },	
    *  }
    */
  var result = await FlutterAlibc.openByUrl(
