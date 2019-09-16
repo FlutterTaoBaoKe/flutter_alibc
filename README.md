@@ -16,7 +16,7 @@ V4.0.0版本
 
 Android：983598009@qq.com
 iOS：329106954@qq.com
-
+P.S:另有开普勒插件[flutter_kepler](https://github.com/FlutterTaoBaoKe/flutter_kepler)
 ## Getting Started
 
 ### 工程性配置
