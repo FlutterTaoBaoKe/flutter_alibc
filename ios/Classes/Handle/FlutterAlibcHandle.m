@@ -182,7 +182,7 @@
 #pragma mark --设置是否需要 Native AliPay 接口
 - (void)useAlipayNative:(FlutterMethodCall *)call result:(FlutterResult)result{
     BOOL isNeed = [call.arguments[@"isNeed"] boolValue];
-    [[AlibcTradeSDK sharedInstance] setShouldUseAlipayNative:isNeed];
+    [[AlibcTradeSDK sharedInstance] setShouldUseAlizfNative:isNeed];
 }
 #pragma mark - 不对flutter暴露
 #pragma mark --打开page

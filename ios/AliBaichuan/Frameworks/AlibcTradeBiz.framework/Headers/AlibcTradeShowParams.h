@@ -3,8 +3,8 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
- * 版本号：4.0.0.0
- * 发布时间：2019-08-30
+ * 版本号：4.0.0.2
+ * 发布时间：2019-09-15
  * 开发团队：阿里巴巴商家服务引擎团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
@@ -28,7 +28,8 @@ typedef NS_ENUM(NSUInteger, AlibcOpenType) {
 /** 
  * 是否为push方式打开新页面
  * 当show page时传入自定义webview时,本参数没有实际意义
- *
+ * 当show page时传入自定义webview时 只能设置 isNeedPush = YES，不支持present 自定义webView。
+ * 使用百川webView支持push、present两种方式
  * NO : 在当前view controller上present新页面
  * YES: 在传入的UINavigationController中push新页面
  * 默认值:NO
@@ -51,7 +52,6 @@ typedef NS_ENUM(NSUInteger, AlibcOpenType) {
  */
 @property(nonatomic, strong) NSString *linkKey;
 
-
 /**
  *  是否需要自定义处理跳手淘/天猫失败后的处理策略，默认未无需自定义
  */
@@ -61,5 +61,12 @@ typedef NS_ENUM(NSUInteger, AlibcOpenType) {
  *  当isNeedCustomNativeFailMode ==YES时生效 跳手淘/天猫失败后的处理策略, 默认值为: AlibcNativeFailModeJumpH5
  */
 @property(nonatomic, assign) AlibcNativeFailMode nativeFailMode;
+
+/**
+ * AppLink唤端失败，媒体自定义降级url
+ * 当isNeedCustomNativeFailMode ==YES && nativeFailMode 设置为 AlibcNativeFailModeJumpDergardH5时生效
+ *
+ */
+@property(nonatomic, copy)NSString *degradeUrl;
 
 @end

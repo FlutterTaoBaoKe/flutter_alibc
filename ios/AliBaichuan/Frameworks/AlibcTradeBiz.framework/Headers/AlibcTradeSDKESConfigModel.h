@@ -1,5 +1,5 @@
 /*
- * AlibcChannelModule.h 
+ * AlibcTradeSDKESConfigModel.h 
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
@@ -10,16 +10,12 @@
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
 
-#ifndef ALiChannelModule_h
-#define ALiChannelModule_h
-
 #import <Foundation/Foundation.h>
+#import "AlibcJSONModel.h"
 
-//添加umpChannel u_channel isvCode,ybhpss,ttid参数
-@interface AlibcChannelModule : NSObject
+@interface AlibcTradeSDKESConfigModel : AlibcJSONModel
 
-+ (void)addChannelParam:(NSMutableDictionary *)param;
+@property(nonatomic,copy)NSArray *urls;
+@property(nonatomic,copy)NSString *sign;
 
 @end
-
-#endif /* ALiChannelModule_h */

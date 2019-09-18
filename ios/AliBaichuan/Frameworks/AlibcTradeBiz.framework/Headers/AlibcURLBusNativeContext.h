@@ -3,8 +3,8 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
- * 版本号：4.0.0.0
- * 发布时间：2019-08-30
+ * 版本号：4.0.0.2
+ * 发布时间：2019-09-15
  * 开发团队：阿里巴巴商家服务引擎团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
@@ -19,18 +19,18 @@
  
  - AlibcNativeFailModeJumpH5: 当拉起手淘/天猫失败, 则在 webview 中跳转对应 H5 页面; 默认选项
  - AlibcNativeFailModeJumpDownloadPage: 当拉起手淘/天猫失败, 则跳转对应 App 下载页面
- - AlibcNativeFailModeNone: 当拉起手淘/天猫失败, 不做额外操作
+ - AlibcNativeFailModeJumpDergardH5: 当拉起手淘/天猫失败, 则在 webview 中跳转到自定义 H5 页面;
  */
 typedef NS_ENUM(NSInteger, AlibcNativeFailMode) {
     AlibcNativeFailModeJumpH5 = 0,
     AlibcNativeFailModeJumpDownloadPage = 1,
-    AlibcNativeFailModeNone = 2,
+    AlibcNativeFailModeNone = 2
 };
 
 @interface AlibcURLBusNativeContext : NSObject
 
 // parentVC
-@property(nonatomic,weak)UIViewController *sourceViewController;
+@property(nonatomic,strong)UIViewController *sourceViewController;
 
 // 拉端URL
 @property(nonatomic,copy)NSString *url;
@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, AlibcNativeFailMode) {
 @property(nonatomic,assign)AlibcNativeFailMode failMode;
 
 // aid转链需要
-@property(nonatomic,weak) UIWebView *webview;
+@property(nonatomic,strong) UIWebView *webview;
 
 // 淘客参数
 @property(nonatomic,strong)AlibcTradeTaokeParams *taokeParams;
