@@ -3,14 +3,17 @@
  * @Author: wuxing
  * @Date: 2019-08-28 21:00:18
  * @LastEditors: wuxing
- * @LastEditTime: 2019-09-11 20:55:18
+ * @LastEditTime: 2019-09-18 21:20:41
  -->
 # flutter_alibc
 
 Flutter版本的阿里百川
-V4.0.0版本
+V4.0.2版本
 
-地址：[flutter_alibc](https://pub.dev/packages/flutter_alibc)
+pub地址：[flutter_alibc](https://pub.dev/packages/flutter_alibc)
+github地址：[flutter_alibc](https://github.com/FlutterTaoBaoKe/flutter_alibc.git)
+
+可以给个star🐴，混口饭吃
 
 支持Android和iOS
 
