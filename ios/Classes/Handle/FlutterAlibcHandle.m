@@ -110,7 +110,8 @@
     NSString *url = call.arguments[@"url"];
     AlibcTradeTaokeParams *taokeParam = [self getTaokeParams:call];
     NSDictionary *trackParam = call.arguments[@"trackParam"];
-    NSString *backUrl = call.arguments[@"backUrl"];
+    NSString *backUrl = [FlutterAlibcTools changeType:call.arguments[@"backUrl"]];
+//    NSString *backUrl = [FlutterAlibcTools nullToNil:call.arguments[@"backUrl"]];
     
     UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
     
