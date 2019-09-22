@@ -60,9 +60,9 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     // 如果百川处理过会返回YES
     if (![[AlibcTradeSDK sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
-        // 处理其他app跳转到自己的app
+        return YES;
     }
-    return YES;
+    return NO;
 }
 
 
@@ -72,11 +72,12 @@
     
     if (@available(iOS 9.0, *)) {
         __unused BOOL isHandledByALBBSDK=[[AlibcTradeSDK sharedInstance] application:application openURL:url options:options];
+        return isHandledByALBBSDK;
     } else {
         // Fallback on earlier versions
     }//处理其他app跳转到自己的app，如果百川处理过会返回YES
     
-    return YES;
+    return NO;
     
     
 }
