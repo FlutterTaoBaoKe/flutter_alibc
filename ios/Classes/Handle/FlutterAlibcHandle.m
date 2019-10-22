@@ -10,6 +10,8 @@
 #import "FlutterAlibcConstKey.h"
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
 #import <AlibabaAuthSDK/albbsdk.h>
+#import "ALiTradeWebViewController.h"
+#import "FlutterWxViewCtrlViewController.h"
 
 @implementation FlutterAlibcHandle
 #pragma mark- 对flutter暴露的方法
@@ -89,7 +91,89 @@
                  });
     }
 }
-
+//
+//else if([@"useAlipayNative" isEqualToString:call.method]){
+//    [_handler useAlipayNative:call result:result];
+//}
+#pragma mark --淘客登录
+-(void)taoKeLogin:(FlutterMethodCall *)call result:(FlutterResult)result{
+    //    需要获取的数据
+    NSNumber *type1 = call.arguments[@"openType"];
+    AlibcOpenType openType = [self openType:[type1 intValue]];
+    BOOL isNeedCustomNativeFailMode = [call.arguments[@"isNeedCustomNativeFailMode"] boolValue];
+    //    不用push了，没有nav，默认都present
+    //    BOOL isNeedPush = [call.arguments[@"isNeedPush"] boolValue];
+    BOOL isNeedPush = YES;
+    NSNumber *failMode = call.arguments[@"nativeFailMode"];
+    AlibcNativeFailMode nativeFailMode = [self NativeFailMode:[failMode intValue]];
+    NSNumber *schemeType = call.arguments[@"schemeType"];
+    NSString *linkKey = [self schemeType:[schemeType intValue]];
+    NSString *url = call.arguments[@"url"];
+    AlibcTradeTaokeParams *taokeParam = [self getTaokeParams:call];
+    NSDictionary *trackParam = call.arguments[@"trackParam"];
+    NSString *backUrl = [FlutterAlibcTools changeType:call.arguments[@"backUrl"]];
+    //    NSString *backUrl = [FlutterAlibcTools nullToNil:call.arguments[@"backUrl"]];
+    
+    UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    
+    
+    AlibcTradeShowParams* showParam = [[AlibcTradeShowParams alloc] init];
+    showParam.openType = openType;
+    showParam.isNeedCustomNativeFailMode = isNeedCustomNativeFailMode;
+    showParam.isNeedPush=isNeedPush;
+    showParam.nativeFailMode=nativeFailMode;
+    showParam.linkKey=linkKey;
+    showParam.backUrl= backUrl;
+    
+    ALiTradeWebViewController* webviewVC = [[ALiTradeWebViewController alloc] init];
+    
+    NSInteger res = [[AlibcTradeSDK sharedInstance].tradeService
+     openByUrl:url
+     identity:@"trade"
+     webView:webviewVC.webView
+     parentController:rootViewController
+     showParams:showParam
+     taoKeParams:taokeParam
+     trackParam:trackParam tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable alibcTradeResult) {
+        //            交易成功，判断是付款成功还是加入购物车
+        if(alibcTradeResult.result == AlibcTradeResultTypePaySuccess){
+            //                付款成功
+            result(@{
+                FlutterAlibcConstKey_ErrorCode:@"0",
+                FlutterAlibcConstKey_ErrorMessage:@"付款成功",
+                FlutterAlibcConstKey_Data:@{
+                        @"type":@0,
+                        @"paySuccessOrders":[alibcTradeResult payResult].paySuccessOrders,
+                        @"payFailedOrders":[alibcTradeResult payResult].payFailedOrders,
+                }
+            });
+        }else if(alibcTradeResult.result== AlibcTradeResultTypeAddCard){
+            //                加入购物车
+            result(@{
+                FlutterAlibcConstKey_ErrorCode:@"0",
+                FlutterAlibcConstKey_ErrorMessage:@"加入购物车成功",
+                FlutterAlibcConstKey_Data:@{
+                        @"type":@1,
+                }
+            });
+        }
+    } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+        result(@{
+            FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],
+            FlutterAlibcConstKey_ErrorMessage:[error localizedDescription],
+        });
+    }];
+    
+    if (res == 1) {
+        //        新建一个view
+        FlutterWxViewCtrlViewController *WxVC = [[FlutterWxViewCtrlViewController alloc] init];
+        WxVC.vc = webviewVC;
+        UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:WxVC];
+        [rootViewController presentViewController:root animated:NO completion:^{
+            
+        }];
+    }
+}
 #pragma mark --退出登录
 - (void)loginOut{
     [[ALBBSDK sharedInstance] logout];
@@ -370,7 +454,6 @@
     }
     return linkKey;
 }
-
 
 
 

@@ -36,6 +36,8 @@
         [_handler initAlibc:call result:result];
     }else if([@"loginTaoBao" isEqualToString:call.method]){
         [_handler loginTaoBao:call result:result];
+    }else if([@"taoKeLogin" isEqualToString:call.method]){
+        [_handler taoKeLogin:call result:result];
     }else if([@"loginOut" isEqualToString:call.method]){
         [_handler loginOut];
     }else if([@"openByUrl" isEqualToString:call.method]){
