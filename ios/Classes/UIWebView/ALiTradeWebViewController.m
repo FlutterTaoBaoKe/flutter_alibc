@@ -70,11 +70,13 @@
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *urlStr = request.URL.absoluteString;
-    if ([urlStr rangeOfString:@"mamami://click"].length > 0)
-    {
-        NSLog(@"拦截成功");
-        return NO;
-    }
+//    TODO:拦截
+//    access_token
+//    if ([urlStr rangeOfString:@"mamami://click"].length > 0)
+//    {
+//        NSLog(@"拦截成功");
+//        return NO;
+//    }
     return YES;
 }
 
