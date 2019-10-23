@@ -7,8 +7,20 @@ import 'package:flutter_alibc/alibc_const_key.dart';
 import 'package:flutter_alibc/alibc_model.dart';
 
 class FlutterAlibc {
+  // static StreamController<String> _responseTaoKeLoginController = new StreamController.broadcast();
+  // static Stream<String> get responseFromShare =>
+  //     _responseTaoKeLoginController.stream;
+
+  // static Future<dynamic> _handler(MethodCall methodCall) {
+  //   if ("taoKeLogin" == methodCall.method) {
+  //     _responseTaoKeLoginController.sink.add(methodCall.arguments);
+  //   }
+  //   return Future.value(true);
+  // }
+
   // 通信的桥接类
   static final MethodChannel _channel = const MethodChannel("flutter_alibc");
+    // ..setMethodCallHandler(_handler);
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
@@ -63,7 +75,12 @@ class FlutterAlibc {
     _channel.invokeMethod("loginOut");
   }
 
-  static Future<TradeResult> taoKeLogin({
+  ///
+  /// @description: 渠道授权，获取access_token
+  /// @param {type}
+  /// @return:
+  /// Map<String,String>
+  static Future<Map<dynamic, dynamic>> taoKeLogin({
     @required String url,
     AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
     bool isNeedCustomNativeFailMode = false,
@@ -84,8 +101,7 @@ class FlutterAlibc {
       "backUrl": backUrl
     });
 
-    TradeResult tradeResult = AlibcTools.getTradeResult(result);
-    return tradeResult;
+    return result;
   }
 
   ///

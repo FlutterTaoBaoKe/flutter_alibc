@@ -13,19 +13,19 @@
     FlutterMethodChannel* channel = [FlutterMethodChannel
                                      methodChannelWithName:@"flutter_alibc"
                                      binaryMessenger:[registrar messenger]];
-    FlutterAlibcPlugin* instance = [[FlutterAlibcPlugin alloc] initWithRegistrar:registrar];
+    FlutterAlibcPlugin* instance = [[FlutterAlibcPlugin alloc] initWithRegistrar:registrar methodChannel:channel];
     [registrar addMethodCallDelegate:instance channel:channel];
     [registrar addApplicationDelegate:instance];
 }
 
 
-- (instancetype)initWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
+- (instancetype)initWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar methodChannel:(FlutterMethodChannel *)flutterMethodChannel{
     self = [super init];
-    
+
     if (self) {
         self.handler = [[FlutterAlibcHandle alloc]init];
     }
-    
+
     return self;
 }
 

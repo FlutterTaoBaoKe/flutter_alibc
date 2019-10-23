@@ -70,13 +70,23 @@
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *urlStr = request.URL.absoluteString;
-//    TODO:拦截
-//    access_token
-//    if ([urlStr rangeOfString:@"mamami://click"].length > 0)
-//    {
-//        NSLog(@"拦截成功");
-//        return NO;
-//    }
+    NSRange range;
+    range = [urlStr rangeOfString:@"access_token"];
+    if (range.location != NSNotFound) {
+        NSString *accessString = [urlStr substringFromIndex:range.location];
+        //        截止到&
+        NSRange range2 = [accessString rangeOfString: @"&"];
+        
+        NSString *access_token_string = [accessString substringWithRange:NSMakeRange(0,range2.location)];
+        NSArray *array = [access_token_string componentsSeparatedByString:@"="];
+        NSString *access_token = array[1];
+        NSLog(@"%@",access_token);
+//        跳转回去
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"getAccessToken" object:access_token];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        NSLog(@"Not Found");
+    }
     return YES;
 }
 

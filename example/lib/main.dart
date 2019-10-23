@@ -18,6 +18,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    // FlutterAlibc.responseFromShare.listen((data) {
+    //   debugPrint(data);
+    // });
     initPlatformState();
   }
 

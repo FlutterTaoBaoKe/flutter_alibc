@@ -14,6 +14,17 @@
 #import "FlutterWxViewCtrlViewController.h"
 
 @implementation FlutterAlibcHandle
+FlutterMethodChannel *_flutterAlibcChannel = nil;
+
+
+- (instancetype)initWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar methodChannel:(FlutterMethodChannel *)flutterMethodChannel {
+    self = [super init];
+    if (self) {
+        _flutterAlibcChannel = flutterMethodChannel;
+    }
+    return self;
+}
+
 #pragma mark- 对flutter暴露的方法
 #pragma mark -- 初始化阿里百川
 - (void)initAlibc:(FlutterMethodCall *)call result:(FlutterResult)result {
@@ -135,39 +146,52 @@
      showParams:showParam
      taoKeParams:taokeParam
      trackParam:trackParam tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable alibcTradeResult) {
-        //            交易成功，判断是付款成功还是加入购物车
-        if(alibcTradeResult.result == AlibcTradeResultTypePaySuccess){
-            //                付款成功
-            result(@{
-                FlutterAlibcConstKey_ErrorCode:@"0",
-                FlutterAlibcConstKey_ErrorMessage:@"付款成功",
-                FlutterAlibcConstKey_Data:@{
-                        @"type":@0,
-                        @"paySuccessOrders":[alibcTradeResult payResult].paySuccessOrders,
-                        @"payFailedOrders":[alibcTradeResult payResult].payFailedOrders,
-                }
-            });
-        }else if(alibcTradeResult.result== AlibcTradeResultTypeAddCard){
-            //                加入购物车
-            result(@{
-                FlutterAlibcConstKey_ErrorCode:@"0",
-                FlutterAlibcConstKey_ErrorMessage:@"加入购物车成功",
-                FlutterAlibcConstKey_Data:@{
-                        @"type":@1,
-                }
-            });
-        }
+//        //            交易成功，判断是付款成功还是加入购物车
+//        if(alibcTradeResult.result == AlibcTradeResultTypePaySuccess){
+//            //                付款成功
+//            result(@{
+//                FlutterAlibcConstKey_ErrorCode:@"0",
+//                FlutterAlibcConstKey_ErrorMessage:@"付款成功",
+//                FlutterAlibcConstKey_Data:@{
+//                        @"type":@0,
+//                        @"paySuccessOrders":[alibcTradeResult payResult].paySuccessOrders,
+//                        @"payFailedOrders":[alibcTradeResult payResult].payFailedOrders,
+//                }
+//            });
+//        }else if(alibcTradeResult.result== AlibcTradeResultTypeAddCard){
+//            //                加入购物车
+//            result(@{
+//                FlutterAlibcConstKey_ErrorCode:@"0",
+//                FlutterAlibcConstKey_ErrorMessage:@"加入购物车成功",
+//                FlutterAlibcConstKey_Data:@{
+//                        @"type":@1,
+//                }
+//            });
+//        }
     } tradeProcessFailedCallback:^(NSError * _Nullable error) {
-        result(@{
-            FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],
-            FlutterAlibcConstKey_ErrorMessage:[error localizedDescription],
-        });
+//        result(@{
+//            FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],
+//            FlutterAlibcConstKey_ErrorMessage:[error localizedDescription],
+//        });
     }];
     
     if (res == 1) {
         //        新建一个view
         FlutterWxViewCtrlViewController *WxVC = [[FlutterWxViewCtrlViewController alloc] init];
         WxVC.vc = webviewVC;
+        WxVC.accessBlock = ^(NSString * accessToken){
+            NSLog(@"accessToken = %@",accessToken);
+            if (accessToken) {
+                result(@{
+                    @"accessToken":accessToken
+                });
+            }else{
+                result(@{
+                    @"accessToken":@""
+                });
+            }
+            
+        };
         UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:WxVC];
         [rootViewController presentViewController:root animated:NO completion:^{
             
