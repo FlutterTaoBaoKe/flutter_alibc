@@ -3,7 +3,7 @@
  * @Author: wuxing
  * @Date: 2019-08-28 21:00:18
  * @LastEditors: wuxing
- * @LastEditTime: 2019-09-18 21:20:41
+ * @LastEditTime: 2019-10-26 17:12:26
  -->
 # flutter_alibc
 
@@ -72,6 +72,32 @@ var result = await FlutterAlibc.loginTaoBao();
 * 淘宝登出
 ```
 FlutterAlibc.loginOut();
+```
+
+* 淘客登录，二次授权获取access_token
+
+```
+ /**
+   * @description: 获取access_token
+   * @param 
+   * url:用于授权登录的url
+   * openType:打开类型,默认auto
+   * isNeedCustomNativeFailMode:是否需要设置唤端失败策略，默认false
+   * nativeFailMode:唤端失败策略，默认None
+   * schemeType:唤起哪个端，默认天猫
+   * taokeParams:淘客数据
+   * backUrl: 跳转回来的url
+   * @return: {accessToken:""}//获取成功为token，获取失败为空字符串
+   */
+ var result = await FlutterAlibc.taoKeLogin(
+                    url:"",	//必须参数，用于授权登录的url
+                    openType : AlibcOpenType.AlibcOpenTypeAuto,
+                    isNeedCustomNativeFailMode : false,
+                    nativeFailMode :    AlibcNativeFailMode.AlibcNativeFailModeNone,
+                    schemeType : AlibcSchemeType.AlibcSchemeTmall,
+                    taokeParams : {},
+                    backUrl:"",
+                    );
 ```
 
 * 唤起淘宝，openByUrl方式
