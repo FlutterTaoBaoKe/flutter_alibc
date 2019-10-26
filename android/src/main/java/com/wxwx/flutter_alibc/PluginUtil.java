@@ -23,10 +23,10 @@ public class PluginUtil {
     }
 
     public static String getClientType(String client){
-        if (client.equals(TaoBao_ClientType)){
-            return "taobao";
-        }else {
+        if (client.equals(Tmall_ClientType)){
             return "tmall";
+        }else {
+            return "taobao";
         }
     }
 

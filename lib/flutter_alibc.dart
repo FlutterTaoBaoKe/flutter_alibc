@@ -20,7 +20,7 @@ class FlutterAlibc {
 
   // 通信的桥接类
   static final MethodChannel _channel = const MethodChannel("flutter_alibc");
-    // ..setMethodCallHandler(_handler);
+  // ..setMethodCallHandler(_handler);
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
@@ -86,7 +86,7 @@ class FlutterAlibc {
     bool isNeedCustomNativeFailMode = false,
     AlibcNativeFailMode nativeFailMode =
         AlibcNativeFailMode.AlibcNativeFailModeNone,
-    AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTmall,
+    AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTaoBao,
     TaokeParams taokeParams,
     String backUrl,
   }) async {

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_alibc/flutter_alibc.dart';
 import 'package:flutter_alibc/alibc_const_key.dart';
+import 'package:flutter_alibc/flutter_alibc.dart';
 
 void main() => runApp(MyApp());
 
@@ -79,7 +79,8 @@ class _MyAppState extends State<MyApp> {
               child: Text("登录淘宝"),
               onPressed: () async {
                 var result = await FlutterAlibc.loginTaoBao();
-                print(result);
+                print(
+                    "登录淘宝  ${result.data.nick} ${result.data.topAccessToken}");
               },
             ),
             FlatButton(
@@ -93,11 +94,12 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 var result = await FlutterAlibc.taoKeLogin(
                     url:
-                        "https://oauth.taobao.com/authorize?response_type=token&client_id=27646673&state=1212&view=web",
+                        "https://oauth.taobao.com/authorize?response_type=token&client_id=27646673&state=1212&view=wap",
+                    openType: AlibcOpenType.AlibcOpenTypeNative,
                     isNeedCustomNativeFailMode: true,
                     nativeFailMode:
                         AlibcNativeFailMode.AlibcNativeFailModeJumpH5);
-                print(result);
+                print("access token ${result["accessToken"]}");
               },
             ),
             FlatButton(

@@ -4,6 +4,7 @@ import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import android.content.Intent;
 import com.ali.auth.third.core.model.Session;
 import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
 import com.alibaba.baichuan.android.trade.AlibcTrade;
@@ -30,11 +31,10 @@ import java.util.HashMap;
 import android.app.AlertDialog;
 import static com.wxwx.flutter_alibc.PluginConstants.*;
 import static com.wxwx.flutter_alibc.PluginUtil.*;
-
+import com.wxwx.flutter_alibc.web.WebViewActivity;
 import java.util.Map;
 
 /**
- * TODO 可能缺少一些逻辑 明天会补上
  * @Author karedem
  * @Date 2019/9/7 19:55
  * @Description 接口处理者
@@ -127,6 +127,36 @@ public class FlutterAlibcHandle{
                 // code：错误码  msg： 错误信息
             }
         });
+    }
+
+    /**
+     * 淘宝授权登陆  获取access_token
+     *  官方说明文档 {https://open.taobao.com/doc.htm?docId=118&docType=1}
+     * @param call
+     * @param result
+     */
+    public void taoKeLogin(MethodCall call, Result result){
+        HashMap<String, Object> map = (HashMap<String, Object>)call.arguments;
+        String url = call.argument("url");
+        WebViewActivity.setCallBack(new WebViewActivity.CallBack() {
+            @Override
+            public void success(String accessToken) {
+                Map<String,String> resMap = new HashMap();
+                resMap.put("accessToken", accessToken);
+                result.success(resMap);
+            }
+
+            @Override
+            public void failed(String errorMsg) {
+                Map<String,String> resMap = new HashMap();
+                resMap.put("accessToken", "");
+                result.success(resMap);
+            }
+        });
+        Intent intent = new Intent(register.activity(), WebViewActivity.class);
+        intent.putExtra("url", url);
+        intent.putExtra("arguments", map);
+        register.activity().startActivity(intent);
     }
 
     /**

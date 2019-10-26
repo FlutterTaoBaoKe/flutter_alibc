@@ -27,6 +27,8 @@ public class FlutterAlibcPlugin implements MethodCallHandler {
       handle.openItemDetail(call, result);
     } else if (call.method.equals("loginTaoBao")){
       handle.loginTaoBao(result);
+    } else if (call.method.equals("taoKeLogin")){
+      handle.taoKeLogin(call, result);
     } else if (call.method.equals("loginOut")){
       handle.loginOut(result);
     }else if (call.method.equals("openByUrl")){
