@@ -54,12 +54,12 @@ dependencies{
     implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.2.5@jar'
 
     //appLink
-    implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.10@aar'
+    implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.15@aar'
     
     //core
-    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.2@aar'
-    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.2@aar'
-    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.2@aar'
+    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.8@aar'
+    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.8@aar'
+    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.8@aar'
 
     //login
     implementation 'com.ali.auth.sdk:alibabauth_core:2.0.0.6@aar'
@@ -67,6 +67,6 @@ dependencies{
     implementation 'com.ali.auth.sdk:alibabauth_ext:2.0.0.6@aar'
     
     //ut
-    implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard'
+    implementation 'com.taobao.android:utdid4all:1.5.2'
     implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4.5_for_bc'
 }
