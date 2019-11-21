@@ -8,7 +8,6 @@ import android.content.Intent;
 import com.ali.auth.third.core.model.Session;
 import com.alibaba.baichuan.trade.biz.context.AlibcResultType;
 import com.alibaba.baichuan.android.trade.AlibcTrade;
-import com.alibaba.baichuan.android.trade.AlibcUrlCenter;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
 import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
 import com.alibaba.baichuan.android.trade.model.OpenType;

@@ -3,12 +3,12 @@
  * @Author: wuxing
  * @Date: 2019-08-28 21:00:18
  * @LastEditors: wuxing
- * @LastEditTime: 2019-10-26 17:12:26
+ * @LastEditTime: 2019-11-21 21:34:22
  -->
 # flutter_alibc
 
 Flutter版本的阿里百川
-V4.0.2版本
+V4.0.8版本
 
 pub地址：[flutter_alibc](https://pub.dev/packages/flutter_alibc)
 github地址：[flutter_alibc](https://github.com/FlutterTaoBaoKe/flutter_alibc.git)
@@ -17,7 +17,10 @@ github地址：[flutter_alibc](https://github.com/FlutterTaoBaoKe/flutter_alibc.
 
 支持Android和iOS
 
+邮箱：
+
 Android：983598009@qq.com
+
 iOS：329106954@qq.com
 P.S:另有开普勒插件[flutter_kepler](https://github.com/FlutterTaoBaoKe/flutter_kepler)
 ## Getting Started

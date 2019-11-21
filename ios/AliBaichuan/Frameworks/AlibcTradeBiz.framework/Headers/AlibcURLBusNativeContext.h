@@ -3,9 +3,9 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
- * 版本号：4.0.0.2
- * 发布时间：2019-09-15
- * 开发团队：阿里巴巴商家服务引擎团队
+ * 版本号：4.0.0.8
+ * 发布时间：2019-11-11
+ * 开发团队：阿里巴巴百川团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
@@ -17,9 +17,9 @@
 /**
  拉起手淘失败后的处理策略
  
- - AlibcNativeFailModeJumpH5: 当拉起手淘/天猫失败, 则在 webview 中跳转对应 H5 页面; 默认选项
- - AlibcNativeFailModeJumpDownloadPage: 当拉起手淘/天猫失败, 则跳转对应 App 下载页面
- - AlibcNativeFailModeJumpDergardH5: 当拉起手淘/天猫失败, 则在 webview 中跳转到自定义 H5 页面;
+ - AlibcNativeFailModeJumpH5: 当拉起手淘/天猫失败, 则在 webview 中跳转对应 H5（可自定义） 页面; 默认选项
+ - AlibcNativeFailModeJumpDownloadPage: 当拉起手淘/天猫失败, 则跳转对应 App 下载页面（默认行为）
+ - AlibcNativeFailModeNone: 当拉起手淘/天猫失败, 不做任何处理;
  */
 typedef NS_ENUM(NSInteger, AlibcNativeFailMode) {
     AlibcNativeFailModeJumpH5 = 0,
@@ -71,5 +71,11 @@ typedef NS_ENUM(NSInteger, AlibcNativeFailMode) {
 
 // isAid
 @property(nonatomic,assign)BOOL isAid;
+
+// 是否被转链
+@property(nonatomic,assign)BOOL isConvertUrl;
+
+// 是否来自二跳
+@property(nonatomic,assign)BOOL isFromWeb;
 
 @end

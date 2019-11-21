@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, copy) NSString * url;
 
+/**
+ *  是否需要通过UniveralLinks方式唤端. 如果是，iOS10以上会优先以ULK方式拉端。
+ */
+@property (nonatomic, assign) BOOL useUniversalLinks;
+
 /*
  *  目标App(必选)。当前已支持唤起App可参考文档说明。需要将目标App的scheme在info.plist中配置才能成功唤起。
  *  TODO: 附文档地址
@@ -54,6 +59,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  额外透传参数(可选)。SDK不会做处理，会在唤端时直接透传到目标App
  */
 @property (nonatomic, copy) NSDictionary * extraParam;
+
+/**
+ * 标识业务来源，可参考https://yuque.antfin-inc.com/docs/share/76e58b57-5f4f-4145-ad41-9ae9cc568f57#
+ * 2019.10.22新增
+ */
+@property (nonatomic, copy) NSString * bc_fl_src;
 
 @end
 
