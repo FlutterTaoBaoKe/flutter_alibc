@@ -3,9 +3,9 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeSDK 
- * 版本号：4.0.0.2
- * 发布时间：2019-9-15
- * 开发团队：阿里巴巴商家服务引擎团队
+ * 版本号：4.0.0.8
+ * 发布时间：2019-11-11
+ * 开发团队：阿里巴巴百川团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
@@ -25,20 +25,6 @@
 + (instancetype)sharedInstance;
 
 /**
- *  !!!: 已弃用
- *  初始化函数,初始化成功后方可正常使用SDK中的功能
- *
- *  @param appKey    该App对应的AppKey
- *  @param onSuccess 初始化成功的回调
- *  @param onFailure 初始化失败的回调
- */
-/*
-- (void)asyncInit:(NSString*)appKey
-          success:(void (^)())onSuccess
-          failure:(void (^)(NSError *error))onFailure DEPRECATED_ATTRIBUTE;
-*/
-
-/**
  *  初始化函数,初始化成功后方可正常使用SDK中的功能
  *
  *  @param onSuccess 初始化成功的回调
@@ -51,22 +37,6 @@
  *  获取service对象,该对象包含大部分Trade相关的方法
  */
 - (id <AlibcTradeService>)tradeService;
-
-/**
- * ============================================================================
- *  用于处理其他App的回跳
- *
- *  @param url 需要进行判断的URL对象
- *
- *  @return 是否被SDK进行处理
- *
- *  该接口已经启用, 请使用
- *  iOS 7&8: -[AlibcTradeSDK application:openURL:sourceApplication:annotation:]
- *  iOS 9+: -[AlibcTradeSDK application:openURL:options:] => iOS 9+
- *  替代
- * ============================================================================
- */
-/* - (BOOL)handleOpenURL:(NSURL *)url; */
 
 
 /**

@@ -31,3 +31,8 @@ AndroidX 测试
 1.修正iOS的回调,感谢[JarvanMo](https://github.com/JarvanMo)
 2.修正iOS不传入backUrl导致的崩溃问题
 
+## 0.0.8
+1.新增淘客登录返回token用于服务端二次登录
+
+## 0.0.9
+更新百川sdk到4.0.8

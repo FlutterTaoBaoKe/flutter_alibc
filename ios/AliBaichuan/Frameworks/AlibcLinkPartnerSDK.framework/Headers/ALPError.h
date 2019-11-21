@@ -19,7 +19,6 @@ typedef NS_ENUM(NSInteger, LinkPartnerErrorType)
     LINKPARTNER_ERROR_SIGN_MISSING        = 7,//sign缺失,未设置黑匣子,或者appSecret缺失
     LINKPARTNER_ERROR_NOT_INSTALL         = 8,//跳转APP未安装
     LINKPARTNER_ERROR_DEGRADE_URL_NIL     = 9,//降级地址为空，未配置降级地址
-    LINKPARTNER_ERROR_DEGRADE_WEBVIEW_NIL = 10,//降级到h5，webview为nil
     LINKPARTNER_ERROR_DOWNLOAD_URL_NIL    = 11,//下载页地址为空，未配置下载页地址
     LINKPARTNER_ERROR_ROUTERULE_NIL       = 12,//插件路由规则为nil
 };

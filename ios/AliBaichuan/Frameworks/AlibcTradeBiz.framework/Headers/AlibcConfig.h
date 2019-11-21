@@ -3,9 +3,9 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
- * 版本号：4.0.0.2
- * 发布时间：2019-09-15
- * 开发团队：阿里巴巴商家服务引擎团队
+ * 版本号：4.0.0.8
+ * 发布时间：2019-11-11
+ * 开发团队：阿里巴巴百川团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
@@ -41,10 +41,30 @@ typedef NS_ENUM (NSUInteger, AlibcLogLevel) {
             AlibcLogLevelError = 4,
 };
 
+/** SDK当前状态 */
+typedef NS_ENUM (NSUInteger, AlibcSDKState) {
+    /** SDK未进行初始化 */
+    AlibcSDKStateUnInit = 0,
+    /** SDK初始化当中 */
+    AlibcSDKStateIniting = 1,
+    /** SDK初始化完成 */
+    AlibcSDKStateInitSucc = 2,
+    /** SDK初始化失败 */
+    AlibcSDKStateInitFailed = 3
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 /** 配置 */
 @interface AlibcConfig : NSObject
+/** sdk初始化标识 */
+@property(nonatomic,assign)AlibcSDKState sdkState;
+/** sdk是否需要升级 */
+@property(nonatomic,assign)BOOL isNeedUpdateSDK;
+/** sdk强制升级文案 */
+@property(nonatomic,copy)NSString * _Nullable errorMsg;
+/** sdk是否允许唤端 */
+@property(nonatomic,assign)BOOL isAllowLinkTaobao;
 /** 系统环境 */
 @property(atomic, assign) AlibcEnvironment environment;
 /** 日志级别 */

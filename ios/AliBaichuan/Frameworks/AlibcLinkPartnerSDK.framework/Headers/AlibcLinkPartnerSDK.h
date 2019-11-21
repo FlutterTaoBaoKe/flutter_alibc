@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "ALSmartLink.h"
-#import "ALPTBLinkPartnerSDK.h"
+//#import "ALPTBLinkPartnerSDK.h"
 
 //! Project version number for ALPLinkPartnerSDK.
 FOUNDATION_EXPORT double ALPLinkPartnerSDKVersionNumber;
