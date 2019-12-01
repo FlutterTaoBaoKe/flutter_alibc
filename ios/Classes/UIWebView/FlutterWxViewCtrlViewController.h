@@ -12,8 +12,8 @@ typedef void (^UrlBlock) (NSString *url);
 @interface FlutterWxViewCtrlViewController : UIViewController
 
 @property(nonatomic,strong)ALiTradeWebViewController *vc;
-@property(nonatomic,copy) UrlBlock urlBlock;
-@property(nonatomic,copy) NSString *url;
+//@property(nonatomic,copy) UrlBlock urlBlock;
+//@property(nonatomic,copy) NSString *url;
 @end
 
 NS_ASSUME_NONNULL_END

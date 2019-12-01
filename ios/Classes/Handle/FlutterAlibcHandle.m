@@ -106,19 +106,8 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
 //else if([@"useAlipayNative" isEqualToString:call.method]){
 //    [_handler useAlipayNative:call result:result];
 //}
-#pragma mark --openbyurl
--(void)openByUrl1:(FlutterMethodCall *)call result:(FlutterResult)result{
-//    判断是否通过h5打开，是否监听url变化
-    BOOL isH5 = [call.arguments[@"isH5"] boolValue];
-    BOOL isNotice = [call.arguments[@"isNotice"] boolValue];
-    if (!isH5) {
-        [self openByUrl:call result:result];
-    }else{
-        [self taoKeLogin:call result:result notice:isNotice];
-    }
-}
 #pragma mark --淘客登录
--(void)taoKeLogin:(FlutterMethodCall *)call result:(FlutterResult)result notice:(BOOL)isNotice{
+-(void)taoKeLogin:(FlutterMethodCall *)call result:(FlutterResult)result{
     //    需要获取的数据
     NSNumber *type1 = call.arguments[@"openType"];
     AlibcOpenType openType = [self openType:[type1 intValue]];
@@ -164,19 +153,6 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
         //        新建一个view
         FlutterWxViewCtrlViewController *WxVC = [[FlutterWxViewCtrlViewController alloc] init];
         WxVC.vc = webviewVC;
-        WxVC.accessBlock = ^(NSString * accessToken){
-            NSLog(@"accessToken = %@",accessToken);
-            if (accessToken) {
-                result(@{
-                    @"accessToken":accessToken
-                });
-            }else{
-                result(@{
-                    @"accessToken":@""
-                });
-            }
-            
-        };
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:WxVC];
         [rootViewController presentViewController:nav animated:NO completion:^{
             
@@ -277,6 +253,10 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
 - (void)useAlipayNative:(FlutterMethodCall *)call result:(FlutterResult)result{
     BOOL isNeed = [call.arguments[@"isNeed"] boolValue];
     [[AlibcTradeSDK sharedInstance] setShouldUseAlizfNative:isNeed];
+}
+#pragma mark --关闭百川的webview 接口
+- (void)closeWebView{
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"closeAlibcWebView" object:nil];
 }
 #pragma mark - 不对flutter暴露
 #pragma mark --打开page

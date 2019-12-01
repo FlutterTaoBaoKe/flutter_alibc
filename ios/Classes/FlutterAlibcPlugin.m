@@ -6,6 +6,7 @@
 //一个handle服务
 @property(nonatomic,strong)FlutterAlibcHandle *handler;
 //一个service服务
+@property(nonatomic,strong)FlutterEventSink eventSink;
 @end
 
 @implementation FlutterAlibcPlugin
@@ -16,6 +17,13 @@
     FlutterAlibcPlugin* instance = [[FlutterAlibcPlugin alloc] initWithRegistrar:registrar methodChannel:channel];
     [registrar addMethodCallDelegate:instance channel:channel];
     [registrar addApplicationDelegate:instance];
+//    [instance setstre]
+//    UIViewController *rootViewController =
+//           [UIApplication sharedApplication].delegate.window.rootViewController;
+    FlutterViewController *controller = (FlutterViewController *)[UIApplication sharedApplication].delegate.window.rootViewController;
+    FlutterEventChannel *eventChannel = [FlutterEventChannel eventChannelWithName:@"flutter_alibc_event" binaryMessenger:controller];
+    [eventChannel setStreamHandler:instance];
+     [[NSNotificationCenter defaultCenter] addObserver:instance selector:@selector(webviewChangeUrl:) name:@"webviewChangeUrl" object:nil];
 }
 
 
@@ -52,12 +60,20 @@
         [_handler syncForTaoke:call result:result];
     }else if([@"useAlipayNative" isEqualToString:call.method]){
         [_handler useAlipayNative:call result:result];
+    }else if([@"closeAlibcWebview" isEqualToString:call.method]){
+//        [_handler useAlipayNative:call result:result];
+        [_handler closeWebView];
     }else {
         result(FlutterMethodNotImplemented);
     }
 }
 
-
+//发送数据给flutter
+- (void)webviewChangeUrl:(NSNotification *)notification{
+    if (self.eventSink) {
+        self.eventSink(notification.object);
+    }
+}
 #pragma mark -- 下面两个为百川处理应用跳转
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     // 如果百川处理过会返回YES
@@ -83,4 +99,16 @@
     
     
 }
+#pragma mark -- stream通道的代理方法
+- (FlutterError * _Nullable)onCancelWithArguments:(id _Nullable)arguments {
+    self.eventSink = nil;
+    return nil;
+}
+
+- (FlutterError * _Nullable)onListenWithArguments:(id _Nullable)arguments eventSink:(nonnull FlutterEventSink)events {
+    NSLog(@"flutter开始进行监听，并在此方法传入 原生主动传值给flutter的桥梁 event");
+    self.eventSink = events;
+    return nil;
+}
+
 @end

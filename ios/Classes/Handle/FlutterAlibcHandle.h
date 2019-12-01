@@ -94,6 +94,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param result <#result description#>
  */
 - (void)useAlipayNative:(FlutterMethodCall *)call result:(FlutterResult)result;
+/**
+ 关闭当前的webview
+ */
+- (void)closeWebView;
 @end
 
 NS_ASSUME_NONNULL_END

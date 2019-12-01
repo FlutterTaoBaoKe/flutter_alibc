@@ -92,14 +92,25 @@ class _MyAppState extends State<MyApp> {
             FlatButton(
               child: Text("淘客登录，二次授权"),
               onPressed: () async {
-                var result = await FlutterAlibc.taoKeLogin(
+                FlutterAlibc.taoKeLogin(
                     url:
                         "https://oauth.taobao.com/authorize?response_type=token&client_id=27646673&state=1212&view=wap",
                     openType: AlibcOpenType.AlibcOpenTypeNative,
                     isNeedCustomNativeFailMode: true,
                     nativeFailMode:
-                        AlibcNativeFailMode.AlibcNativeFailModeJumpH5);
-                print("access token ${result["accessToken"]}");
+                        AlibcNativeFailMode.AlibcNativeFailModeJumpH5,
+                    evenFunction: (value) {
+                      debugPrint(value);
+                      num index = value.indexOf("access_token");
+                      if (index != -1) {
+                        debugPrint("找到字符");
+                        FlutterAlibc.closeAlibcWebview();
+                      }
+                    },
+                    errorFunction: (error) {
+                      debugPrint(error);
+                    });
+                // print("access token ${result["accessToken"]}");
               },
             ),
             FlatButton(

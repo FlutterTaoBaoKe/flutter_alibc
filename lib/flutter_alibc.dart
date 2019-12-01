@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,20 +8,12 @@ import 'package:flutter_alibc/alibc_const_key.dart';
 import 'package:flutter_alibc/alibc_model.dart';
 
 class FlutterAlibc {
-  // static StreamController<String> _responseTaoKeLoginController = new StreamController.broadcast();
-  // static Stream<String> get responseFromShare =>
-  //     _responseTaoKeLoginController.stream;
-
-  // static Future<dynamic> _handler(MethodCall methodCall) {
-  //   if ("taoKeLogin" == methodCall.method) {
-  //     _responseTaoKeLoginController.sink.add(methodCall.arguments);
-  //   }
-  //   return Future.value(true);
-  // }
+  //注册监听原生通道
+  static EventChannel eventChannel =
+      EventChannel("flutter_alibc_event", const StandardMethodCodec());
 
   // 通信的桥接类
   static final MethodChannel _channel = const MethodChannel("flutter_alibc");
-  // ..setMethodCallHandler(_handler);
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
@@ -80,28 +73,39 @@ class FlutterAlibc {
   /// @param {type}
   /// @return:
   /// Map<String,String>
-  static Future<Map<dynamic, dynamic>> taoKeLogin({
-    @required String url,
-    AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
-    bool isNeedCustomNativeFailMode = false,
-    AlibcNativeFailMode nativeFailMode =
-        AlibcNativeFailMode.AlibcNativeFailModeNone,
-    AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTaoBao,
-    TaokeParams taokeParams,
-    String backUrl,
-  }) async {
+  static taoKeLogin(
+      {@required String url,
+      AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
+      bool isNeedCustomNativeFailMode = false,
+      AlibcNativeFailMode nativeFailMode =
+          AlibcNativeFailMode.AlibcNativeFailModeNone,
+      AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTaoBao,
+      TaokeParams taokeParams,
+      String backUrl,
+      @required Function evenFunction,
+      @required Function errorFunction}) async {
     Map taoKe = AlibcTools.getTaokeMap(taokeParams);
-    Map result = await _channel.invokeMethod("taoKeLogin", {
+    _channel.invokeMethod("taoKeLogin", {
       "url": url,
       "openType": openType.index,
       "isNeedCustomNativeFailMode": isNeedCustomNativeFailMode,
       "nativeFailMode": nativeFailMode.index,
       "schemeType": schemeType.index,
       "taokeParams": taoKe,
-      "backUrl": backUrl
+      "backUrl": backUrl,
     });
+    eventChannel
+        .receiveBroadcastStream()
+        .listen(evenFunction, onError: errorFunction);
+  }
 
-    return result;
+  ///
+  /// @description: 关闭淘客登录的webview
+  /// @param {type}
+  /// @return:
+  ///
+  static closeAlibcWebview() {
+    _channel.invokeMethod("closeAlibcWebview");
   }
 
   ///
