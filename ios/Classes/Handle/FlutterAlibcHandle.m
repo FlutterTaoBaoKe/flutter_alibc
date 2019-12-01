@@ -106,8 +106,19 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
 //else if([@"useAlipayNative" isEqualToString:call.method]){
 //    [_handler useAlipayNative:call result:result];
 //}
+#pragma mark --openbyurl
+-(void)openByUrl1:(FlutterMethodCall *)call result:(FlutterResult)result{
+//    判断是否通过h5打开，是否监听url变化
+    BOOL isH5 = [call.arguments[@"isH5"] boolValue];
+    BOOL isNotice = [call.arguments[@"isNotice"] boolValue];
+    if (!isH5) {
+        [self openByUrl:call result:result];
+    }else{
+        [self taoKeLogin:call result:result notice:isNotice];
+    }
+}
 #pragma mark --淘客登录
--(void)taoKeLogin:(FlutterMethodCall *)call result:(FlutterResult)result{
+-(void)taoKeLogin:(FlutterMethodCall *)call result:(FlutterResult)result notice:(BOOL)isNotice{
     //    需要获取的数据
     NSNumber *type1 = call.arguments[@"openType"];
     AlibcOpenType openType = [self openType:[type1 intValue]];
@@ -146,33 +157,7 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
      showParams:showParam
      taoKeParams:taokeParam
      trackParam:trackParam tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable alibcTradeResult) {
-//        //            交易成功，判断是付款成功还是加入购物车
-//        if(alibcTradeResult.result == AlibcTradeResultTypePaySuccess){
-//            //                付款成功
-//            result(@{
-//                FlutterAlibcConstKey_ErrorCode:@"0",
-//                FlutterAlibcConstKey_ErrorMessage:@"付款成功",
-//                FlutterAlibcConstKey_Data:@{
-//                        @"type":@0,
-//                        @"paySuccessOrders":[alibcTradeResult payResult].paySuccessOrders,
-//                        @"payFailedOrders":[alibcTradeResult payResult].payFailedOrders,
-//                }
-//            });
-//        }else if(alibcTradeResult.result== AlibcTradeResultTypeAddCard){
-//            //                加入购物车
-//            result(@{
-//                FlutterAlibcConstKey_ErrorCode:@"0",
-//                FlutterAlibcConstKey_ErrorMessage:@"加入购物车成功",
-//                FlutterAlibcConstKey_Data:@{
-//                        @"type":@1,
-//                }
-//            });
-//        }
     } tradeProcessFailedCallback:^(NSError * _Nullable error) {
-//        result(@{
-//            FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],
-//            FlutterAlibcConstKey_ErrorMessage:[error localizedDescription],
-//        });
     }];
     
     if (res == 1) {
@@ -192,8 +177,8 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
             }
             
         };
-        UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:WxVC];
-        [rootViewController presentViewController:root animated:NO completion:^{
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:WxVC];
+        [rootViewController presentViewController:nav animated:NO completion:^{
             
         }];
     }

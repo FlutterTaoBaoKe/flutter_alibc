@@ -8,12 +8,12 @@
 #import <UIKit/UIKit.h>
 #import "ALiTradeWebViewController.h"
 NS_ASSUME_NONNULL_BEGIN
-typedef void (^AccessTokenBlock) (NSString *accessToken);
+typedef void (^UrlBlock) (NSString *url);
 @interface FlutterWxViewCtrlViewController : UIViewController
 
 @property(nonatomic,strong)ALiTradeWebViewController *vc;
-@property(nonatomic,copy) AccessTokenBlock accessBlock;
-@property(nonatomic,copy) NSString *accessToken;
+@property(nonatomic,copy) UrlBlock urlBlock;
+@property(nonatomic,copy) NSString *url;
 @end
 
 NS_ASSUME_NONNULL_END

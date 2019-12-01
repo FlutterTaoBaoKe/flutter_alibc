@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getAccessToken:) name:@"getAccessToken" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUrl:) name:@"getUrl" object:nil];
 //    跳转到别的页面
     [self.navigationController pushViewController:self.vc animated:YES];
     // Do any additional setup after loading the view.
@@ -39,14 +39,14 @@
         }];
     }
 }
-- (void)getAccessToken:(NSNotification *) notification {
+- (void)getUrl:(NSNotification *) notification {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    NSLog(@"写入accessToken");
-    self.accessToken = notification.object;
+    NSLog(@"写入Url");
+    self.url = notification.object;
 }
 - (void)dealloc{
     NSLog(@"dealloc执行");
-    self.accessBlock(self.accessToken);
+    self.urlBlock(self.url);
 }
 /*
 #pragma mark - Navigation

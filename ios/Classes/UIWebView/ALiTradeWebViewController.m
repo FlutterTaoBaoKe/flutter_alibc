@@ -73,17 +73,7 @@
     NSRange range;
     range = [urlStr rangeOfString:@"access_token"];
     if (range.location != NSNotFound) {
-        NSString *accessString = [urlStr substringFromIndex:range.location];
-        //        截止到&
-        NSRange range2 = [accessString rangeOfString: @"&"];
-        
-        NSString *access_token_string = [accessString substringWithRange:NSMakeRange(0,range2.location)];
-        NSArray *array = [access_token_string componentsSeparatedByString:@"="];
-        NSString *access_token = array[1];
-        NSLog(@"%@",access_token);
-//        跳转回去
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"getAccessToken" object:access_token];
-        [self.navigationController popViewControllerAnimated:YES];
+//        TODO:返回url
     }else{
         NSLog(@"Not Found");
     }
