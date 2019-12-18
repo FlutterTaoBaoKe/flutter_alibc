@@ -9,7 +9,7 @@
 #import "FlutterAlibcTools.h"
 #import "FlutterAlibcConstKey.h"
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
-#import <AlibabaAuthSDK/albbsdk.h>
+#import <AlibabaAuthSDK/ALBBSDK.h>
 #import "ALiTradeWebViewController.h"
 #import "FlutterWxViewCtrlViewController.h"
 
