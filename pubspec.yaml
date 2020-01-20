@@ -1,11 +1,11 @@
 name: flutter_alibc
 description: flutter_alibc,flutter版本的阿里百川,V4.0.2。更新日期：2019-9-18
-version: 0.0.9
+version: 0.0.11
 author: wx<wuxinggggg@gmail.com>
 homepage: https://github.com/FlutterTaoBaoKe/flutter_alibc.git
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: '>=2.1.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -27,7 +27,6 @@ flutter:
   plugin:
     androidPackage: com.wxwx.flutter_alibc
     pluginClass: FlutterAlibcPlugin
-
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
@@ -38,7 +37,6 @@ flutter:
   #
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # To add custom fonts to your plugin package, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
