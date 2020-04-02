@@ -9,9 +9,12 @@
 #import "FlutterAlibcTools.h"
 #import "FlutterAlibcConstKey.h"
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
-#import <AlibabaAuthSDK/albbsdk.h>
+// #import <AlibabaAuthSDK/albbsdk.h>
 #import "ALiTradeWebViewController.h"
 #import "FlutterWxViewCtrlViewController.h"
+
+#import <AlibabaAuthEntrance/ALBBSDK.h>
+#import <AlibabaAuthEntrance/ALBBCompatibleSession.h>
 
 @implementation FlutterAlibcHandle
 FlutterMethodChannel *_flutterAlibcChannel = nil;
