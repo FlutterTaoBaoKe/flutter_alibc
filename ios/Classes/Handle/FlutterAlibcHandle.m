@@ -91,7 +91,7 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
         //            登录成功
         result(@{
                  FlutterAlibcConstKey_ErrorCode:@"0",
-                 FlutterAlibcConstKey_ErrorMessage:@"success",
+                 FlutterAlibcConstKey_ErrorMessage:@"success", 
                  FlutterAlibcConstKey_Data:@{
                          //                             昵称
                          @"nick":userInfo.nick,
