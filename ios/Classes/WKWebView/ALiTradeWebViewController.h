@@ -10,6 +10,8 @@
 #define ALiTradeWantViewController_h
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
+
 @interface ALiTradeWebViewController : UIViewController<WKNavigationDelegate>
 @property (nonatomic, copy) NSString *openUrl;
 @property (strong, nonatomic) WKWebView *webView;
