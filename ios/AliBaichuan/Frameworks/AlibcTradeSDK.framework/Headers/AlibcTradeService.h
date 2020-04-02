@@ -3,21 +3,22 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeSDK 
- * 版本号：4.0.0.8
- * 发布时间：2019-11-11
- * 开发团队：阿里巴巴百川团队
+ * 版本号：4.0.0.9
+ * 发布时间：2019-10-31
+ * 开发团队：阿里巴巴商家服务引擎团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
 
 #import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 #import <AlibcTradeBiz/AlibcTradeResult.h>
 #import "AlibcTradePageFactory.h"
 #import <AlibcTradeBiz/AlibcTradeShowParams.h>
 #import <AlibcTradeBiz/AlibcTradeSDKDefines.h>
 
 @class UIViewController;
-@class UIWebView;
+@class WKWebView;
 
 /** 电商服务 */
 @protocol AlibcTradeService<NSObject>
@@ -59,7 +60,7 @@
  */
 - (NSInteger)openByUrl:(NSString *__nonnull)url
                        identity:(NSString *__nonnull)identity
-                        webView:(nullable UIWebView *)webView
+                        webView:(WKWebView *_Nullable)webView
                parentController:(UIViewController *__nonnull)parentController
                      showParams:(nullable AlibcTradeShowParams *)showParams
                     taoKeParams:(nullable AlibcTradeTaokeParams *)taoKeParams
@@ -92,10 +93,12 @@
             1:  标识用h5打开了
             2:  标识用小程序打开了Url
            -1:  入参出错
-           -2:  打开页面
- *         -4:  sdk初始化失败
+           -2:  打开页面失败
+           -4:  sdk初始化失败
  *         -5:  该版本SDK已被废弃，需要升级
- *         -6:  sdk不允许唤端
+ *         -6:  sdkh不允许唤端
+
+ *
  *
  * 返回值 仅一种情况需要媒体处理 即当AlibcTradeShowParams 中 isNeedPush 为
  YES时.此时需要媒体根据API返回值为1时
@@ -104,7 +107,7 @@
  */
 - (NSInteger)openByBizCode:(NSString *__nonnull)pageCode
                        page:(id <AlibcTradePage> __nonnull)page
-                    webView:(nullable UIWebView *)webView
+                    webView:(WKWebView *_Nullable)webView
            parentController:(UIViewController *__nonnull)parentController
                  showParams:(nullable AlibcTradeShowParams *)showParams
                 taoKeParams:(nullable AlibcTradeTaokeParams *)taoKeParams

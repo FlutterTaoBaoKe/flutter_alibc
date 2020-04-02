@@ -3,14 +3,15 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
- * 版本号：4.0.0.8
- * 发布时间：2019-11-11
- * 开发团队：阿里巴巴百川团队
+ * 版本号：4.0.0.9
+ * 发布时间：2019-10-31
+ * 开发团队：阿里巴巴商家服务引擎团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
 
 #import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 
 #ifndef AlibcUT_h
 #define AlibcUT_h
@@ -18,7 +19,7 @@
 #define ALiTRADE_TRACE_TRACKER_ID @"aliTradesdk"
 
 typedef NSString AlibcUTEventID;
-@class UIWebView;
+@class WKWebView;
 @class UIViewController;
 
 FOUNDATION_EXTERN NSString *AlibcUTGlobalPropertySdkVersion;
@@ -143,7 +144,7 @@ FOUNDATION_EXTERN NSString *const AlibcUTArgsKeyYBHPSS_LABEL;
  @param pViewController vc
  @return return value
  */
-+ (BOOL)h5UT:(NSDictionary *)dataDict view:(UIWebView *)pView viewController:(UIViewController *)pViewController;
++ (BOOL)h5UT:(NSDictionary *)dataDict view:(WKWebView *)pView viewController:(UIViewController *)pViewController;
 
 
 /**
@@ -206,7 +207,7 @@ FOUNDATION_EXTERN NSString *const AlibcUTArgsKeyYBHPSS_LABEL;
                args:(NSDictionary *)args;
 
 @optional
-- (void)h5UT:(NSDictionary *)dataDict view:(UIWebView *)pView viewController:(UIViewController *)pViewController;
+- (void)h5UT:(NSDictionary *)dataDict view:(WKWebView *)pView viewController:(UIViewController *)pViewController;
 
 #pragma mark - Other
 

@@ -3,28 +3,29 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
- * 版本号：4.0.0.8
- * 发布时间：2019-11-11
- * 开发团队：阿里巴巴百川团队
+ * 版本号：4.0.0.9
+ * 发布时间：2019-10-31
+ * 开发团队：阿里巴巴商家服务引擎团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 #import "AlibcTradeTaokeParams.h"
 
 /**
  拉起手淘失败后的处理策略
  
- - AlibcNativeFailModeJumpH5: 当拉起手淘/天猫失败, 则在 webview 中跳转对应 H5（可自定义） 页面; 默认选项
- - AlibcNativeFailModeJumpDownloadPage: 当拉起手淘/天猫失败, 则跳转对应 App 下载页面（默认行为）
- - AlibcNativeFailModeNone: 当拉起手淘/天猫失败, 不做任何处理;
+ - AlibcNativeFailModeJumpH5: 当拉起手淘/天猫失败, 则在 webview 中跳转对应 H5 (可自定义)页面; 默认选项
+ - AlibcNativeFailModeJumpDownloadPage: 当拉起手淘/天猫失败, 则跳转对应 App 下载页面
+ - AlibcNativeFailModeNone: 当拉起手淘/天猫失败, 不做额外操作
  */
 typedef NS_ENUM(NSInteger, AlibcNativeFailMode) {
     AlibcNativeFailModeJumpH5 = 0,
     AlibcNativeFailModeJumpDownloadPage = 1,
-    AlibcNativeFailModeNone = 2
+    AlibcNativeFailModeNone = 2,
 };
 
 @interface AlibcURLBusNativeContext : NSObject
@@ -45,7 +46,7 @@ typedef NS_ENUM(NSInteger, AlibcNativeFailMode) {
 @property(nonatomic,assign)AlibcNativeFailMode failMode;
 
 // aid转链需要
-@property(nonatomic,strong) UIWebView *webview;
+@property(nonatomic,strong) WKWebView *webview;
 
 // 淘客参数
 @property(nonatomic,strong)AlibcTradeTaokeParams *taokeParams;
@@ -75,7 +76,7 @@ typedef NS_ENUM(NSInteger, AlibcNativeFailMode) {
 // 是否被转链
 @property(nonatomic,assign)BOOL isConvertUrl;
 
-// 是否来自二跳
+// 是否是二跳webView
 @property(nonatomic,assign)BOOL isFromWeb;
 
 @end

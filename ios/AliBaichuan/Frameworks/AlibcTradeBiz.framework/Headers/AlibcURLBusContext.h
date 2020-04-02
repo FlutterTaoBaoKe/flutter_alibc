@@ -3,24 +3,23 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
- * 版本号：4.0.0.8
- * 发布时间：2019-11-11
- * 开发团队：阿里巴巴百川团队
+ * 版本号：4.0.0.9
+ * 发布时间：2019-10-31
+ * 开发团队：阿里巴巴商家服务引擎团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 @interface AlibcURLBusContext : NSObject
-
 @property(nonatomic,assign)BOOL isLoadedUrl;// 是否已经完成一次页面加载
 @property(nonatomic,assign)BOOL isConvertUrl;// 是否加载前被转链
 @property(nonatomic, copy)NSString *originalUrl;// 原始URL
 @property(nonatomic, copy)NSString *convertUrl;// 被转链之后的url
-
-@property(nonatomic, weak) UIWebView *webview;
+@property(nonatomic, weak) WKWebView *webview;
 @property(nonatomic, assign) BOOL bFiltered; //标记本次加载是通过filter触发的
 @property(nonatomic, weak) UIViewController *sourceViewController;
 
@@ -31,7 +30,7 @@
 @property (nonatomic,strong)id  param;
 
 
-- (void)setWebviewAndViewController:(UIWebView *)webview controller:(UIViewController *)vc;
+- (void)setWebviewAndViewController:(WKWebView *)webview controller:(UIViewController *)vc;
 
 //webview触发load事件
 - (void)setLoadWithRequest:(NSURLRequest *)request;
