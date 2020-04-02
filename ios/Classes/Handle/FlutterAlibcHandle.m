@@ -55,12 +55,12 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
 }
 #pragma mark --淘宝登录
 - (void)loginTaoBao:(FlutterMethodCall *)call result:(FlutterResult)result{
-    if(![[ALBBSession sharedInstance] isLogin]){
+    if(![[ALBBCompatibleSession sharedInstance] isLogin]){
         [[ALBBSDK sharedInstance]setAuthOption: NormalAuth];
         //    根视图
         UIViewController *rootViewController =
         [UIApplication sharedApplication].delegate.window.rootViewController;
-        [[ALBBSDK sharedInstance] auth:rootViewController successCallback:^(ALBBSession *session) {
+        [[ALBBSDK sharedInstance] auth:rootViewController successCallback:^(ALBBCompatibleSession *session) {
             ALBBUser *userInfo = [session getUser];
             //            登录成功
             result(@{
@@ -77,7 +77,7 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
                              @"topAuthCode":userInfo.topAuthCode,
                              }
                      });
-        } failureCallback:^(ALBBSession *session, NSError *error) {
+        } failureCallback:^(ALBBCompatibleSession *session, NSError *error) {
             //            登录失败
             result(@{
                      FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],
@@ -86,7 +86,7 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
                      });
         }];
     }else{
-        ALBBSession *session=[ALBBSession sharedInstance];
+        ALBBCompatibleSession *session=[ALBBCompatibleSession sharedInstance];
         ALBBUser *userInfo = [session getUser];
         //            登录成功
         result(@{
