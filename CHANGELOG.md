@@ -38,3 +38,9 @@ AndroidX 测试
 
 ## 0.0.9
 更新百川sdk到4.0.8
+
+## 0.0.12
+iOS 更新到 4.0.1.0
+  UIwebview换成Wkwebview
+Android4.0.0.8
+
