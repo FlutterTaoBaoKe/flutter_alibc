@@ -3,9 +3,9 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeSDK 
- * 版本号：4.0.0.8
- * 发布时间：2019-11-11
- * 开发团队：阿里巴巴百川团队
+ * 版本号：4.0.0.9
+ * 发布时间：2019-10-31
+ * 开发团队：阿里巴巴商家服务引擎团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
@@ -15,7 +15,6 @@
 #import "AlibcTradePageFactory.h"
 #import "AlibcTradeService.h"
 #import <AlibcTradeBiz/AlibcTradeShowParams.h>
-
 
 @interface AlibcTradeSDK : NSObject
 
@@ -36,23 +35,25 @@
 /**
  *  获取service对象,该对象包含大部分Trade相关的方法
  */
-- (id <AlibcTradeService>)tradeService;
-
+- (id<AlibcTradeService>)tradeService;
 
 /**
  * App 回跳处理, 适用于 iOS 9 以下的回调接口
- 
+
  @param application application
  @param url url
  @param sourceApplication sourceApplication
  @param annotation annotation
  @return handled or nor
  */
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
+- (BOOL)application:(UIApplication *)application
+              openURL:(NSURL *)url
+    sourceApplication:(NSString *)sourceApplication
+           annotation:(id)annotation;
 
 /**
  * App 回跳处理, 适用于 iOS 9 起的回调接口
- 
+
  @param annotation annotation
  @param url url
  @param options options
@@ -60,7 +61,8 @@
  */
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
-            options:(NSDictionary<NSString *, id> *)options NS_AVAILABLE_IOS(9_0);
+            options:(NSDictionary<NSString *, id> *)options
+    NS_AVAILABLE_IOS(9_0);
 
 @end
 
@@ -126,9 +128,9 @@
 - (void)enableAuthVipMode;
 
 /**
- *  设置是否需要 Native Alizf 接口
+ *  设置是否需要 Native AliZf 接口
  *
- *  @param shouldUseAlizf 是否需要 Native Alizf 接口
+ *  @param shouldUseAlizf 是否需要 Native AliZf 接口
  */
 - (void)setShouldUseAlizfNative:(BOOL)shouldUseAlizfNative;
 

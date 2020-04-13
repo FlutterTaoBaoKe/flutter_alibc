@@ -3,9 +3,9 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
- * 版本号：4.0.0.8
- * 发布时间：2019-11-11
- * 开发团队：阿里巴巴百川团队
+ * 版本号：4.0.0.9
+ * 发布时间：2019-10-31
+ * 开发团队：阿里巴巴商家服务引擎团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
@@ -18,7 +18,7 @@
 
 @class NSURLRequest;
 @class UIViewController;
-@class UIWebView;
+@class WKWebView;
 @class NSURL;
 
 @interface AlibcWebviewHookHelp : NSObject
@@ -26,9 +26,7 @@
 
 @property(nonatomic,assign)double lastAutoLoginTime;
 
-- (BOOL)webView:(nonnull UIWebView *)webView sourceViewController:(nonnull UIViewController *)vc shouldStartLoadWithRequest:(nonnull NSURLRequest *)request;
-
-- (BOOL)webView:(nonnull UIWebView *)webView context:(nonnull AlibcURLBusContext *)context shouldStartLoadWithRequest:(nonnull NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
+- (BOOL)webView:(WKWebView *_Nonnull)webView context:(nonnull AlibcURLBusContext *)context decidePolicyForNavigationAction:(WKNavigationAction *_Nonnull)navigationAction decisionHandler:(void (^_Nonnull)(WKNavigationActionPolicy))decisionHandler;
 
 
 - (void)beforeWebViewStartLoad:(nullable NSURL *)url;

@@ -9,9 +9,12 @@
 #import "FlutterAlibcTools.h"
 #import "FlutterAlibcConstKey.h"
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
-#import <AlibabaAuthSDK/albbsdk.h>
+// #import <AlibabaAuthSDK/albbsdk.h>
 #import "ALiTradeWebViewController.h"
 #import "FlutterWxViewCtrlViewController.h"
+
+#import <AlibabaAuthEntrance/ALBBSDK.h>
+#import <AlibabaAuthEntrance/ALBBCompatibleSession.h>
 
 @implementation FlutterAlibcHandle
 FlutterMethodChannel *_flutterAlibcChannel = nil;
@@ -52,13 +55,13 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
 }
 #pragma mark --淘宝登录
 - (void)loginTaoBao:(FlutterMethodCall *)call result:(FlutterResult)result{
-    if(![[ALBBSession sharedInstance] isLogin]){
-        [[ALBBSDK sharedInstance]setAuthOption: NormalAuth];
+    if(![[ALBBCompatibleSession sharedInstance] isLogin]){
+      //  [[ALBBSDK sharedInstance]setAuthOption: NormalAuth];
         //    根视图
         UIViewController *rootViewController =
         [UIApplication sharedApplication].delegate.window.rootViewController;
-        [[ALBBSDK sharedInstance] auth:rootViewController successCallback:^(ALBBSession *session) {
-            ALBBUser *userInfo = [session getUser];
+        [[ALBBSDK sharedInstance] auth:rootViewController successCallback:^{
+            ALBBUser *userInfo = [ALBBCompatibleSession.sharedInstance getUser];
             //            登录成功
             result(@{
                      FlutterAlibcConstKey_ErrorCode:@"0",
@@ -74,7 +77,7 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
                              @"topAuthCode":userInfo.topAuthCode,
                              }
                      });
-        } failureCallback:^(ALBBSession *session, NSError *error) {
+        } failureCallback:^(NSError *error) {
             //            登录失败
             result(@{
                      FlutterAlibcConstKey_ErrorCode:[NSString stringWithFormat: @"%ld", (long)error.code],
@@ -83,12 +86,12 @@ FlutterMethodChannel *_flutterAlibcChannel = nil;
                      });
         }];
     }else{
-        ALBBSession *session=[ALBBSession sharedInstance];
+        ALBBCompatibleSession *session=[ALBBCompatibleSession sharedInstance];
         ALBBUser *userInfo = [session getUser];
         //            登录成功
         result(@{
                  FlutterAlibcConstKey_ErrorCode:@"0",
-                 FlutterAlibcConstKey_ErrorMessage:@"success",
+                 FlutterAlibcConstKey_ErrorMessage:@"success", 
                  FlutterAlibcConstKey_Data:@{
                          //                             昵称
                          @"nick":userInfo.nick,

@@ -3,9 +3,9 @@
  *
  * 阿里百川电商
  * 项目名称：阿里巴巴电商 AlibcTradeBiz 
- * 版本号：4.0.0.8
- * 发布时间：2019-11-11
- * 开发团队：阿里巴巴百川团队
+ * 版本号：4.0.0.9
+ * 发布时间：2019-10-31
+ * 开发团队：阿里巴巴商家服务引擎团队
  * 阿里巴巴电商SDK答疑群号：1488705339  2071154343(阿里旺旺)
  * Copyright (c) 2016-2020 阿里巴巴-淘宝-百川. All rights reserved.
  */
@@ -74,6 +74,8 @@ typedef void (^ErrorJSAction)(id error);   //发送失败
 - (AlibcNetPacketHttpHeader *)generateMtopHeader;
 
 - (NSDictionary *)generateMtopBody;
+
+- (NSDictionary *)generateMtopExtParams;
 
 //重试通知, 如果有需要在这里修改内部数据 ,否则不用管,retryCount是第几次(1开始)
 //retryAction时,可以改变netType,这样重试的时候,可以改变通道方式.比如第一次用accs的,重发的时候用mtop
