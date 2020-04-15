@@ -44,3 +44,10 @@ iOS 更新到 4.0.1.0
   UIwebview换成Wkwebview
 Android4.0.0.8
 
+## 0.0.13
+iOS 更新到 4.0.1.0
+  UIwebview换成Wkwebview
+  支持swift
+Android4.0.0.8
+
+

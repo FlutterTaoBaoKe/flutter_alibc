@@ -33,6 +33,9 @@ P.S:另有开普勒插件[flutter_kepler](https://github.com/FlutterTaoBaoKe/flu
 ### 引入
 [如何引入项目](https://pub.dev/packages/flutter_alibc#-installing-tab-)
 
+### 支持swift了
+### 感谢[@a4081675](https://github.com/a4081675)同学
+[issues44](https://github.com/FlutterTaoBaoKe/flutter_alibc/issues/44)
 ### 方法说明
 * 头文件引入
 ```
