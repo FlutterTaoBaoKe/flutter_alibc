@@ -23,5 +23,6 @@ Pod::Spec.new do |s|
   s.libraries = "z","c++","sqlite3.0"
 
   s.ios.deployment_target = '8.0'
+  s.static_framework = true
 end
 
