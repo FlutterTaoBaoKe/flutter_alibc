@@ -1,6 +1,0 @@
-framework module WindVaneBasic {
-  umbrella header "WindVaneBasic.h"
-
-  export *
-  module * { export * }
-}

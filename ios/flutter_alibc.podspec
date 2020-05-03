@@ -15,9 +15,18 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
+  s.dependency 'AlibcTradeSDK','4.0.1.0'
+  s.dependency 'AliAuthSDK','1.1.0.39-bc'
+  s.dependency 'mtopSDK','3.0.0.4'
+  s.dependency 'securityGuard','5.4.173'
+  s.dependency 'AliLinkPartnerSDK','4.0.0.24'
+  s.dependency 'BCUserTrack','5.2.0.16-appkeys'
+  s.dependency 'UTDID','1.1.0.16'
+  s.dependency 'AlipaySDK','2.0.0-bc'
+  s.dependency 'WindVane','8.5.0.46-bc7-mini'
 
-  s.vendored_frameworks ="AliBaichuan/Frameworks/*.framework"
-  s.resource = "AliBaichuan/Resources/*.bundle"
+  # s.vendored_frameworks ="AliBaichuan/Frameworks/*.framework"
+  # s.resource = "AliBaichuan/Resources/*.bundle"
 
   s.frameworks = "CoreTelephony","CoreMotion","UIKit","Foundation"
   s.libraries = "z","c++","sqlite3.0"

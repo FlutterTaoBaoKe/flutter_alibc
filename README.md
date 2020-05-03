@@ -32,6 +32,11 @@ P.S:另有开普勒插件[flutter_kepler](https://github.com/FlutterTaoBaoKe/flu
 
 ### 引入
 [如何引入项目](https://pub.dev/packages/flutter_alibc#-installing-tab-)
+iOS请在podfile文件非注释的第一行，加入淘宝源，如果有其他源，请放在其他源下方,没有其他源只需要加这一个即可
+```
+source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecs.git'
+```
+看不懂这句话就看下demo中的example/ios/podfile文件第4行代码，第3行是其他源的示例可以不加
 
 ### 支持swift了
 ### 感谢[@a4081675](https://github.com/a4081675)同学

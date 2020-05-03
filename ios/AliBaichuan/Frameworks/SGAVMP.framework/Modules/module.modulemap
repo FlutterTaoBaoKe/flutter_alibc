@@ -1,6 +1,0 @@
-framework module SGAVMP {
-  umbrella header "SGAVMP.h"
-
-  export *
-  module * { export * }
-}

@@ -1,6 +1,0 @@
-framework module SecurityGuardSDK {
-  umbrella header "SecurityGuardSDK.h"
-
-  export *
-  module * { export * }
-}

@@ -1,6 +1,7 @@
 # Uncomment this line to define a global platform for your project
 # platform :ios, '9.0'
-
+source 'https://cdn.cocoapods.org/'
+source 'http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecs.git'
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 

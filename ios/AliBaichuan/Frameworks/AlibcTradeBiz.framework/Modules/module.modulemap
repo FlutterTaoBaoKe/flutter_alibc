@@ -1,6 +1,0 @@
-framework module AlibcTradeBiz {
-  umbrella header "AlibcTradeBiz.h"
-
-  export *
-  module * { export * }
-}

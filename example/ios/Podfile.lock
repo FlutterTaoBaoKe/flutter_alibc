@@ -1,11 +1,48 @@
 PODS:
+  - AliAuthSDK (1.1.0.39-bc)
+  - AlibcTradeSDK (4.0.1.0)
+  - AliLinkPartnerSDK (4.0.0.24)
+  - AlipaySDK (2.0.0-bc)
+  - BCUserTrack (5.2.0.16-appkeys):
+    - UTDID
   - Flutter (1.0.0)
   - flutter_alibc (0.0.1):
+    - AliAuthSDK (= 1.1.0.39-bc)
+    - AlibcTradeSDK (= 4.0.1.0)
+    - AliLinkPartnerSDK (= 4.0.0.24)
+    - AlipaySDK (= 2.0.0-bc)
+    - BCUserTrack (= 5.2.0.16-appkeys)
     - Flutter
+    - mtopSDK (= 3.0.0.4)
+    - securityGuard (= 5.4.173)
+    - UTDID (= 1.1.0.16)
+    - WindVane (= 8.5.0.46-bc7-mini)
+  - mtopSDK (3.0.0.4)
+  - securityGuard (5.4.173)
+  - UTDID (1.1.0.16)
+  - WindVane (8.5.0.46-bc7-mini):
+    - WindVane/Basic (= 8.5.0.46-bc7-mini)
+    - WindVane/Core (= 8.5.0.46-bc7-mini)
+    - WindVane/WindVane (= 8.5.0.46-bc7-mini)
+  - WindVane/Basic (8.5.0.46-bc7-mini)
+  - WindVane/Core (8.5.0.46-bc7-mini)
+  - WindVane/WindVane (8.5.0.46-bc7-mini)
 
 DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
   - flutter_alibc (from `.symlinks/plugins/flutter_alibc/ios`)
+
+SPEC REPOS:
+  http://repo.baichuan-ios.taobao.com/baichuanSDK/AliBCSpecs.git:
+    - AliAuthSDK
+    - AlibcTradeSDK
+    - AliLinkPartnerSDK
+    - AlipaySDK
+    - BCUserTrack
+    - mtopSDK
+    - securityGuard
+    - UTDID
+    - WindVane
 
 EXTERNAL SOURCES:
   Flutter:
@@ -14,9 +51,18 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_alibc/ios"
 
 SPEC CHECKSUMS:
+  AliAuthSDK: c342b9f98627104a8d95c38cdef59ba946570e16
+  AlibcTradeSDK: d9e0898097e9857cca00bb9736ff264b0995cc9c
+  AliLinkPartnerSDK: c5778cdfdcee7bfe342238d39a77766184d36a46
+  AlipaySDK: a40a4099b24328d90d7ba4fb67f6ce753d7fa2c7
+  BCUserTrack: ea53788070a12046c5b40fb426293f3b7a8a0c9d
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_alibc: 2041d1c902019de53fead0ef952f9dfe26018777
+  flutter_alibc: 7b07cd4c926d2d3ba4bd2d904c47dee0f4cee1f4
+  mtopSDK: bf447d4361b0199790e2a2829a1cc0299df71716
+  securityGuard: 35d3a1b5877bb2de4698a78089eb8906fa3ad27b
+  UTDID: c28855683c5ea2e77e597cb14609328f7d470d6e
+  WindVane: ee556348de44cd9e68b16b28873b7b5bb9ecfa6d
 
-PODFILE CHECKSUM: 7fb83752f59ead6285236625b82473f90b1cb932
+PODFILE CHECKSUM: f65a7534e3030cd63dfdaf5ac173943dc695fbe8
 
 COCOAPODS: 1.8.4
