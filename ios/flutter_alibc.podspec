@@ -15,15 +15,14 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'AlibcTradeSDK','4.0.1.5'
+  s.dependency 'AlibcTradeSDK','4.0.1.6'
   s.dependency 'AliAuthSDK','1.1.0.41-bc'
   s.dependency 'mtopSDK','3.0.0.3-BC'
-  s.dependency 'securityGuard','5.4.173'
+  s.dependency 'securityGuard','5.4.191'
   s.dependency 'AliLinkPartnerSDK','4.0.0.24'
-  s.dependency 'BCUserTrack','5.2.0.16-appkeys'
+  s.dependency 'BCUserTrack','5.2.0.18-appkeys'
   s.dependency 'UTDID','1.1.0.16'
-  s.dependency 'AlipaySDK','2.0.0-bc'
-  s.dependency 'WindVane','8.5.0.46-bc7-mini'
+  s.dependency 'WindVane','8.5.0.46-bc11'
 
   # s.vendored_frameworks ="AliBaichuan/Frameworks/*.framework"
   # s.resource = "AliBaichuan/Resources/*.bundle"
