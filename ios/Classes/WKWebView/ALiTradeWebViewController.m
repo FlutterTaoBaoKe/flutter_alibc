@@ -10,6 +10,8 @@
 #import "ALiTradeWebViewController.h"
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
 
+#import <WindVane/WindVane.h>
+
 //#import "ALiCartService.h"
 
 @interface ALiTradeWebViewController()
@@ -21,6 +23,7 @@
 {
     self = [super init];
     if (self) {
+        [WVURLProtocolService setSupportWKURLProtocol:YES];
         _webView = [[WKWebView alloc]initWithFrame:self.view.bounds];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.scrollView.scrollEnabled = YES;
@@ -68,6 +71,7 @@
 -(void)dealloc
 {
     NSLog(@"dealloc  view");
+    [WVURLProtocolService setSupportWKURLProtocol:NO];
     [_webView removeObserver:self forKeyPath:@"URL"];
     _webView =  nil;
     
