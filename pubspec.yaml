@@ -1,8 +1,8 @@
 name: flutter_alibc
-description: A new flutter plugin project.
-version: 0.0.1
-author:
-homepage:
+description: flutter_alibc,flutter版本的阿里百川,android V4.0.0.8 ios V4.0.1。更新日期：2021-5-15
+version: 0.0.17
+author: wx<wuxinggggg@gmail.com>
+homepage: https://github.com/FlutterTaoBaoKe/flutter_alibc.git
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
