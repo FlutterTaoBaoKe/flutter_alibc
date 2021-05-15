@@ -65,18 +65,17 @@ class _MyAppState extends State<MyApp> {
         body: Center(
             child: Column(
           children: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text("初始化阿里百川"),
               onPressed: () async {
                 try {
-                  // var waite3s = await FlutterAlibc.openItemDetail(itemID: "12345");
                   // 如果什么都不给
-                  var result = await FlutterAlibc.initAlibc();
+                  var result = await FlutterAlibc.initAlibc(version: '1',appName: "2");
                   print(json.encode(result));
                 } on Exception {}
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("登录淘宝"),
               onPressed: () async {
                 var result = FlutterAlibc.loginTaoBao(loginCallback: (result) {
@@ -85,13 +84,13 @@ class _MyAppState extends State<MyApp> {
                 });
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("登出淘宝"),
               onPressed: () {
                 FlutterAlibc.loginOut();
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("淘客登录，二次授权"),
               onPressed: () async {
                 FlutterAlibc.taoKeLogin(
@@ -107,7 +106,7 @@ class _MyAppState extends State<MyApp> {
                 // print("access token ${result["accessToken"]}");
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("淘客登录，二次授权获取code"),
               onPressed: () async {
                 ///redirect_uri 这里对应 开发者管理端 应用回调url  demo设置的是 http://www.163.com
@@ -123,7 +122,7 @@ class _MyAppState extends State<MyApp> {
                         AlibcNativeFailMode.AlibcNativeFailModeJumpH5);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("唤起淘宝，openByUrl方式"),
               onPressed: () async {
                 var result = await FlutterAlibc.openByUrl(
@@ -136,7 +135,7 @@ class _MyAppState extends State<MyApp> {
                 print(result);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("唤起淘宝，openItemDetail方式"),
               onPressed: () async {
                 var result = await FlutterAlibc.openItemDetail(
@@ -148,27 +147,27 @@ class _MyAppState extends State<MyApp> {
                 print(result);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("打开店铺，openShop方式"),
               onPressed: () async {
                 var result = await FlutterAlibc.openShop(shopId: "71955116");
                 print(result);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("打开购物车，openCart方式"),
               onPressed: () async {
                 var result = await FlutterAlibc.openCart();
                 print(result);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("允许打点"),
               onPressed: () {
                 FlutterAlibc.syncForTaoke(true);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("使用native Alipay"),
               onPressed: () {
                 FlutterAlibc.useAlipayNative(true);

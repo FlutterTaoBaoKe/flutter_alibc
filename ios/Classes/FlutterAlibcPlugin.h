@@ -1,5 +1,7 @@
 #import <Flutter/Flutter.h>
 #import <AlibcTradeSDK/AlibcTradeSDK.h>
-//#import <AlibabaAuthSDK/>
+#import <AlibabaAuthEntrance/ALBBSDK.h>
+#import <AlibabaAuthEntrance/ALBBCompatibleSession.h>
+#import <WindVane/WindVane.h>
 @interface FlutterAlibcPlugin : NSObject<FlutterPlugin>
 @end

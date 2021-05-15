@@ -8,15 +8,9 @@
 import Foundation
 
 class FlutterAlibcHandle: NSObject {
-    //
-    //    var _flutterAlibcChannel:FlutterMethodChannel? = nil
-    //
-    //
-    //    init(flutterAlibcChannel : FlutterMethodChannel) {
-    //        _flutterAlibcChannel = flutterAlibcChannel
-    //    }
     
     //    MARK: - 对flutter暴露的方法
+    
     //    MARK:  初始化阿里百川
     public func initAlibc(call : FlutterMethodCall , result : @escaping FlutterResult){
         //        线上环境
@@ -42,107 +36,125 @@ class FlutterAlibcHandle: NSObject {
             result(dic);
         })
     }
+    
     //    MARK:  淘宝登录
     public func loginTaoBao(call : FlutterMethodCall , result : @escaping FlutterResult){
         //        判断是否登录
-//        if(!(ALBBSession.sharedInstance()?.isLogin())!){
-////            ALBBAccountAuthOption
-//            ALBBSDK.sharedInstance()?.setAuthOption(NormalAuth)
-//            //            根视图
-//            let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
-//            ALBBSDK.sharedInstance()?.auth(rootViewController, successCallback: { (session) in
-//                let userInfo : ALBBUser = (session?.getUser())!
-//                result([FlutterAlibcConstKey.ErrorCode : "0",
-//                        FlutterAlibcConstKey.ErrorMessage:"success",
-//                        FlutterAlibcConstKey.Data :[
-//                            //                            昵称
-//                            "nick":userInfo.nick,
-//                            //                            头像地址
-//                            "avatarUrl":userInfo.avatarUrl,
-//                            "openId":userInfo.openId,
-//                            "openSid":userInfo.openSid,
-//                            "topAccessToken":userInfo.topAccessToken,
-//                            "topAuthCode":userInfo.topAuthCode,]
-//                ])
-//            }, failureCallback: { (session, error) in
-//                let dic = [FlutterAlibcConstKey.ErrorCode :String((error! as NSError).code) ,FlutterAlibcConstKey.ErrorMessage: String(error!.localizedDescription)]
-//                result(dic);
-//            })
-//        }
-//        else{
-//            let session : ALBBSession = ALBBSession.sharedInstance()
-//            let userInfo : ALBBUser = session.getUser()
-//            result([FlutterAlibcConstKey.ErrorCode : "0",
-//                    FlutterAlibcConstKey.ErrorMessage:"success",
-//                    FlutterAlibcConstKey.Data :[
-//                        //                            昵称
-//                        "nick":userInfo.nick,
-//                        //                            头像地址
-//                        "avatarUrl":userInfo.avatarUrl,
-//                        "openId":userInfo.openId,
-//                        "openSid":userInfo.openSid,
-//                        "topAccessToken":userInfo.topAccessToken,
-//                        "topAuthCode":userInfo.topAuthCode,]
-//            ])
-//        }
+        if(!ALBBCompatibleSession.sharedInstance().isLogin()){
+            // 登陆
+            let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
+            ALBBSDK.sharedInstance().auth(rootViewController) {
+                let userInfo : ALBBUser = ALBBCompatibleSession.sharedInstance().getUser()
+                result([FlutterAlibcConstKey.ErrorCode : "0",
+                        FlutterAlibcConstKey.ErrorMessage:"success",
+                        FlutterAlibcConstKey.Data :[
+                            //                            昵称
+                            "nick":userInfo.nick,
+                            //                        头像地址
+                            "avatarUrl":userInfo.avatarUrl,
+                            "openId":userInfo.openId,
+                            "openSid":userInfo.openSid,
+                            "topAccessToken":userInfo.topAccessToken,
+                            "topAuthCode":userInfo.topAuthCode,]
+                ])
+            } failureCallback: { error in
+                let dic = [FlutterAlibcConstKey.ErrorCode :String((error! as NSError).code) ,FlutterAlibcConstKey.ErrorMessage: String(error!.localizedDescription)]
+                result(dic);
+            }
+        }else{
+            // 返回数据
+            let userInfo : ALBBUser = ALBBCompatibleSession.sharedInstance().getUser()
+            result([FlutterAlibcConstKey.ErrorCode : "0",
+                    FlutterAlibcConstKey.ErrorMessage:"success",
+                    FlutterAlibcConstKey.Data :[
+                        //                        昵称
+                        "nick":userInfo.nick,
+                        //                        头像地址
+                        "avatarUrl":userInfo.avatarUrl,
+                        "openId":userInfo.openId,
+                        "openSid":userInfo.openSid,
+                        "topAccessToken":userInfo.topAccessToken,
+                        "topAuthCode":userInfo.topAuthCode,]
+            ])
+        }
     }
     
-    //    MARK: 淘客登录
-    public func taoKeLogin(call : FlutterMethodCall , result : @escaping FlutterResult){
-        let type1 : Int = (getNumberFromCall(key: "openType", call: call)).intValue;
-        let openType : AlibcOpenType = self.openType(mode: type1)
-        let isNeedCustomNativeFailMode : Bool = getBoolFromCall(key: "isNeedCustomNativeFailMode", call: call)
-        //    不用push了，没有nav，默认都present
-        //    BOOL isNeedPush = [call.arguments[@"isNeedPush"] boolValue];
-        let isNeedPush : Bool = true;
-        let failMode : Int = (getNumberFromCall(key: "nativeFailMode", call: call)).intValue;
-        let nativeFailMode : AlibcNativeFailMode = NativeFailMode(mode: failMode)
-        let schemeType1 : Int = (getNumberFromCall(key: "schemeType", call: call)).intValue;
-        let linkKey : String = schemeType(mode: schemeType1)
-        let url : String = getStringFromCall(key: "url", call: call);
-        let taokeParam : AlibcTradeTaokeParams = getTaokeParams(call: call)!
-        let trackParam : Dictionary<String,Any> = getDicFromCall(key: "trackParam", call: call)!
-        let backUrl : String = getStringFromCall(key: "backUrl", call: call)
-        
-        
-        let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
-        let showParam : AlibcTradeShowParams = AlibcTradeShowParams.init()
-        showParam.openType = openType
-        showParam.isNeedCustomNativeFailMode = isNeedCustomNativeFailMode
-        showParam.isNeedPush = isNeedPush
-        showParam.nativeFailMode = nativeFailMode
-        //        showParam.nativeFailMode = nativeFailMode
-        showParam.linkKey = linkKey
-        showParam.backUrl = backUrl
-        
-        //        ALiTradeWebViewController* webviewVC = [[ALiTradeWebViewController alloc] init];
-        //
-        //           NSInteger res = [[AlibcTradeSDK sharedInstance].tradeService
-        //            openByUrl:url
-        //            identity:@"trade"
-        //            webView:webviewVC.webView
-        //            parentController:rootViewController
-        //            showParams:showParam
-        //            taoKeParams:taokeParam
-        //            trackParam:trackParam tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable alibcTradeResult) {
-        //           } tradeProcessFailedCallback:^(NSError * _Nullable error) {
-        //           }];
-        //
-        //           if (res == 1) {
-        //               //        新建一个view
-        //               FlutterWxViewCtrlViewController *WxVC = [[FlutterWxViewCtrlViewController alloc] init];
-        //               WxVC.vc = webviewVC;
-        //               UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:WxVC];
-        //               [rootViewController presentViewController:nav animated:NO completion:^{
-        //
-        //               }];
-        //           }
-    }
-    
-    //    MARK: 退出登录
+    //    MARK:  退出登陆
     public func loginOut(call : FlutterMethodCall , result : @escaping FlutterResult){
-//        ALBBSDK.sharedInstance()?.logout()
+        ALBBSDK.sharedInstance()?.logout()
     }
+    
+    //        MARK:  淘客授权，拿token
+    
+    public func taoKeLogin(call: FlutterMethodCall, result : @escaping FlutterResult){
+        let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
+        //            获取url
+        let url : String = getStringFromCall(key: "url", call: call);
+        
+        //            设置showParams
+        let showParams = AlibcTradeShowParams.init()
+        showParams.backUrl =  getStringFromCall(key: "backUrl", call: call)
+        showParams.isNeedPush = true
+        showParams.isNeedCustomNativeFailMode = getBoolFromCall(key: "isNeedCustomNativeFailMode", call: call)
+        //            设置openType
+        let tmpType : Int = (getNumberFromCall(key: "openType", call: call)).intValue;
+        showParams.openType = self.openType(mode: tmpType)
+        //            降级处理措施
+        let failMode : Int = (getNumberFromCall(key: "nativeFailMode", call: call)).intValue;
+        showParams.nativeFailMode =  NativeFailMode(mode: failMode)
+        
+        //            设置打开app
+        let tmpSchemeType : Int = (getNumberFromCall(key: "schemeType", call: call)).intValue;
+        showParams.linkKey = schemeType(mode: tmpSchemeType)
+        //            设置taokeParams
+        let taokeParam = getTaokeParams(call: call) ?? nil
+        
+        
+        //            新建一个controller去承载
+        let wkvc = AlibcWkWebView()
+//        wkvc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+
+        let res : NSInteger = AlibcTradeSDK.sharedInstance().tradeService().open(byUrl: url, identity: "trade", webView: wkvc.webview, parentController: rootViewController, showParams: showParams, taoKeParams: taokeParam, trackParam: nil) { result in
+            
+        } tradeProcessFailedCallback: { error in
+            
+        }
+        //        判断
+        if res == 1 {
+            let nav = UINavigationController.init(rootViewController: wkvc)
+            nav.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+            rootViewController.present(nav, animated: false) {
+                
+            };
+        }
+        
+    }
+    //        MARK: 淘客登录
+    //        public func taoKeLogin1(call : FlutterMethodCall , result : @escaping FlutterResult){
+    ////                    ALiTradeWebViewController* webviewVC = [[ALiTradeWebViewController alloc] init];
+    //
+    //                       NSInteger res = [[AlibcTradeSDK sharedInstance].tradeService
+    //                        openByUrl:url
+    //                        identity:@"trade"
+    //                        webView:webviewVC.webView
+    //                        parentController:rootViewController
+    //                        showParams:showParam
+    //                        taoKeParams:taokeParam
+    //                        trackParam:trackParam tradeProcessSuccessCallback:^(AlibcTradeResult * _Nullable alibcTradeResult) {
+    //                       } tradeProcessFailedCallback:^(NSError * _Nullable error) {
+    //                       }];
+    //
+    //                       if (res == 1) {
+    //                           //        新建一个view
+    //                           FlutterWxViewCtrlViewController *WxVC = [[FlutterWxViewCtrlViewController alloc] init];
+    //                           WxVC.vc = webviewVC;
+    //                           UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:WxVC];
+    //                           [rootViewController presentViewController:nav animated:NO completion:^{
+    //
+    //                           }];
+    //                       }
+    //        }
+    //
     
     //    MARK: 通过url打开，包括h5唤起手机淘宝等
     public func openByUrl(call : FlutterMethodCall , result : @escaping FlutterResult){
@@ -306,6 +318,18 @@ class FlutterAlibcHandle: NSObject {
         
     }
     private func isNil(){
+        
+    }
+    
+    
+    private func openPageByNewWay(url:String,showParams:AlibcTradeShowParams,taoKeParams:AlibcTradeTaokeParams,
+                                  trackParam:[AnyHashable:Any]?){
+        let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
+        AlibcTradeSDK.sharedInstance().tradeService().open(byUrl: url, identity: "trade", webView: nil, parentController: rootViewController, showParams: showParams, taoKeParams: taoKeParams, trackParam: trackParam) { tradeProcessResult in
+            
+        } tradeProcessFailedCallback: { error in
+            
+        }
         
     }
 }

@@ -1,20 +1,20 @@
 PODS:
-  - AliAuthSDK (1.1.0.42-bc)
+  - AliAuthSDK (1.1.0.41-bc)
   - AlibcTradeSDK (4.0.1.15)
   - AliLinkPartnerSDK (4.0.0.24)
   - BCUserTrack (5.2.0.18-appkeys):
     - UTDID
   - Flutter (1.0.0)
   - flutter_alibc (0.0.1):
-    - AliAuthSDK (~> 1.1.0.41-bc)
-    - AlibcTradeSDK (~> 4.0.1.6)
-    - AliLinkPartnerSDK (~> 4.0.0.24)
-    - BCUserTrack (~> 5.2.0.18-appkeys)
+    - AliAuthSDK (= 1.1.0.41-bc)
+    - AlibcTradeSDK (= 4.0.1.15)
+    - AliLinkPartnerSDK (= 4.0.0.24)
+    - BCUserTrack (= 5.2.0.18-appkeys)
     - Flutter
-    - mtopSDK (~> 3.0.0.3-BC)
-    - securityGuard (~> 5.4.191)
-    - UTDID (~> 1.5.0.91)
-    - WindVane (~> 8.5.0.46-bc11)
+    - mtopSDK (= 3.0.0.5)
+    - securityGuard (= 5.4.191)
+    - UTDID (= 1.5.0.91)
+    - WindVane (= 8.5.0.46-bc11)
   - mtopSDK (3.0.0.5)
   - securityGuard (5.4.191)
   - UTDID (1.5.0.91)
@@ -48,12 +48,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_alibc/ios"
 
 SPEC CHECKSUMS:
-  AliAuthSDK: bd7edf5417c316b125f633a0504886e3e66c69af
+  AliAuthSDK: 7018e8f3c8be3382e60f69d3b517c7de34c351e0
   AlibcTradeSDK: c7316224913498ea3d447386849cf0abf9e53fe6
   AliLinkPartnerSDK: c5778cdfdcee7bfe342238d39a77766184d36a46
   BCUserTrack: 49251c6fb7c65cbbc221a492bbd3f3e142f1fb0f
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  flutter_alibc: cc9ebbff4193cf6ad5784755c0940213897e6311
+  flutter_alibc: 41b70776ad73e2dc99294b43967320755253dd17
   mtopSDK: 9458d64bb4143a4e3e057552526ed82536827879
   securityGuard: 9c04c44a3b663f36e15064042abfc107fa07133c
   UTDID: 7860884a89209c8f1306740ff22cf117d72b6d8a
