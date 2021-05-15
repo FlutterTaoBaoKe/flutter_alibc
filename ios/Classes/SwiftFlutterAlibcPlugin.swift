@@ -7,12 +7,10 @@ public class SwiftFlutterAlibcPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "flutter_alibc", binaryMessenger: registrar.messenger())
     let instance = SwiftFlutterAlibcPlugin()
-    instance.alibchandler = FlutterAlibcHandle()
+    instance.alibchandler = FlutterAlibcHandle(channel: channel)
+    
     registrar.addMethodCallDelegate(instance, channel: channel)
     registrar.addApplicationDelegate(instance)
-    let controller : FlutterViewController = UIApplication.shared.windows.last?.rootViewController as! FlutterViewController
-    let eventChannel : FlutterEventChannel = FlutterEventChannel(name: "flutter_alibc_event", binaryMessenger: controller.binaryMessenger)
-    //  eventChannel.setStreamHandler(<#T##handler: (FlutterStreamHandler & NSObjectProtocol)?##(FlutterStreamHandler & NSObjectProtocol)?#>)
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

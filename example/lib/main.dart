@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
             TextButton(
               child: Text("登录淘宝"),
               onPressed: () async {
-                var result = FlutterAlibc.loginTaoBao(loginCallback: (result) {
+                FlutterAlibc.loginTaoBao(loginCallback: (result) {
                   print(
                       "登录淘宝  ${result.data.nick} ${result.data.topAccessToken}");
                 });

@@ -8,11 +8,15 @@
 import Foundation
 import WebKit
 
+protocol AlibcWkWebViewDelegate : NSObject {
+    func noticeToken(result:String)
+}
+
 class AlibcWkWebView: UIViewController{
     
     var openUrl:String?
     var webview : WKWebView!
-    
+    var delegate: AlibcWkWebViewDelegate?
     init() {
         super.init(nibName: nil, bundle: nil)
         WVURLProtocolService.setSupportWKURLProtocol(true)
@@ -78,6 +82,7 @@ extension AlibcWkWebView : WKNavigationDelegate{
 //            拿到token了，该关闭当前页面了
             self.navigationController?.dismiss(animated: true, completion: {
 //                回调回去
+                self.delegate?.noticeToken(result: access_token_string)
             })
         }
     }
