@@ -16,6 +16,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
 
+  List<String> Function() commands;
+
+  List<String> test() {
+    return List.generate(2, (i) => '$i');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -50,8 +56,8 @@ class _MyAppState extends State<MyApp> {
 
     try {
       // var waite3s = await FlutterAlibc.openItemDetail(itemID: "12345");
-      var result = await FlutterAlibc.initAlibc();
-      print(result);
+      //var result = await FlutterAlibc.initAlibc();
+      //print(result);
     } on Exception {}
   }
 
