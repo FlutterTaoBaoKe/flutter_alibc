@@ -66,21 +66,22 @@ class WebViewActivity : Activity() {
         }
         val trackParams: Map<String, String> = HashMap()
         val client: WebViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 return false
             }
 
-            override fun onPageStarted(view: WebView, url: String, favicon: Bitmap) {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 Log.e("", "onPageStarted url : $url")
                 super.onPageStarted(view, url, favicon)
-                if (url.contains("access_token=") && url.contains("oauth.taobao.com")) {
+
+                if (url?.contains("access_token=") == true && url.contains("oauth.taobao.com")) {
                     val accessToken: String = getURLParam("access_token", url)
                     Log.e("", "onPageStarted accessToken $accessToken")
                     callBack?.success(accessToken)
                     callBack = null
                     finish()
                 }
-                if (url.contains("code=")) {
+                if (url?.contains("code=") == true) {
                     val code: String = getURLParam("code", url)
                     Log.e("", "onPageStarted code $code")
                     callBack?.success(code)
@@ -89,12 +90,12 @@ class WebViewActivity : Activity() {
                 }
             }
 
-            override fun onPageFinished(view: WebView, url: String) {
+            override fun onPageFinished(view: WebView?, url: String?) {
                 Log.e("", "onPageFinished url : $url")
                 super.onPageFinished(view, url)
             }
 
-            override fun onLoadResource(view: WebView, url: String) {
+            override fun onLoadResource(view: WebView?, url: String?) {
                 super.onLoadResource(view, url)
             }
         }

@@ -108,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                     nativeFailMode:
                         AlibcNativeFailMode.AlibcNativeFailModeJumpH5,
                     taokeCallback: (map) {
-                      print('taokeCallback ' + json.encode(map));
+                      print('淘客登录 ' + json.encode(map));
                     });
                 // print("access token ${result["accessToken"]}");
               },
@@ -123,7 +123,7 @@ class _MyAppState extends State<MyApp> {
                     openType: AlibcOpenType.AlibcOpenTypeNative,
                     isNeedCustomNativeFailMode: true,
                     taokeCallback: (map) {
-                      print('taokeCallback ' + json.encode(map));
+                      print('淘客登录 ' + json.encode(map));
                     },
                     nativeFailMode:
                         AlibcNativeFailMode.AlibcNativeFailModeJumpH5);

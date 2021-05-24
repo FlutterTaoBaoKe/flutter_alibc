@@ -23,7 +23,7 @@ class FlutterAlibcPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     Log.e("FlutterAlibcPlugin", "onAttachedToEngine ")
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_alibc")
     channel!!.setMethodCallHandler(this)
-    handle = FlutterAlibcHandle(flutterPluginBinding.applicationContext, channel)
+    handle = FlutterAlibcHandle(channel)
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
@@ -34,7 +34,7 @@ class FlutterAlibcPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     } else if (call.method == "openItemDetail") {
       handle?.openItemDetail(call, result)
     } else if (call.method == "loginTaoBao") {
-      handle?.loginTaoBao(result)
+      handle?.loginTaoBao()
     } else if (call.method == "taoKeLogin") {
       handle?.taoKeLogin(call)
     } else if (call.method == "taoKeLoginForCode") {

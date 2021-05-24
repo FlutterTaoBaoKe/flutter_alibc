@@ -25,10 +25,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import java.util.*
 
-class FlutterAlibcHandle(var context: Context?, var methodChannel: MethodChannel?){
+class FlutterAlibcHandle(var methodChannel: MethodChannel?){
     var activity:Activity? = null
     fun disposed(){
-        this.context = null
         this.methodChannel = null
         this.activity = null
     }
@@ -54,7 +53,7 @@ class FlutterAlibcHandle(var context: Context?, var methodChannel: MethodChannel
      * 登陆淘宝
      * @param result
      */
-    fun loginTaoBao(result: MethodChannel.Result){
+    fun loginTaoBao(){
         val alibcLogin = AlibcLogin.getInstance()
         if(alibcLogin.isLogin){
             val session = alibcLogin.session
@@ -65,7 +64,7 @@ class FlutterAlibcHandle(var context: Context?, var methodChannel: MethodChannel
             userInfo["openSid"] = session.openSid
             userInfo["topAccessToken"] = session.topAccessToken
             userInfo["topAuthCode"] = session.topAuthCode
-            result.success(PluginResponse.success(userInfo).toMap())
+            methodChannel!!.invokeMethod("AlibcTaobaoLogin", PluginResponse.success(userInfo).toMap())
             return
         }
         alibcLogin.showLogin(object : AlibcLoginCallback {
@@ -78,12 +77,13 @@ class FlutterAlibcHandle(var context: Context?, var methodChannel: MethodChannel
                 userInfo["openSid"] = session.openSid
                 userInfo["topAccessToken"] = session.topAccessToken
                 userInfo["topAuthCode"] = session.topAuthCode
-                result.success(PluginResponse.success(userInfo).toMap())
+                methodChannel!!.invokeMethod("AlibcTaobaoLogin", PluginResponse.success(userInfo).toMap())
+
             }
 
             override fun onFailure(code: Int, msg: String?) {
                 // code：错误码  msg： 错误信息
-                result.success(PluginResponse(code.toString(), msg, null).toMap())
+                methodChannel!!.invokeMethod("AlibcTaobaoLogin", PluginResponse(code.toString(), msg, null).toMap())
             }
         })
     }
@@ -127,10 +127,11 @@ class FlutterAlibcHandle(var context: Context?, var methodChannel: MethodChannel
                 methodChannel!!.invokeMethod("AlibcTaokeLogin", resMap)
             }
         }
-        val intent = Intent(context, WebViewActivity::class.java)
+        val intent = Intent(activity!!, WebViewActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.putExtra("url", url)
         intent.putExtra("arguments", map)
-        context!!.startActivity(intent)
+        activity!!.startActivity(intent)
     }
 
     /**
@@ -155,10 +156,11 @@ class FlutterAlibcHandle(var context: Context?, var methodChannel: MethodChannel
                 methodChannel!!.invokeMethod("AlibcTaokeLoginForCode", resMap)
             }
         }
-        val intent = Intent(context, WebViewActivity::class.java)
+        val intent = Intent(activity!!, WebViewActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.putExtra("url", url)
         intent.putExtra("arguments", map)
-        context!!.startActivity(intent)
+        activity!!.startActivity(intent)
     }
 
     /**

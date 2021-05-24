@@ -5,34 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52fa163a-f3f2-4c0e-9772-59fc0bee0a1f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/FlutterAlibcHandle.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/PluginConstants.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/PluginResponse.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/PluginUtil.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/web/WebViewActivity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/src/main/res/layout/webview_activity.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/android/app/release.keystore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/android/app/src/main/res/drawable/yw_1222_baic.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper/build-receipt.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper/gradle-cli-classpath.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper/gradle-wrapper-classpath.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/android/app/src/main/res/drawable/yw_1222_baichuan.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/FlutterAlibcHandle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/FlutterAlibcHandle.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/FlutterAlibcPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/FlutterAlibcPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/web/WebViewActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/web/WebViewActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/flutter_alibc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/flutter_alibc.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,17 +34,17 @@
     <property name="dart.analysis.tool.window.force.activate" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/example/android" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/example/android/app/src/main/res/drawable" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/example/android/app/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/example/android" />
+      <recent name="$PROJECT_DIR$/example/lib" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/example/android/app" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/example/android" />
-      <recent name="$PROJECT_DIR$/example/android/app/src/main/res/drawable" />
-      <recent name="$PROJECT_DIR$/example/lib" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -94,30 +78,38 @@
       <screen x="0" y="25" width="1440" height="805" />
     </state>
     <state x="409" y="204" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.25.1440.805@0.25.1440.805" timestamp="1621590646159" />
+    <state width="552" height="466" key="DebuggerActiveHint" timestamp="1621840632701">
+      <screen x="0" y="25" width="1440" height="805" />
+    </state>
+    <state width="552" height="466" key="DebuggerActiveHint/0.25.1440.805@0.25.1440.805" timestamp="1621840632701" />
     <state x="200" y="186" width="1240" height="511" key="DiffContextDialog" timestamp="1621836655215">
       <screen x="0" y="25" width="1440" height="805" />
     </state>
     <state x="200" y="186" width="1240" height="511" key="DiffContextDialog/0.25.1440.805@0.25.1440.805" timestamp="1621836655215" />
-    <state width="1398" height="172" key="GridCell.Tab.0.bottom" timestamp="1621823273508">
+    <state width="1398" height="305" key="GridCell.Tab.0.bottom" timestamp="1621840730427">
       <screen x="0" y="25" width="1440" height="805" />
     </state>
-    <state width="1398" height="172" key="GridCell.Tab.0.bottom/0.25.1440.805@0.25.1440.805" timestamp="1621823273508" />
-    <state width="1398" height="172" key="GridCell.Tab.0.center" timestamp="1621823273507">
+    <state width="1398" height="305" key="GridCell.Tab.0.bottom/0.25.1440.805@0.25.1440.805" timestamp="1621840730427" />
+    <state width="1398" height="305" key="GridCell.Tab.0.center" timestamp="1621840730426">
       <screen x="0" y="25" width="1440" height="805" />
     </state>
-    <state width="1398" height="172" key="GridCell.Tab.0.center/0.25.1440.805@0.25.1440.805" timestamp="1621823273507" />
-    <state width="1398" height="172" key="GridCell.Tab.0.left" timestamp="1621823273506">
+    <state width="1398" height="305" key="GridCell.Tab.0.center/0.25.1440.805@0.25.1440.805" timestamp="1621840730426" />
+    <state width="1398" height="305" key="GridCell.Tab.0.left" timestamp="1621840730425">
       <screen x="0" y="25" width="1440" height="805" />
     </state>
-    <state width="1398" height="172" key="GridCell.Tab.0.left/0.25.1440.805@0.25.1440.805" timestamp="1621823273506" />
-    <state width="1398" height="172" key="GridCell.Tab.0.right" timestamp="1621823273507">
+    <state width="1398" height="305" key="GridCell.Tab.0.left/0.25.1440.805@0.25.1440.805" timestamp="1621840730425" />
+    <state width="1398" height="305" key="GridCell.Tab.0.right" timestamp="1621840730427">
       <screen x="0" y="25" width="1440" height="805" />
     </state>
-    <state width="1398" height="172" key="GridCell.Tab.0.right/0.25.1440.805@0.25.1440.805" timestamp="1621823273507" />
+    <state width="1398" height="305" key="GridCell.Tab.0.right/0.25.1440.805@0.25.1440.805" timestamp="1621840730427" />
     <state x="200" y="186" width="1240" height="511" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1621836655215">
       <screen x="0" y="25" width="1440" height="805" />
     </state>
     <state x="200" y="186" width="1240" height="511" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.25.1440.805@0.25.1440.805" timestamp="1621836655215" />
+    <state x="200" y="186" width="1240" height="511" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1621837603839">
+      <screen x="0" y="25" width="1440" height="805" />
+    </state>
+    <state x="200" y="186" width="1240" height="511" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.25.1440.805@0.25.1440.805" timestamp="1621837603839" />
     <state x="245" y="147" key="new project wizard" timestamp="1621591142484">
       <screen x="0" y="25" width="1440" height="805" />
     </state>
@@ -130,6 +122,21 @@
           <url>file://$PROJECT_DIR$/android/build.gradle</url>
           <line>34</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/flutter_alibc.dart</url>
+          <line>164</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/flutter_alibc.dart</url>
+          <line>167</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/flutter_alibc.dart</url>
+          <line>140</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

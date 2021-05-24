@@ -130,7 +130,14 @@ class FlutterAlibc {
 
   static Future<dynamic> _platformCallHandler(MethodCall call) async {
     var argu = call.arguments;
+    print(
+        'call.name ${call.method}  call.arguments ${call.arguments.toString()}');
     CallBackType type = enumFromString(CallBackType.values, call.method);
+    print(argu.runtimeType.toString());
+    var temp = Map<String, dynamic>();
+    (argu as Map).forEach((key, value) {
+      temp['$key'] = value;
+    });
     switch (type) {
       case CallBackType.AlibcTaobaoLogin:
         argu = LoginModel(
@@ -144,18 +151,22 @@ class FlutterAlibc {
                 argu[AlibcConstKey.data]["topAuthCode"]));
         break;
       case CallBackType.AlibcTaokeLogin:
-        //暂时不转换类型
+        //暂时不转换类
+        argu = temp;
         break;
       case CallBackType.AlibcTaokeLoginForCode:
         //暂时不转换类型
+        argu = temp;
         break;
       default:
         print("unsupport method handler");
         return;
     }
     Function f = _callBackMaps[type];
-    f?.call(argu);
-    _callBackMaps[type] = null;
+    if (f != null) {
+      f(argu);
+      _callBackMaps[type] = null;
+    }
   }
 
   ///
