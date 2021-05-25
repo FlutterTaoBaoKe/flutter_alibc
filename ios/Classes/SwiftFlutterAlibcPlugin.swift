@@ -23,8 +23,12 @@ public class SwiftFlutterAlibcPlugin: NSObject, FlutterPlugin {
         alibchandler?.loginTaoBao(call: call, result: result)
     } else if call.method == "taoKeLogin" {
         alibchandler?.taoKeLogin(call: call, result: result)
-    }else if call.method == "loginOut" {
+    } else if call.method == "loginOut" {
         alibchandler?.loginOut(call: call, result: result)
+    } else if call.method == "taoKeLoginForCode" {
+        alibchandler?.taoKeLogin(call: call, result: result)
+    } else if call.method == "openByUrl" {
+        alibchandler?.openByUrl(call: call, result: result)
     }
   }
 

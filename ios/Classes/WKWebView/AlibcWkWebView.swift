@@ -10,6 +10,7 @@ import WebKit
 
 protocol AlibcWkWebViewDelegate : NSObject {
     func noticeToken(result:String)
+    func noticeCode(result:String)
 }
 
 class AlibcWkWebView: UIViewController{
@@ -25,7 +26,7 @@ class AlibcWkWebView: UIViewController{
         self.webview.scrollView.isScrollEnabled = true;
         self.webview.navigationDelegate = self
         //        webview.addObserver(self, forKeyPath: "URL", optionsNSKeyValueObservingOptions.new, context: nil)
-//        self.webview.backgroundColor = UIColor.red
+        //        self.webview.backgroundColor = UIColor.red
         self.view.addSubview(webview)
     }
     
@@ -68,10 +69,12 @@ extension AlibcWkWebView : WKNavigationDelegate{
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print(webview.url?.absoluteString as Any)
-        //        判断是否存在accesstoken
+        //        判断是否存在accesstoken或者code
         let urlStr = webview.url?.absoluteString
         var range: NSRange
+        var rangeCode : NSRange
         range = (urlStr! as NSString).range(of: "access_token")
+        rangeCode = (urlStr! as NSString).range(of: "code=")
         if range.location != NSNotFound {
             let accessString = (urlStr! as NSString).substring(from: range.location)
             //        截止到&
@@ -79,10 +82,18 @@ extension AlibcWkWebView : WKNavigationDelegate{
             
             let access_token_string = (accessString as NSString).substring(with: NSRange(location: 0, length: range2.location))
             print(access_token_string)
-//            拿到token了，该关闭当前页面了
+            //            拿到token了，该关闭当前页面了
             self.navigationController?.dismiss(animated: true, completion: {
-//                回调回去
+                //                回调回去
                 self.delegate?.noticeToken(result: access_token_string)
+            })
+        }else if rangeCode.location != NSNotFound {
+            let codeString = (urlStr! as NSString).substring(from: rangeCode.location)
+            print(codeString)
+            //            拿到token了，该关闭当前页面了
+            self.navigationController?.dismiss(animated: true, completion: {
+                //                回调回去
+                self.delegate?.noticeCode(result: codeString)
             })
         }
     }

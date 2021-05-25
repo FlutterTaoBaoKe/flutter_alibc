@@ -19,6 +19,17 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
         ])
     }
     
+    func noticeCode(result: String) {
+        let array : Array = result.components(separatedBy: "=")
+        let code : String = array[1]
+        channel?.invokeMethod("AlibcTaokeLoginForCode", arguments: [
+            FlutterAlibcConstKey.ErrorCode : "0",
+                    FlutterAlibcConstKey.ErrorMessage:"success",
+                    FlutterAlibcConstKey.Data :[
+                        "code":code]
+        ])
+    }
+    
     var channel : FlutterMethodChannel? = nil;
     
     init(channel:FlutterMethodChannel) {
@@ -153,33 +164,30 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
     
     //    MARK: 通过url打开，包括h5唤起手机淘宝等
     public func openByUrl(call : FlutterMethodCall , result : @escaping FlutterResult){
-        let type1 : Int = (getNumberFromCall(key: "openType", call: call)).intValue;
-        let openType : AlibcOpenType = self.openType(mode: type1)
-        let isNeedCustomNativeFailMode : Bool = getBoolFromCall(key: "isNeedCustomNativeFailMode", call: call)
-        //    不用push了，没有nav，默认都present
-        //    BOOL isNeedPush = [call.arguments[@"isNeedPush"] boolValue];
-        let isNeedPush : Bool = true;
-        let failMode : Int = (getNumberFromCall(key: "nativeFailMode", call: call)).intValue;
-        let nativeFailMode : AlibcNativeFailMode = NativeFailMode(mode: failMode)
-        let schemeType1 : Int = (getNumberFromCall(key: "schemeType", call: call)).intValue;
-        let linkKey : String = schemeType(mode: schemeType1)
-        let url : String = getStringFromCall(key: "url", call: call);
-        let taokeParam : AlibcTradeTaokeParams = getTaokeParams(call: call)!
-        let trackParam : Dictionary<String,Any> = getDicFromCall(key: "trackParam", call: call)!
-        let backUrl : String = getStringFromCall(key: "backUrl", call: call)
-        
-        
         let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
-        let showParam : AlibcTradeShowParams = AlibcTradeShowParams.init()
-        showParam.openType = openType
-        showParam.isNeedCustomNativeFailMode = isNeedCustomNativeFailMode
-        showParam.isNeedPush = isNeedPush
-        showParam.nativeFailMode = nativeFailMode
-        //        showParam.nativeFailMode = nativeFailMode
-        showParam.linkKey = linkKey
-        showParam.backUrl = backUrl
+        //            获取url
+        let url : String = getStringFromCall(key: "url", call: call);
+        let showParams = AlibcTradeShowParams.init()
+        showParams.backUrl =  getStringFromCall(key: "backUrl", call: call)
+        showParams.isNeedPush = true
+        showParams.isNeedCustomNativeFailMode = getBoolFromCall(key: "isNeedCustomNativeFailMode", call: call)
+        //            设置openType
+        let tmpType : Int = (getNumberFromCall(key: "openType", call: call)).intValue;
+        showParams.openType = self.openType(mode: tmpType)
+        //            降级处理措施
+        let failMode : Int = (getNumberFromCall(key: "nativeFailMode", call: call)).intValue;
+        showParams.nativeFailMode =  NativeFailMode(mode: failMode)
         
-        AlibcTradeSDK.sharedInstance()?.tradeService()?.open(byUrl: url, identity: "trade", webView: nil, parentController: rootViewController, showParams: showParam, taoKeParams: taokeParam, trackParam: trackParam, tradeProcessSuccessCallback: { (alibcTradeResult) in
+        //            设置打开app
+        let tmpSchemeType : Int = (getNumberFromCall(key: "schemeType", call: call)).intValue;
+        showParams.linkKey = schemeType(mode: tmpSchemeType)
+        //            设置taokeParams
+        let taokeParam = getTaokeParams(call: call) ?? nil
+        
+        let trackParam : Dictionary<String,Any>? = getDicFromCall(key: "trackParam", call: call) ?? nil
+//        let backUrl : String = getStringFromCall(key: "backUrl", call: call)
+        
+        AlibcTradeSDK.sharedInstance().tradeService()?.open(byUrl: url, identity: "trade", webView: nil, parentController: rootViewController, showParams: showParams, taoKeParams: taokeParam, trackParam: trackParam, tradeProcessSuccessCallback: { alibcTradeResult in
             //             交易成功，判断是付款成功还是加入购物车
             if alibcTradeResult?.result == AlibcTradeResultType.paySuccess {
                 //                付款成功
@@ -202,12 +210,38 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
                     ]
                 ]);
             }
-        }, tradeProcessFailedCallback: { (error) in
+        }, tradeProcessFailedCallback: { error in
             let dic = [FlutterAlibcConstKey.ErrorCode :String((error! as NSError).code) ,FlutterAlibcConstKey.ErrorMessage:error?.localizedDescription] as! Dictionary<String,String>
             result(dic);
         })
     }
     
+    public func openItemDetail(call : FlutterMethodCall , result : @escaping FlutterResult){
+        let itemID : String = getStringFromCall(key: "itemID", call: call);
+        let page = AlibcTradePageFactory.itemDetailPage(itemID)
+        self.openPageByNewWay(page: page, bizcode: "detail", call: call, result: result)
+    }
+    
+    public func openShop(call : FlutterMethodCall , result : @escaping FlutterResult){
+        let shopId : String = getStringFromCall(key: "shopId", call: call);
+        let page = AlibcTradePageFactory.itemDetailPage(shopId)
+        self.openPageByNewWay(page: page, bizcode: "shop", call: call, result: result)
+    }
+    
+    public func openCart(call : FlutterMethodCall , result : @escaping FlutterResult){
+        let page = AlibcTradePageFactory.myCartsPage()
+        self.openPageByNewWay(page: page, bizcode: "cart", call: call, result: result)
+    }
+    
+    public func syncForTaoke(call : FlutterMethodCall , result : @escaping FlutterResult){
+        let isSync = getBoolFromCall(key: "isSync", call: call)
+        AlibcTradeSDK.sharedInstance().setIsSyncForTaoke(isSync)
+    }
+    // 注意，新版本已经移除zfb，谨慎使用
+    public func useAlipayNative(call : FlutterMethodCall , result : @escaping FlutterResult){
+        let isNeed = getBoolFromCall(key: "isNeed", call: call)
+        AlibcTradeSDK.sharedInstance().setShouldUseAlizfNative(isNeed)
+    }
     
     //    MARK: - 私有方法
     //    MARK: - 转换
@@ -316,15 +350,84 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
         
     }
     
-    
-    private func openPageByNewWay(url:String,showParams:AlibcTradeShowParams,taoKeParams:AlibcTradeTaokeParams,
-                                  trackParam:[AnyHashable:Any]?){
+    //     MARK: - 不对flutter暴露
+    //     MARK: 打开page
+    private func openPageByNewWay(page:AlibcTradePage, bizcode:String, call : FlutterMethodCall , result : @escaping FlutterResult){
         let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
-        AlibcTradeSDK.sharedInstance().tradeService().open(byUrl: url, identity: "trade", webView: nil, parentController: rootViewController, showParams: showParams, taoKeParams: taoKeParams, trackParam: trackParam) { tradeProcessResult in
-            
+
+        let showParams = AlibcTradeShowParams.init()
+        showParams.backUrl =  getStringFromCall(key: "backUrl", call: call)
+        showParams.isNeedPush = true
+        showParams.isNeedCustomNativeFailMode = getBoolFromCall(key: "isNeedCustomNativeFailMode", call: call)
+        //            设置openType
+        let tmpType : Int = (getNumberFromCall(key: "openType", call: call)).intValue;
+        showParams.openType = self.openType(mode: tmpType)
+        //            降级处理措施
+        let failMode : Int = (getNumberFromCall(key: "nativeFailMode", call: call)).intValue;
+        showParams.nativeFailMode =  NativeFailMode(mode: failMode)
+        
+        //            设置打开app
+        let tmpSchemeType : Int = (getNumberFromCall(key: "schemeType", call: call)).intValue;
+        showParams.linkKey = schemeType(mode: tmpSchemeType)
+        //            设置taokeParams
+        let taokeParam = getTaokeParams(call: call) ?? nil
+        
+        let trackParam : Dictionary<String,Any>? = getDicFromCall(key: "trackParam", call: call) ?? nil
+        
+        AlibcTradeSDK.sharedInstance().tradeService().open(byBizCode: bizcode, page: page, webView: nil, parentController: rootViewController, showParams: showParams, taoKeParams: taokeParam, trackParam: trackParam) { alibcTradeResult in
+            //             交易成功，判断是付款成功还是加入购物车
+            if alibcTradeResult?.result == AlibcTradeResultType.paySuccess {
+                //                付款成功
+                result([
+                    FlutterAlibcConstKey.ErrorCode:"0",
+                    FlutterAlibcConstKey.ErrorMessage:"付款成功",
+                    FlutterAlibcConstKey.Data:[
+                        "type":0,
+                        "paySuccessOrders":alibcTradeResult?.payResult?.paySuccessOrders as Any,
+                        "payFailedOrders":alibcTradeResult?.payResult?.payFailedOrders as Any,
+                    ]
+                ]);
+            }else if alibcTradeResult?.result == AlibcTradeResultType.addCard {
+                //                加入购物车
+                result([
+                    FlutterAlibcConstKey.ErrorCode:"0",
+                    FlutterAlibcConstKey.ErrorMessage:"加入购物车成功",
+                    FlutterAlibcConstKey.Data:[
+                        "type":1,
+                    ]
+                ]);
+            }
         } tradeProcessFailedCallback: { error in
-            
+            //            退出交易流程
+            //            Android没有orderIdList，所以去掉
+            let dic = [FlutterAlibcConstKey.ErrorCode :String((error! as NSError).code) ,FlutterAlibcConstKey.ErrorMessage:error?.localizedDescription] as! Dictionary<String,String>
+            result(dic);
         }
+
         
     }
 }
+
+
+/**
+ 可设置的参数
+ 1.是否同步淘客打点
+ 2.是否使用Native支付宝
+ 3.是否使用淘客参数（是，需要设置如下参数）
+ adzoneId
+ pid
+ //有adzoneId则pid失效
+ unionId
+ subPid
+ extParams{
+ sellerId
+ taokeAppkey
+ }
+ 4.页面打开方式
+ 是否唤端 Auto/Native
+ 唤起目标应用 淘宝/天猫
+ 是否以push的方式打开页面
+ 是否绑定webview
+ 是否自定义唤端失败策略（若是：H5，DownLoad，None）
+ 5.跟踪参数 customParams自定义
+ */
