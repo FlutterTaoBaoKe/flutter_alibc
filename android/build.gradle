@@ -6,10 +6,14 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven {
+            url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
+        }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:3.4.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -18,6 +22,10 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven {
+            url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
+        }
     }
 }
 
@@ -25,7 +33,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 28
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -33,8 +41,37 @@ android {
     defaultConfig {
         minSdkVersion 16
     }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.alibaba:fastjson:1.2.52'
+    //security
+    implementation 'com.taobao.android:securityguardaar3:5.4.200@aar'
+    implementation 'com.taobao.android:securitybodyaar3:5.4.200@aar'
+    implementation 'com.taobao.android:avmpaar3:5.4.200@aar'
+    implementation 'com.taobao.android:sgmiddletieraar3:5.4.200@aar'
+
+    //mtop
+    implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.2.5@jar'
+
+    //appLink
+    implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.15@aar'
+
+    //core
+    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.16@aar'
+    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.16@aar'
+    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.16@aar'
+
+    //login
+    implementation 'com.ali.auth.sdk:alibabauth_core:2.0.0.11@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_ui:2.0.0.11@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_ext:2.0.0.11@aar'
+
+    //ut
+    implementation 'com.taobao.android:utdid4all:1.5.2'
+    implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4.5_for_bc'
 }
