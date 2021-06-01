@@ -9,25 +9,40 @@ import Foundation
 
 class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
     func noticeToken(result: String) {
-        let array : Array = result.components(separatedBy: "=")
-        let token:String = array[1]
-        channel?.invokeMethod("AlibcTaokeLogin", arguments: [
-            FlutterAlibcConstKey.ErrorCode : "0",
-                    FlutterAlibcConstKey.ErrorMessage:"success",
-                    FlutterAlibcConstKey.Data :[
-                        "accessToken":token]
-        ])
+        if result == "" {
+            channel?.invokeMethod(FlutterAlibcConstKey.CallBackString.AlibcTaokeLogin.rawValue, arguments: [
+                FlutterAlibcConstKey.ErrorCode : "-1",
+                FlutterAlibcConstKey.ErrorMessage:"取消授权",
+            ])
+        }else{
+            let array : Array = result.components(separatedBy: "=")
+            let token:String = array[1]
+            channel?.invokeMethod(FlutterAlibcConstKey.CallBackString.AlibcTaokeLogin.rawValue, arguments: [
+                FlutterAlibcConstKey.ErrorCode : "0",
+                FlutterAlibcConstKey.ErrorMessage:"success",
+                FlutterAlibcConstKey.Data :[
+                    "accessToken":token]
+            ])
+        }
+        
     }
     
     func noticeCode(result: String) {
-        let array : Array = result.components(separatedBy: "=")
-        let code : String = array[1]
-        channel?.invokeMethod("AlibcTaokeLoginForCode", arguments: [
-            FlutterAlibcConstKey.ErrorCode : "0",
-                    FlutterAlibcConstKey.ErrorMessage:"success",
-                    FlutterAlibcConstKey.Data :[
-                        "code":code]
-        ])
+        if result == "" {
+            channel?.invokeMethod(FlutterAlibcConstKey.CallBackString.AlibcTaokeLoginForCode.rawValue, arguments: [
+                FlutterAlibcConstKey.ErrorCode : "-1",
+                FlutterAlibcConstKey.ErrorMessage:"取消授权",
+            ])
+        }else{
+            let array : Array = result.components(separatedBy: "=")
+            let code : String = array[1]
+            channel?.invokeMethod(FlutterAlibcConstKey.CallBackString.AlibcTaokeLoginForCode.rawValue, arguments: [
+                FlutterAlibcConstKey.ErrorCode : "0",
+                FlutterAlibcConstKey.ErrorMessage:"success",
+                FlutterAlibcConstKey.Data :[
+                    "code":code]
+            ])
+        }
     }
     
     var channel : FlutterMethodChannel? = nil;
@@ -73,40 +88,40 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
             let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
             ALBBSDK.sharedInstance().auth(rootViewController) {
                 let userInfo : ALBBUser = ALBBCompatibleSession.sharedInstance().getUser()
-                self.channel?.invokeMethod("AlibcTaobaoLogin", arguments: [
+                self.channel?.invokeMethod(FlutterAlibcConstKey.CallBackString.AlibcTaobaoLogin.rawValue, arguments: [
                     FlutterAlibcConstKey.ErrorCode : "0",
-                            FlutterAlibcConstKey.ErrorMessage:"success",
-                            FlutterAlibcConstKey.Data :[
-                                //                        昵称
-                                "nick":userInfo.nick,
-                                //                        头像地址
-                                "avatarUrl":userInfo.avatarUrl,
-                                "openId":userInfo.openId,
-                                "openSid":userInfo.openSid,
-                                "topAccessToken":userInfo.topAccessToken,
-                                "topAuthCode":userInfo.topAuthCode,]
+                    FlutterAlibcConstKey.ErrorMessage:"success",
+                    FlutterAlibcConstKey.Data :[
+                        //                        昵称
+                        "nick":userInfo.nick,
+                        //                        头像地址
+                        "avatarUrl":userInfo.avatarUrl,
+                        "openId":userInfo.openId,
+                        "openSid":userInfo.openSid,
+                        "topAccessToken":userInfo.topAccessToken,
+                        "topAuthCode":userInfo.topAuthCode,]
                 ])
             } failureCallback: { error in
                 let dic = [FlutterAlibcConstKey.ErrorCode :String((error! as NSError).code) ,FlutterAlibcConstKey.ErrorMessage: String(error!.localizedDescription)]
                 result(dic);
-                self.channel?.invokeMethod("AlibcTaobaoLogin", arguments: [dic])
+                self.channel?.invokeMethod(FlutterAlibcConstKey.CallBackString.AlibcTaobaoLogin.rawValue, arguments: [dic])
             }
         }else{
             // 返回数据
             let userInfo : ALBBUser = ALBBCompatibleSession.sharedInstance().getUser()
             
-            channel?.invokeMethod("AlibcTaobaoLogin", arguments: [
+            channel?.invokeMethod(FlutterAlibcConstKey.CallBackString.AlibcTaobaoLogin.rawValue, arguments: [
                 FlutterAlibcConstKey.ErrorCode : "0",
-                        FlutterAlibcConstKey.ErrorMessage:"success",
-                        FlutterAlibcConstKey.Data :[
-                            //                        昵称
-                            "nick":userInfo.nick,
-                            //                        头像地址
-                            "avatarUrl":userInfo.avatarUrl,
-                            "openId":userInfo.openId,
-                            "openSid":userInfo.openSid,
-                            "topAccessToken":userInfo.topAccessToken,
-                            "topAuthCode":userInfo.topAuthCode,]
+                FlutterAlibcConstKey.ErrorMessage:"success",
+                FlutterAlibcConstKey.Data :[
+                    //                        昵称
+                    "nick":userInfo.nick,
+                    //                        头像地址
+                    "avatarUrl":userInfo.avatarUrl,
+                    "openId":userInfo.openId,
+                    "openSid":userInfo.openSid,
+                    "topAccessToken":userInfo.topAccessToken,
+                    "topAuthCode":userInfo.topAuthCode,]
             ])
         }
     }
@@ -118,7 +133,7 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
     
     //        MARK:  淘客授权，拿token
     
-    public func taoKeLogin(call: FlutterMethodCall, result : @escaping FlutterResult){
+    public func openByAsyncWebView(call: FlutterMethodCall, result : @escaping FlutterResult, callBackString: String){
         let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
         //            获取url
         let url : String = getStringFromCall(key: "url", call: call);
@@ -144,8 +159,14 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
         
         //            新建一个controller去承载
         let wkvc = AlibcWkWebView()
-//        wkvc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+        //        wkvc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
         wkvc.delegate = self
+        if callBackString == FlutterAlibcConstKey.CallBackString.AlibcTaokeLogin.rawValue {
+            wkvc.fuctionType = "token"
+        }else{
+            wkvc.fuctionType = "code"
+        }
+        
         let res : NSInteger = AlibcTradeSDK.sharedInstance().tradeService().open(byUrl: url, identity: "trade", webView: wkvc.webview, parentController: rootViewController, showParams: showParams, taoKeParams: taokeParam, trackParam: nil) { result in
             
         } tradeProcessFailedCallback: { error in
@@ -154,6 +175,15 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
         //        判断
         if res == 1 {
             let nav = UINavigationController.init(rootViewController: wkvc)
+            
+//            let doneBtn = UIButton(type: UIButton.ButtonType.system)
+//            doneBtn.setTitle("完成", for: UIControl.State.normal)
+//            doneBtn.addTarget(self, action: #selector(doneBtnAction), for: UIControl.Event.touchUpInside)
+            //            self.navigationItem.rightBarButtonItem =  UIBarButtonItem(customView: doneBtn)
+            
+//            nav.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView:doneBtn);
+            //            let item = UIBarButtonItem(title: "done", style: UIBarButtonItemStyle.Done, target: self, action: "done:");
+            //            self.navigationItem.leftBarButtonItem = item;
             nav.modalPresentationStyle = UIModalPresentationStyle.fullScreen
             rootViewController.present(nav, animated: false) {
                 
@@ -163,7 +193,7 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
     }
     
     //    MARK: 通过url打开，包括h5唤起手机淘宝等
-    public func openByUrl(call : FlutterMethodCall , result : @escaping FlutterResult){
+    public func openByUrl(call : FlutterMethodCall , result : @escaping FlutterResult, callBackString: String){
         let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
         //            获取url
         let url : String = getStringFromCall(key: "url", call: call);
@@ -185,13 +215,13 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
         let taokeParam = getTaokeParams(call: call) ?? nil
         
         let trackParam : Dictionary<String,Any>? = getDicFromCall(key: "trackParam", call: call) ?? nil
-//        let backUrl : String = getStringFromCall(key: "backUrl", call: call)
+        //        let backUrl : String = getStringFromCall(key: "backUrl", call: call)
         
         AlibcTradeSDK.sharedInstance().tradeService()?.open(byUrl: url, identity: "trade", webView: nil, parentController: rootViewController, showParams: showParams, taoKeParams: taokeParam, trackParam: trackParam, tradeProcessSuccessCallback: { alibcTradeResult in
             //             交易成功，判断是付款成功还是加入购物车
             if alibcTradeResult?.result == AlibcTradeResultType.paySuccess {
                 //                付款成功
-                result([
+                self.channel?.invokeMethod(callBackString, arguments: [
                     FlutterAlibcConstKey.ErrorCode:"0",
                     FlutterAlibcConstKey.ErrorMessage:"付款成功",
                     FlutterAlibcConstKey.Data:[
@@ -199,10 +229,10 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
                         "paySuccessOrders":alibcTradeResult?.payResult?.paySuccessOrders as Any,
                         "payFailedOrders":alibcTradeResult?.payResult?.payFailedOrders as Any,
                     ]
-                ]);
+                ])
             }else if alibcTradeResult?.result == AlibcTradeResultType.addCard {
                 //                加入购物车
-                result([
+                self.channel?.invokeMethod(callBackString, arguments: [
                     FlutterAlibcConstKey.ErrorCode:"0",
                     FlutterAlibcConstKey.ErrorMessage:"加入购物车成功",
                     FlutterAlibcConstKey.Data:[
@@ -212,25 +242,25 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
             }
         }, tradeProcessFailedCallback: { error in
             let dic = [FlutterAlibcConstKey.ErrorCode :String((error! as NSError).code) ,FlutterAlibcConstKey.ErrorMessage:error?.localizedDescription] as! Dictionary<String,String>
-            result(dic);
+            self.channel?.invokeMethod(callBackString, arguments: [dic]);
         })
     }
     
-    public func openItemDetail(call : FlutterMethodCall , result : @escaping FlutterResult){
+    public func openItemDetail(call : FlutterMethodCall , result : @escaping FlutterResult, callBackString: String){
         let itemID : String = getStringFromCall(key: "itemID", call: call);
         let page = AlibcTradePageFactory.itemDetailPage(itemID)
-        self.openPageByNewWay(page: page, bizcode: "detail", call: call, result: result)
+        self.openPageByNewWay(page: page, bizcode: "detail", call: call, result: result, callBackString: callBackString)
     }
     
-    public func openShop(call : FlutterMethodCall , result : @escaping FlutterResult){
+    public func openShop(call : FlutterMethodCall , result : @escaping FlutterResult, callBackString: String){
         let shopId : String = getStringFromCall(key: "shopId", call: call);
         let page = AlibcTradePageFactory.itemDetailPage(shopId)
-        self.openPageByNewWay(page: page, bizcode: "shop", call: call, result: result)
+        self.openPageByNewWay(page: page, bizcode: "shop", call: call, result: result, callBackString: callBackString)
     }
     
-    public func openCart(call : FlutterMethodCall , result : @escaping FlutterResult){
+    public func openCart(call : FlutterMethodCall , result : @escaping FlutterResult, callBackString: String){
         let page = AlibcTradePageFactory.myCartsPage()
-        self.openPageByNewWay(page: page, bizcode: "cart", call: call, result: result)
+        self.openPageByNewWay(page: page, bizcode: "cart", call: call, result: result, callBackString: callBackString)
     }
     
     public func syncForTaoke(call : FlutterMethodCall , result : @escaping FlutterResult){
@@ -352,9 +382,9 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
     
     //     MARK: - 不对flutter暴露
     //     MARK: 打开page
-    private func openPageByNewWay(page:AlibcTradePage, bizcode:String, call : FlutterMethodCall , result : @escaping FlutterResult){
+    private func openPageByNewWay(page:AlibcTradePage, bizcode:String, call : FlutterMethodCall , result : @escaping FlutterResult, callBackString: String){
         let rootViewController : UIViewController = UIApplication.shared.windows.last!.rootViewController!
-
+        
         let showParams = AlibcTradeShowParams.init()
         showParams.backUrl =  getStringFromCall(key: "backUrl", call: call)
         showParams.isNeedPush = true
@@ -378,7 +408,7 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
             //             交易成功，判断是付款成功还是加入购物车
             if alibcTradeResult?.result == AlibcTradeResultType.paySuccess {
                 //                付款成功
-                result([
+                self.channel?.invokeMethod(callBackString, arguments: [
                     FlutterAlibcConstKey.ErrorCode:"0",
                     FlutterAlibcConstKey.ErrorMessage:"付款成功",
                     FlutterAlibcConstKey.Data:[
@@ -389,7 +419,7 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
                 ]);
             }else if alibcTradeResult?.result == AlibcTradeResultType.addCard {
                 //                加入购物车
-                result([
+                self.channel?.invokeMethod(callBackString, arguments: [
                     FlutterAlibcConstKey.ErrorCode:"0",
                     FlutterAlibcConstKey.ErrorMessage:"加入购物车成功",
                     FlutterAlibcConstKey.Data:[
@@ -401,11 +431,12 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
             //            退出交易流程
             //            Android没有orderIdList，所以去掉
             let dic = [FlutterAlibcConstKey.ErrorCode :String((error! as NSError).code) ,FlutterAlibcConstKey.ErrorMessage:error?.localizedDescription] as! Dictionary<String,String>
-            result(dic);
+            self.channel?.invokeMethod(callBackString, arguments: [dic]);
         }
-
+        
         
     }
+
 }
 
 

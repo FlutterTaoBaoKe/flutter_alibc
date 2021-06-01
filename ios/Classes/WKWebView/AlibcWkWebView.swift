@@ -14,7 +14,8 @@ protocol AlibcWkWebViewDelegate : NSObject {
 }
 
 class AlibcWkWebView: UIViewController{
-    
+//    同步调用的目的，是token还是code
+    var fuctionType:String!
     var openUrl:String?
     var webview : WKWebView!
     var delegate: AlibcWkWebViewDelegate?
@@ -40,6 +41,13 @@ class AlibcWkWebView: UIViewController{
         //创建wkwebview
         
         self.title = "淘你喜欢"
+        let doneBtn = UIButton(type: UIButton.ButtonType.system)
+        doneBtn.setTitle("关闭", for: UIControl.State.normal)
+        doneBtn.addTarget(self, action: #selector(doneBtnAction), for: UIControl.Event.touchUpInside)
+        self.navigationItem.rightBarButtonItem =  UIBarButtonItem(customView: doneBtn)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView:doneBtn);
+        
         //        UIBarButtonItem.appearance().setTitlePositionAdjustment(UIOffset(horizontal: 0,vertical: -60), for: .default)
         //添加wkwebview
         
@@ -52,6 +60,19 @@ class AlibcWkWebView: UIViewController{
     //        print("url------------")
     //        print("处理")
     //    }
+    
+    @objc private func doneBtnAction (){
+        // 关闭
+        //            拿到token了，该关闭当前页面了
+        self.navigationController?.dismiss(animated: true, completion: {
+            //                回调回去
+            if self.fuctionType == "token" {
+                self.delegate?.noticeToken(result: "")
+            }else {
+                self.delegate?.noticeCode(result: "")
+            }
+        })
+    }
 }
 
 extension AlibcWkWebView : WKNavigationDelegate{

@@ -22,13 +22,23 @@ public class SwiftFlutterAlibcPlugin: NSObject, FlutterPlugin {
     } else if call.method == "loginTaoBao" {
         alibchandler?.loginTaoBao(call: call, result: result)
     } else if call.method == "taoKeLogin" {
-        alibchandler?.taoKeLogin(call: call, result: result)
+        alibchandler?.openByAsyncWebView(call: call, result: result, callBackString: FlutterAlibcConstKey.CallBackString.AlibcTaokeLogin.rawValue)
     } else if call.method == "loginOut" {
         alibchandler?.loginOut(call: call, result: result)
     } else if call.method == "taoKeLoginForCode" {
-        alibchandler?.taoKeLogin(call: call, result: result)
+        alibchandler?.openByAsyncWebView(call: call, result: result, callBackString: FlutterAlibcConstKey.CallBackString.AlibcTaokeLoginForCode.rawValue)
     } else if call.method == "openByUrl" {
-        alibchandler?.openByUrl(call: call, result: result)
+        alibchandler?.openByUrl(call: call, result: result, callBackString: FlutterAlibcConstKey.CallBackString.AlibcOpenURL.rawValue)
+    } else if call.method == "openItemDetail"{
+        alibchandler?.openItemDetail(call: call, result: result, callBackString: FlutterAlibcConstKey.CallBackString.AlibcOpenDetail.rawValue)
+    } else if call.method == "openShop"{
+        alibchandler?.openShop(call: call, result: result, callBackString: FlutterAlibcConstKey.CallBackString.AlibcOpenShop.rawValue)
+    } else if call.method == "openCart"{
+        alibchandler?.openCart(call: call, result: result, callBackString: FlutterAlibcConstKey.CallBackString.AlibcOpenCar.rawValue)
+    } else if call.method == "syncForTaoke"{
+        alibchandler?.syncForTaoke(call: call, result: result)
+    } else if call.method == "useAlipayNative"{
+        alibchandler?.useAlipayNative(call: call, result: result)
     }
   }
 
