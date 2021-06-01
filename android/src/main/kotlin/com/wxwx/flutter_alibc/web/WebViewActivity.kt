@@ -80,7 +80,7 @@ class WebViewActivity : Activity() {
                 Log.e("", "onPageStarted url : $url")
                 super.onPageStarted(view, url, favicon)
 
-                if (url?.contains("access_token=") == true && url.contains("oauth.taobao.com")) {
+                if (url?.contains("access_token=") == true && (url.contains("oauth.taobao.com") || url.contains("oauth.m.taobao.com"))) {
                     val accessToken: String = getURLParam("access_token", url)
                     Log.e("", "onPageStarted accessToken $accessToken")
                     callBack?.success(accessToken)
