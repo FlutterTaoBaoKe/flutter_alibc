@@ -1,7 +1,7 @@
 # flutter_alibc
 
 Flutter版本的阿里百川
-android V4.0.0.16版本
+android V4.0.0.8版本
 ios V4.0.1.6 版本
 
 pub地址：[flutter_alibc](https://pub.dev/packages/flutter_alibc)
