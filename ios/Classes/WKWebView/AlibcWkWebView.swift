@@ -109,8 +109,16 @@ extension AlibcWkWebView : WKNavigationDelegate{
                 self.delegate?.noticeToken(result: access_token_string)
             })
         }else if rangeCode.location != NSNotFound {
-            let codeString = (urlStr! as NSString).substring(from: rangeCode.location)
-            print(codeString)
+            var dic = [String:String]()
+            let arr = urlStr!.components(separatedBy:"&")
+            for item in arr {
+                    let arr2 = item.components(separatedBy:"=")
+                    let key = arr2[0]
+                    let val = arr2[1]
+                    dic[key] = val
+            }
+            let codeString = "code=" + dic["code"]!
+            
             //            拿到token了，该关闭当前页面了
             self.navigationController?.dismiss(animated: true, completion: {
                 //                回调回去

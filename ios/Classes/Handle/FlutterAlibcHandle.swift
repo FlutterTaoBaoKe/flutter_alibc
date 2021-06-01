@@ -254,7 +254,7 @@ class FlutterAlibcHandle: NSObject, AlibcWkWebViewDelegate {
     
     public func openShop(call : FlutterMethodCall , result : @escaping FlutterResult, callBackString: String){
         let shopId : String = getStringFromCall(key: "shopId", call: call);
-        let page = AlibcTradePageFactory.itemDetailPage(shopId)
+        let page = AlibcTradePageFactory.shopPage(shopId)
         self.openPageByNewWay(page: page, bizcode: "shop", call: call, result: result, callBackString: callBackString)
     }
     
