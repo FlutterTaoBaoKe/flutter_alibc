@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_alibc/alibc_const_key.dart';
+import 'package:flutter_alibc/alibc_model.dart';
 import 'package:flutter_alibc/flutter_alibc.dart';
 
 void main() => runApp(MyApp());
@@ -138,6 +139,7 @@ class _MyAppState extends State<MyApp> {
                     isNeedCustomNativeFailMode: true,
                     nativeFailMode:
                         AlibcNativeFailMode.AlibcNativeFailModeJumpH5,
+                    taokeParams: TaokeParams()..pid = "mm_112883640_11584347_72287650277",
                     callback: (result){
                       print(result);
                     });
