@@ -131,40 +131,48 @@ class _MyAppState extends State<MyApp> {
             TextButton(
               child: Text("唤起淘宝，openByUrl方式"),
               onPressed: () async {
-                var result = await FlutterAlibc.openByUrl(
+               FlutterAlibc.openByUrl(
                     url:
                         "https://uland.taobao.com/coupon/edetail?e=0I2EBL%2BTWswGQASttHIRqRXxIesJCFV0jSsDEwaP11URqogtr65NL3IIxArmwXZQtYdj3OrQBBwJkllDQLUC%2B79fwBwwUiqlvyfAqbG%2BQWkG6QT52O7rmXYefz8NXcoYTJnbK5InWzlFfSAQOJJoy8NEaV3mm%2FQSzjZt5gElMznom9kMiklcP0KJ92VgfYGd&traceId=0b0d82cf15669814548736276e3d95&union_lens=lensId:0b0b6466_0c0d_16cd75f7c39_528f&xId=6MboRwsAi2s8Glbqt3lJLAwSlyrPyBLCZ01KOk6QzKCNhw8C6RjXgA1bNbZdKzp30gOqd1J5j1k7ei7HYId1QZ&ut_sk=1.utdid_null_1566981455011.TaoPassword-Outside.taoketop&sp_tk=77+lTU5nMllrdHRqSVLvv6U=",
                     //backUrl: "tbopen27822502:https://h5.m.taobao.com",
                     isNeedCustomNativeFailMode: true,
                     nativeFailMode:
-                        AlibcNativeFailMode.AlibcNativeFailModeJumpH5);
-                print(result);
+                        AlibcNativeFailMode.AlibcNativeFailModeJumpH5,
+                    callback: (result){
+                      print(result);
+                    });
+
               },
             ),
             TextButton(
               child: Text("唤起淘宝，openItemDetail方式"),
               onPressed: () async {
-                var result = await FlutterAlibc.openItemDetail(
+               FlutterAlibc.openItemDetail(
                     itemID: "575688730394",
                     schemeType: AlibcSchemeType.AlibcSchemeTaoBao,
                     isNeedCustomNativeFailMode: true,
                     nativeFailMode:
-                        AlibcNativeFailMode.AlibcNativeFailModeJumpH5);
-                print(result);
+                        AlibcNativeFailMode.AlibcNativeFailModeJumpH5,
+               callback: (result){
+                 print(result);
+               });
               },
             ),
             TextButton(
               child: Text("打开店铺，openShop方式"),
               onPressed: () async {
-                var result = await FlutterAlibc.openShop(shopId: "71955116");
-                print(result);
+                FlutterAlibc.openShop(shopId: "71955116", callback: (result){
+                  print(result);
+                });
               },
             ),
             TextButton(
               child: Text("打开购物车，openCart方式"),
               onPressed: () async {
-                var result = await FlutterAlibc.openCart();
-                print(result);
+                FlutterAlibc.openCart(callback: (result){
+                  print(result);
+                });
+
               },
             ),
             TextButton(

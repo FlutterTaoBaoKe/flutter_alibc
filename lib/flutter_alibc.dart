@@ -8,7 +8,8 @@ import 'package:flutter_alibc/alibc_const_key.dart';
 import 'package:flutter_alibc/alibc_model.dart';
 
 typedef LoginCallback = void Function(LoginModel model);
-typedef TaokeCallback = void Function(Map<String, dynamic> map);
+typedef OpenCallback = void Function(TradeResult model);
+typedef CommonCallback = void Function(Map<String, dynamic> map);
 
 class FlutterAlibc {
   // 通信的桥接类
@@ -18,7 +19,11 @@ class FlutterAlibc {
   static Map<CallBackType, Function> _callBackMaps = {
     CallBackType.AlibcTaobaoLogin: null,
     CallBackType.AlibcTaokeLogin: null,
-    CallBackType.AlibcTaokeLoginForCode: null
+    CallBackType.AlibcTaokeLoginForCode: null,
+    CallBackType.AlibcOpenURL: null,
+    CallBackType.AlibcOpenCar: null,
+    CallBackType.AlibcOpenDetail: null,
+    CallBackType.AlibcOpenShop: null,
   };
 
   static Future<String> get platformVersion async {
@@ -75,7 +80,7 @@ class FlutterAlibc {
       AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTaoBao,
       TaokeParams taokeParams,
       String backUrl,
-      @required TaokeCallback taokeCallback}) async {
+      @required CommonCallback taokeCallback}) async {
     Map taoKe = AlibcTools.getTaokeMap(taokeParams);
     _channel.invokeMethod("taoKeLogin", {
       "url": url,
@@ -113,7 +118,7 @@ class FlutterAlibc {
     AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTaoBao,
     TaokeParams taokeParams,
     String backUrl,
-    @required TaokeCallback taokeCallback,
+    @required CommonCallback taokeCallback,
   }) async {
     Map taoKe = AlibcTools.getTaokeMap(taokeParams);
     _channel.invokeMethod("taoKeLoginForCode", {
@@ -151,12 +156,16 @@ class FlutterAlibc {
                 argu[AlibcConstKey.data]["topAuthCode"]));
         break;
       case CallBackType.AlibcTaokeLogin:
-        //暂时不转换类
-        argu = temp;
-        break;
       case CallBackType.AlibcTaokeLoginForCode:
         //暂时不转换类型
         argu = temp;
+        break;
+      case CallBackType.AlibcOpenURL:
+      case CallBackType.AlibcOpenCar:
+      case CallBackType.AlibcOpenDetail:
+      case CallBackType.AlibcOpenShop:
+        TradeResult tradeResult = AlibcTools.getTradeResult(temp);
+        argu = tradeResult;
         break;
       default:
         print("unsupport method handler");
@@ -181,7 +190,7 @@ class FlutterAlibc {
   /// backUrl: 跳转回来的url
   /// @return:
   ///
-  static Future<TradeResult> openByUrl({
+  static void openByUrl({
     @required String url,
     AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
     bool isNeedCustomNativeFailMode = false,
@@ -190,9 +199,10 @@ class FlutterAlibc {
     AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTmall,
     TaokeParams taokeParams,
     String backUrl,
+    OpenCallback callback,
   }) async {
     Map taoKe = AlibcTools.getTaokeMap(taokeParams);
-    Map result = await _channel.invokeMethod("openByUrl", {
+    _channel.invokeMethod("openByUrl", {
       "url": url,
       "openType": openType.index,
       "isNeedCustomNativeFailMode": isNeedCustomNativeFailMode,
@@ -201,9 +211,7 @@ class FlutterAlibc {
       "taokeParams": taoKe,
       "backUrl": backUrl
     });
-
-    TradeResult tradeResult = AlibcTools.getTradeResult(result);
-    return tradeResult;
+    _callBackMaps[CallBackType.AlibcOpenURL] = callback;
   }
 
   ///
@@ -214,7 +222,7 @@ class FlutterAlibc {
   /// isNeedPush iOS独占
   /// @return:
   ///
-  static Future<TradeResult> openItemDetail({
+  static void openItemDetail({
     @required String itemID,
     // iOS独占
     // bool isNeedPush = false,
@@ -227,9 +235,10 @@ class FlutterAlibc {
     // 额外需要追踪的业务数据
     Map trackParam,
     String backUrl,
+    OpenCallback callback
   }) async {
     Map taoKe = AlibcTools.getTaokeMap(taokeParams);
-    Map result = await _channel.invokeMethod("openItemDetail", {
+    _channel.invokeMethod("openItemDetail", {
       "itemID": itemID,
       // "isNeedPush": isNeedPush,
       "openType": openType.index,
@@ -240,8 +249,7 @@ class FlutterAlibc {
       "trackParam": trackParam,
       "backUrl": backUrl
     });
-    TradeResult tradeResult = AlibcTools.getTradeResult(result);
-    return tradeResult;
+    _callBackMaps[CallBackType.AlibcOpenDetail] = callback;
   }
 
   ///
@@ -250,7 +258,7 @@ class FlutterAlibc {
   /// shopId 店铺id
   /// @return:
   ///
-  static Future<TradeResult> openShop({
+  static void openShop({
     @required String shopId,
     // iOS独占
     // bool isNeedPush = false,
@@ -263,10 +271,11 @@ class FlutterAlibc {
     // 额外需要追踪的业务数据
     Map trackParam,
     String backUrl,
+    OpenCallback callback
   }) async {
     Map taoKe = AlibcTools.getTaokeMap(taokeParams);
 
-    Map result = await _channel.invokeMethod("openShop", {
+    _channel.invokeMethod("openShop", {
       "shopId": shopId,
       // "isNeedPush": isNeedPush,
       "openType": openType.index,
@@ -277,8 +286,7 @@ class FlutterAlibc {
       "trackParam": trackParam,
       "backUrl": backUrl
     });
-    TradeResult tradeResult = AlibcTools.getTradeResult(result);
-    return tradeResult;
+    _callBackMaps[CallBackType.AlibcOpenShop] = callback;
   }
 
   ///
@@ -286,7 +294,7 @@ class FlutterAlibc {
   /// @param {type}
   /// @return:
   ///
-  static Future<TradeResult> openCart({
+  static void openCart({
     // iOS独占
     // bool isNeedPush = false,
     AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
@@ -298,10 +306,11 @@ class FlutterAlibc {
     // 额外需要追踪的业务数据
     Map trackParam,
     String backUrl,
+    OpenCallback callback
   }) async {
     Map taoKe = AlibcTools.getTaokeMap(taokeParams);
 
-    Map result = await _channel.invokeMethod("openCart", {
+    _channel.invokeMethod("openCart", {
       // "isNeedPush": isNeedPush,
       "openType": openType.index,
       "isNeedCustomNativeFailMode": isNeedCustomNativeFailMode,
@@ -311,8 +320,7 @@ class FlutterAlibc {
       "trackParam": trackParam,
       "backUrl": backUrl
     });
-    TradeResult tradeResult = AlibcTools.getTradeResult(result);
-    return tradeResult;
+    _callBackMaps[CallBackType.AlibcOpenCar] = callback;
   }
 
   // 是否需要设置打点

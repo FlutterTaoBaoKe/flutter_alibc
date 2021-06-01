@@ -29,6 +29,12 @@ class WebViewActivity : Activity() {
         fun failed(errorMsg: String?)
     }
 
+    override fun onDestroy() {
+        callBack?.failed("取消授权")
+        callBack = null
+        super.onDestroy()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.webview_activity)
@@ -125,5 +131,4 @@ class WebViewActivity : Activity() {
         }
         return ""
     }
-
 }

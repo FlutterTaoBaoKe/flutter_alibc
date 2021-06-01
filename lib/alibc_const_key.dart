@@ -50,6 +50,10 @@ enum CallBackType {
   AlibcTaobaoLogin,
   AlibcTaokeLogin,
   AlibcTaokeLoginForCode,
+  AlibcOpenURL,
+  AlibcOpenCar,
+  AlibcOpenDetail,
+  AlibcOpenShop
 }
 
 T enumFromString<T>(Iterable<T> values, String value) {

@@ -118,13 +118,12 @@ class FlutterAlibcHandle(var methodChannel: MethodChannel?){
             override fun success(accessToken: String?) {
                 val resMap: HashMap<String, Any?> = HashMap<String, Any?>()
                 resMap["accessToken"] = accessToken
-                methodChannel!!.invokeMethod("AlibcTaokeLogin", resMap)
+                methodChannel!!.invokeMethod("AlibcTaokeLogin", PluginResponse.success(resMap).toMap())
             }
 
             override fun failed(errorMsg: String?) {
-                val resMap: HashMap<String, Any?> = HashMap<String, Any?>()
-                resMap["accessToken"] = ""
-                methodChannel!!.invokeMethod("AlibcTaokeLogin", resMap)
+                val code = -1
+                methodChannel!!.invokeMethod("AlibcTaokeLogin", PluginResponse(code.toString(), errorMsg, null).toMap())
             }
         }
         val intent = Intent(activity!!, WebViewActivity::class.java)
@@ -147,13 +146,12 @@ class FlutterAlibcHandle(var methodChannel: MethodChannel?){
             override fun success(accessToken: String?) {
                 val resMap: HashMap<String, Any?> = HashMap<String, Any?>()
                 resMap["code"] = accessToken
-                methodChannel!!.invokeMethod("AlibcTaokeLoginForCode", resMap)
+                methodChannel!!.invokeMethod("AlibcTaokeLoginForCode", PluginResponse.success(resMap).toMap())
             }
 
             override fun failed(errorMsg: String?) {
-                val resMap: HashMap<String, Any?> = HashMap<String, Any?>()
-                resMap["code"] = ""
-                methodChannel!!.invokeMethod("AlibcTaokeLoginForCode", resMap)
+                var code = -1
+                methodChannel!!.invokeMethod("AlibcTaokeLoginForCode", PluginResponse(code.toString(), errorMsg, null).toMap())
             }
         }
         val intent = Intent(activity!!, WebViewActivity::class.java)
@@ -207,11 +205,11 @@ class FlutterAlibcHandle(var methodChannel: MethodChannel?){
                     results["payFailedOrders"] = tradeResult.payResult.payFailedOrders
                     results["paySuccessOrders"] = tradeResult.payResult.paySuccessOrders
                 }
-                result.success(PluginResponse.success(results).toMap())
+                methodChannel!!.invokeMethod("AlibcOpenURL", PluginResponse.success(results).toMap())
             }
 
             override fun onFailure(code: Int, msg: String) {
-                result.success(PluginResponse(code.toString(), msg, null).toMap())
+                methodChannel!!.invokeMethod("AlibcOpenURL", PluginResponse(code.toString(), msg, null).toMap())
             }
         })
     }
@@ -223,7 +221,7 @@ class FlutterAlibcHandle(var methodChannel: MethodChannel?){
      */
     fun openShop(call: MethodCall, result: MethodChannel.Result) {
         val page: AlibcBasePage = AlibcShopPage(call.argument("shopId"))
-        openByBizCode(page, "shop", call, result)
+        openByBizCode(page, "shop", "AlibcOpenShop",call, result)
     }
 
     /**
@@ -232,7 +230,7 @@ class FlutterAlibcHandle(var methodChannel: MethodChannel?){
      */
     fun openCart(call: MethodCall, result: MethodChannel.Result) {
         val page: AlibcBasePage = AlibcMyCartsPage()
-        openByBizCode(page, "cart", call, result)
+        openByBizCode(page, "cart", "AlibcOpenCar", call, result)
     }
 
     /**
@@ -242,10 +240,10 @@ class FlutterAlibcHandle(var methodChannel: MethodChannel?){
      */
     fun openItemDetail(call: MethodCall, result: MethodChannel.Result) {
         val page: AlibcBasePage = AlibcDetailPage(call.argument("itemID"))
-        openByBizCode(page, "detail", call, result)
+        openByBizCode(page, "detail", "AlibcOpenDetail",call, result)
     }
 
-    private fun openByBizCode(page: AlibcBasePage, type: String, call: MethodCall, result: MethodChannel.Result) {
+    private fun openByBizCode(page: AlibcBasePage, type: String, methodName: String, call: MethodCall, result: MethodChannel.Result) {
         val showParams = AlibcShowParams()
         var taokeParams: AlibcTaokeParams? = AlibcTaokeParams("", "", "")
         showParams.backUrl = call.argument(PluginConstants.key_BackUrl)
@@ -276,12 +274,12 @@ class FlutterAlibcHandle(var methodChannel: MethodChannel?){
                     results["payFailedOrders"] = tradeResult.payResult.payFailedOrders
                     results["paySuccessOrders"] = tradeResult.payResult.paySuccessOrders
                 }
-                result.success(PluginResponse.success(results).toMap())
+                methodChannel!!.invokeMethod(methodName, PluginResponse.success(results).toMap())
             }
 
             override fun onFailure(code: Int, msg: String) {
                 // 失败回调信息
-                result.success(PluginResponse(code.toString(), msg, null).toMap())
+                methodChannel!!.invokeMethod(methodName, PluginResponse(code.toString(), msg, null).toMap())
             }
         })
     }
