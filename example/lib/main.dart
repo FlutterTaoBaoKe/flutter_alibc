@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-
+  String _info = '';
   List<String> Function() commands;
 
   List<String> test() {
@@ -71,6 +71,9 @@ class _MyAppState extends State<MyApp> {
         body: Center(
             child: Column(
           children: <Widget>[
+            Container(
+              child: Text('info: $_info'),
+            ),
             FlatButton(
               child: Text("初始化阿里百川"),
               onPressed: () async {
@@ -79,15 +82,21 @@ class _MyAppState extends State<MyApp> {
                   // 如果什么都不给
                   var result = await FlutterAlibc.initAlibc();
                   print(json.encode(result));
+                  setState(() {
+                    _info = json.encode(result);
+                  });
                 } on Exception {}
               },
             ),
             FlatButton(
               child: Text("登录淘宝"),
               onPressed: () async {
-                var result = FlutterAlibc.loginTaoBao(loginCallback: (result) {
+                FlutterAlibc.loginTaoBao(loginCallback: (result) {
                   print(
                       "登录淘宝  ${result.data.nick} ${result.data.topAccessToken}");
+                  setState(() {
+                    _info = json.encode(result);
+                  });
                 });
               },
             ),
@@ -109,6 +118,9 @@ class _MyAppState extends State<MyApp> {
                         AlibcNativeFailMode.AlibcNativeFailModeJumpH5,
                     taokeCallback: (map) {
                       print('淘客登录 ' + json.encode(map));
+                      setState(() {
+                        _info = json.encode(map);
+                      });
                     });
                 // print("access token ${result["accessToken"]}");
               },
