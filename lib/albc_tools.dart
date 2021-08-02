@@ -46,8 +46,8 @@ class AlibcTools {
   }
 
 // 设置淘宝客数据
-  static Map getTaokeMap(TaokeParams taokeParams) {
-    Map taoKe;
+  static Map? getTaokeMap(TaokeParams? taokeParams) {
+    Map? taoKe;
     if (taokeParams != null) {
       taoKe = {
         "adzoneId": taokeParams.adzoneId ?? "",

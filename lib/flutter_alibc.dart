@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:ffi';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_alibc/albc_tools.dart';
 import 'package:flutter_alibc/alibc_const_key.dart';
@@ -16,7 +15,7 @@ class FlutterAlibc {
   static final MethodChannel _channel = const MethodChannel("flutter_alibc")
     ..setMethodCallHandler(_platformCallHandler);
 
-  static Map<CallBackType, Function> _callBackMaps = {
+  static Map<CallBackType, Function?> _callBackMaps = {
     CallBackType.AlibcTaobaoLogin: null,
     CallBackType.AlibcTaokeLogin: null,
     CallBackType.AlibcTaokeLoginForCode: null,
@@ -26,8 +25,8 @@ class FlutterAlibc {
     CallBackType.AlibcOpenShop: null,
   };
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
+  static Future<String?> get platformVersion async {
+    final String? version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
 
@@ -38,9 +37,10 @@ class FlutterAlibc {
   ///   errorCode,     //0为初始化成功，其他为失败
   ///   errorMessage,  //message
   ///}
-  static Future<InitModel> initAlibc({String version, String appName}) async {
-    Map result = await _channel
-        .invokeMethod("initAlibc", {"version": version, "appName": appName});
+  static Future<InitModel> initAlibc({String? version, String? appName}) async {
+    Map result = await (_channel
+            .invokeMethod("initAlibc", {"version": version, "appName": appName})
+        as FutureOr<Map<dynamic, dynamic>>);
     return InitModel(
         result[AlibcConstKey.errorCode], result[AlibcConstKey.errorMessage]);
   }
@@ -50,7 +50,7 @@ class FlutterAlibc {
   ///
   /// @return: 成功则返回的data为用户信息，失败则没有data
   ///
-  static void loginTaoBao({@required LoginCallback loginCallback}) async {
+  static void loginTaoBao({required LoginCallback loginCallback}) async {
     _channel.invokeMethod("loginTaoBao");
     _callBackMaps[CallBackType.AlibcTaobaoLogin] = loginCallback;
     // 判断成功还是失败
@@ -72,16 +72,16 @@ class FlutterAlibc {
   /// @return:
   /// Map<String,String>
   static void taoKeLogin(
-      {@required String url,
+      {required String url,
       AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
       bool isNeedCustomNativeFailMode = false,
       AlibcNativeFailMode nativeFailMode =
           AlibcNativeFailMode.AlibcNativeFailModeNone,
       AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTaoBao,
-      TaokeParams taokeParams,
-      String backUrl,
-      @required CommonCallback taokeCallback}) async {
-    Map taoKe = AlibcTools.getTaokeMap(taokeParams);
+      TaokeParams? taokeParams,
+      String? backUrl,
+      required CommonCallback taokeCallback}) async {
+    Map? taoKe = AlibcTools.getTaokeMap(taokeParams);
     _channel.invokeMethod("taoKeLogin", {
       "url": url,
       "openType": openType.index,
@@ -110,17 +110,17 @@ class FlutterAlibc {
   /// @return:
   /// Map<String,String>
   static void taoKeLoginForCode({
-    @required String url,
+    required String url,
     AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
     bool isNeedCustomNativeFailMode = false,
     AlibcNativeFailMode nativeFailMode =
         AlibcNativeFailMode.AlibcNativeFailModeNone,
     AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTaoBao,
-    TaokeParams taokeParams,
-    String backUrl,
-    @required CommonCallback taokeCallback,
+    TaokeParams? taokeParams,
+    String? backUrl,
+    required CommonCallback taokeCallback,
   }) async {
-    Map taoKe = AlibcTools.getTaokeMap(taokeParams);
+    Map? taoKe = AlibcTools.getTaokeMap(taokeParams);
     _channel.invokeMethod("taoKeLoginForCode", {
       "url": url,
       "openType": openType.index,
@@ -137,7 +137,7 @@ class FlutterAlibc {
     var argu = call.arguments;
     print(
         'call.name ${call.method}  call.arguments ${call.arguments.toString()}');
-    CallBackType type = enumFromString(CallBackType.values, call.method);
+    CallBackType? type = enumFromString(CallBackType.values, call.method);
     print(argu.runtimeType.toString());
     var temp = Map<String, dynamic>();
     (argu as Map).forEach((key, value) {
@@ -171,10 +171,10 @@ class FlutterAlibc {
         print("unsupport method handler");
         return;
     }
-    Function f = _callBackMaps[type];
+    Function? f = _callBackMaps[type];
     if (f != null) {
       f(argu);
-      _callBackMaps[type] = null;
+      _callBackMaps[type!] = null;
     }
   }
 
@@ -191,17 +191,17 @@ class FlutterAlibc {
   /// @return:
   ///
   static void openByUrl({
-    @required String url,
+    required String url,
     AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
     bool isNeedCustomNativeFailMode = false,
     AlibcNativeFailMode nativeFailMode =
         AlibcNativeFailMode.AlibcNativeFailModeNone,
     AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTmall,
-    TaokeParams taokeParams,
-    String backUrl,
-    OpenCallback callback,
+    TaokeParams? taokeParams,
+    String? backUrl,
+    OpenCallback? callback,
   }) async {
-    Map taoKe = AlibcTools.getTaokeMap(taokeParams);
+    Map? taoKe = AlibcTools.getTaokeMap(taokeParams);
     _channel.invokeMethod("openByUrl", {
       "url": url,
       "openType": openType.index,
@@ -222,22 +222,21 @@ class FlutterAlibc {
   /// isNeedPush iOS独占
   /// @return:
   ///
-  static void openItemDetail({
-    @required String itemID,
-    // iOS独占
-    // bool isNeedPush = false,
-    AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
-    bool isNeedCustomNativeFailMode = false,
-    AlibcNativeFailMode nativeFailMode =
-        AlibcNativeFailMode.AlibcNativeFailModeNone,
-    AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTmall,
-    TaokeParams taokeParams,
-    // 额外需要追踪的业务数据
-    Map trackParam,
-    String backUrl,
-    OpenCallback callback
-  }) async {
-    Map taoKe = AlibcTools.getTaokeMap(taokeParams);
+  static void openItemDetail(
+      {required String itemID,
+      // iOS独占
+      // bool isNeedPush = false,
+      AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
+      bool isNeedCustomNativeFailMode = false,
+      AlibcNativeFailMode nativeFailMode =
+          AlibcNativeFailMode.AlibcNativeFailModeNone,
+      AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTmall,
+      TaokeParams? taokeParams,
+      // 额外需要追踪的业务数据
+      Map? trackParam,
+      String? backUrl,
+      OpenCallback? callback}) async {
+    Map? taoKe = AlibcTools.getTaokeMap(taokeParams);
     _channel.invokeMethod("openItemDetail", {
       "itemID": itemID,
       // "isNeedPush": isNeedPush,
@@ -258,22 +257,21 @@ class FlutterAlibc {
   /// shopId 店铺id
   /// @return:
   ///
-  static void openShop({
-    @required String shopId,
-    // iOS独占
-    // bool isNeedPush = false,
-    AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
-    bool isNeedCustomNativeFailMode = false,
-    AlibcNativeFailMode nativeFailMode =
-        AlibcNativeFailMode.AlibcNativeFailModeNone,
-    AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTmall,
-    TaokeParams taokeParams,
-    // 额外需要追踪的业务数据
-    Map trackParam,
-    String backUrl,
-    OpenCallback callback
-  }) async {
-    Map taoKe = AlibcTools.getTaokeMap(taokeParams);
+  static void openShop(
+      {required String shopId,
+      // iOS独占
+      // bool isNeedPush = false,
+      AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
+      bool isNeedCustomNativeFailMode = false,
+      AlibcNativeFailMode nativeFailMode =
+          AlibcNativeFailMode.AlibcNativeFailModeNone,
+      AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTmall,
+      TaokeParams? taokeParams,
+      // 额外需要追踪的业务数据
+      Map? trackParam,
+      String? backUrl,
+      OpenCallback? callback}) async {
+    Map? taoKe = AlibcTools.getTaokeMap(taokeParams);
 
     _channel.invokeMethod("openShop", {
       "shopId": shopId,
@@ -294,21 +292,21 @@ class FlutterAlibc {
   /// @param {type}
   /// @return:
   ///
-  static void openCart({
-    // iOS独占
-    // bool isNeedPush = false,
-    AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
-    bool isNeedCustomNativeFailMode = false,
-    AlibcNativeFailMode nativeFailMode =
-        AlibcNativeFailMode.AlibcNativeFailModeNone,
-    AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTmall,
-    TaokeParams taokeParams,
-    // 额外需要追踪的业务数据
-    Map trackParam,
-    String backUrl,
-    OpenCallback callback
-  }) async {
-    Map taoKe = AlibcTools.getTaokeMap(taokeParams);
+  static void openCart(
+      {
+      // iOS独占
+      // bool isNeedPush = false,
+      AlibcOpenType openType = AlibcOpenType.AlibcOpenTypeAuto,
+      bool isNeedCustomNativeFailMode = false,
+      AlibcNativeFailMode nativeFailMode =
+          AlibcNativeFailMode.AlibcNativeFailModeNone,
+      AlibcSchemeType schemeType = AlibcSchemeType.AlibcSchemeTmall,
+      TaokeParams? taokeParams,
+      // 额外需要追踪的业务数据
+      Map? trackParam,
+      String? backUrl,
+      OpenCallback? callback}) async {
+    Map? taoKe = AlibcTools.getTaokeMap(taokeParams);
 
     _channel.invokeMethod("openCart", {
       // "isNeedPush": isNeedPush,

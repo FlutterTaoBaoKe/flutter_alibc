@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 ///
 /// @Author: 无星
 /// @Date: 2019-08-30 15:55:44
@@ -56,7 +57,6 @@ enum CallBackType {
   AlibcOpenShop
 }
 
-T enumFromString<T>(Iterable<T> values, String value) {
-  return values.firstWhere((type) => type.toString().split('.').last == value,
-      orElse: () => null);
+T? enumFromString<T>(Iterable<T> values, String value) {
+  return values.firstWhereOrNull((type) => type.toString().split('.').last == value);
 }

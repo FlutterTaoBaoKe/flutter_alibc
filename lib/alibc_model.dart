@@ -3,9 +3,9 @@ import 'alibc_const_key.dart';
 
 class InitModel {
   // 错误码
-  String errorCode;
+  String? errorCode;
   // 错误信息
-  String errorMessage;
+  String? errorMessage;
 
   InitModel(this.errorCode, this.errorMessage);
 
@@ -24,11 +24,11 @@ class InitModel {
 
 class LoginModel {
   // 错误码
-  String errorCode;
+  String? errorCode;
   // 错误信息
-  String errorMessage;
+  String? errorMessage;
 
-  UserModel data;
+  UserModel? data;
 
   LoginModel(this.errorCode, this.errorMessage, {this.data});
 
@@ -50,13 +50,13 @@ class LoginModel {
 // 用户信息
 class UserModel {
   // 用户昵称
-  final String nick;
+  final String? nick;
   // 头像地址
-  final String avatarUrl;
-  final String openId;
-  final String openSid;
-  final String topAccessToken;
-  final String topAuthCode;
+  final String? avatarUrl;
+  final String? openId;
+  final String? openSid;
+  final String? topAccessToken;
+  final String? topAuthCode;
   UserModel(this.nick, this.avatarUrl, this.openId, this.openSid,
       this.topAccessToken, this.topAuthCode);
 }
@@ -64,11 +64,11 @@ class UserModel {
 // 淘宝客的参数
 class TaokeParams {
   //有adzoneId则pid失效
-  String adzoneId;
-  String pid;
-  String unionId;
-  String subPid;
-  Map extParams;
+  String? adzoneId;
+  String? pid;
+  String? unionId;
+  String? subPid;
+  Map? extParams;
   TaokeParams(
       {this.adzoneId, this.pid, this.unionId, this.subPid, this.extParams});
 }
@@ -76,13 +76,13 @@ class TaokeParams {
 // url打开或者page打开等的数据
 class TradeResult {
   // 错误码,0为成功，非0为失败
-  final String errorCode;
+  final String? errorCode;
   // 错误信息
-  final String errorMessage;
+  final String? errorMessage;
 
-  TradeResultType type;
+  TradeResultType? type;
 
-  PayResult payResult;
+  PayResult? payResult;
   // AddCardResult addCardResult;
   // Android没有，所以去掉
   // TradeFailResult tradeFailResult;
@@ -99,9 +99,9 @@ class TradeResult {
 // 付款成功的result
 class PayResult {
   // 支付成功的订单
-  final List<String> paySuccessOrders;
+  final List<String>? paySuccessOrders;
   // 支付失败的订单
-  final List<String> payFailedOrders;
+  final List<String>? payFailedOrders;
 
   PayResult(this.paySuccessOrders, this.payFailedOrders);
 }

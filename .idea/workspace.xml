@@ -3,11 +3,22 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="52fa163a-f3f2-4c0e-9772-59fc0bee0a1f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/test/enum_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/web/WebViewActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/wxwx/flutter_alibc/web/WebViewActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter_alibc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_alibc.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/albc_tools.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/albc_tools.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/alibc_const_key.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/alibc_const_key.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/alibc_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/alibc_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/flutter_alibc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/flutter_alibc.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +50,18 @@
       <recent name="$PROJECT_DIR$/example/android/app" />
     </key>
   </component>
+  <component name="RunManager" selected="Flutter Test.enum test">
+    <configuration name="enum test" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="enum test" />
+      <option name="testFile" value="$PROJECT_DIR$/test/enum_test.dart" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter Test.enum test" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
@@ -52,6 +75,18 @@
       <updated>1621051719593</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="599" y="331" key="#Notifications" timestamp="1621590546431">
@@ -78,25 +113,25 @@
       <screen x="0" y="25" width="1440" height="805" />
     </state>
     <state x="200" y="186" width="1240" height="511" key="DiffContextDialog/0.25.1440.805@0.25.1440.805" timestamp="1621836655215" />
-    <state width="1358" height="163" key="GridCell.Tab.0.bottom" timestamp="1622553857875">
-      <screen x="0" y="25" width="1440" height="826" />
+    <state width="1156" height="172" key="GridCell.Tab.0.bottom" timestamp="1627036106540">
+      <screen x="0" y="25" width="1440" height="805" />
     </state>
-    <state width="1398" height="305" key="GridCell.Tab.0.bottom/0.25.1440.805@0.25.1440.805" timestamp="1621840730427" />
+    <state width="1156" height="172" key="GridCell.Tab.0.bottom/0.25.1440.805@0.25.1440.805" timestamp="1627036106540" />
     <state width="1358" height="163" key="GridCell.Tab.0.bottom/0.25.1440.826@0.25.1440.826" timestamp="1622553857875" />
-    <state width="1358" height="163" key="GridCell.Tab.0.center" timestamp="1622553857874">
-      <screen x="0" y="25" width="1440" height="826" />
+    <state width="1156" height="172" key="GridCell.Tab.0.center" timestamp="1627036106539">
+      <screen x="0" y="25" width="1440" height="805" />
     </state>
-    <state width="1398" height="305" key="GridCell.Tab.0.center/0.25.1440.805@0.25.1440.805" timestamp="1621840730426" />
+    <state width="1156" height="172" key="GridCell.Tab.0.center/0.25.1440.805@0.25.1440.805" timestamp="1627036106539" />
     <state width="1358" height="163" key="GridCell.Tab.0.center/0.25.1440.826@0.25.1440.826" timestamp="1622553857874" />
-    <state width="1358" height="163" key="GridCell.Tab.0.left" timestamp="1622553857874">
-      <screen x="0" y="25" width="1440" height="826" />
+    <state width="1156" height="172" key="GridCell.Tab.0.left" timestamp="1627036106537">
+      <screen x="0" y="25" width="1440" height="805" />
     </state>
-    <state width="1398" height="305" key="GridCell.Tab.0.left/0.25.1440.805@0.25.1440.805" timestamp="1621840730425" />
+    <state width="1156" height="172" key="GridCell.Tab.0.left/0.25.1440.805@0.25.1440.805" timestamp="1627036106537" />
     <state width="1358" height="163" key="GridCell.Tab.0.left/0.25.1440.826@0.25.1440.826" timestamp="1622553857874" />
-    <state width="1358" height="163" key="GridCell.Tab.0.right" timestamp="1622553857875">
-      <screen x="0" y="25" width="1440" height="826" />
+    <state width="1156" height="172" key="GridCell.Tab.0.right" timestamp="1627036106539">
+      <screen x="0" y="25" width="1440" height="805" />
     </state>
-    <state width="1398" height="305" key="GridCell.Tab.0.right/0.25.1440.805@0.25.1440.805" timestamp="1621840730427" />
+    <state width="1156" height="172" key="GridCell.Tab.0.right/0.25.1440.805@0.25.1440.805" timestamp="1627036106539" />
     <state width="1358" height="163" key="GridCell.Tab.0.right/0.25.1440.826@0.25.1440.826" timestamp="1622553857875" />
     <state x="200" y="186" width="1240" height="511" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1621836655215">
       <screen x="0" y="25" width="1440" height="805" />
@@ -118,16 +153,6 @@
           <url>file://$PROJECT_DIR$/android/build.gradle</url>
           <line>42</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/flutter_alibc.dart</url>
-          <line>238</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/flutter_alibc.dart</url>
-          <line>241</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
