@@ -15,9 +15,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String? _platformVersion = 'Unknown';
   String _info = '';
-  List<String> Function() commands;
 
   List<String> test() {
     return List.generate(2, (i) => '$i');
@@ -34,7 +33,7 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
+    String? platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       platformVersion = await FlutterAlibc.platformVersion;
@@ -94,7 +93,7 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 FlutterAlibc.loginTaoBao(loginCallback: (result) {
                   print(
-                      "登录淘宝  ${result.data.nick} ${result.data.topAccessToken}");
+                      "登录淘宝  ${result.data?.nick} ${result.data?.topAccessToken}");
                   setState(() {
                     _info = json.encode(result);
                   });
