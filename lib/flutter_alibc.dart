@@ -38,9 +38,8 @@ class FlutterAlibc {
   ///   errorMessage,  //message
   ///}
   static Future<InitModel> initAlibc({String? version, String? appName}) async {
-    Map result = await (_channel
-            .invokeMethod("initAlibc", {"version": version, "appName": appName})
-        as FutureOr<Map<dynamic, dynamic>>);
+    Map result = await _channel
+            .invokeMethod("initAlibc", {"version": version, "appName": appName});
     return InitModel(
         result[AlibcConstKey.errorCode], result[AlibcConstKey.errorMessage]);
   }
