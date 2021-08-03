@@ -6,7 +6,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven{ url 'https://maven.aliyun.com/repository/google'}
         maven {
             url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
         }
@@ -22,7 +22,7 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven{ url 'https://maven.aliyun.com/repository/google'}
         maven {
             url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
         }
@@ -50,10 +50,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.alibaba:fastjson:1.2.52'
     //security
-    implementation 'com.taobao.android:securityguardaar3:5.4.200@aar'
-    implementation 'com.taobao.android:securitybodyaar3:5.4.200@aar'
-    implementation 'com.taobao.android:avmpaar3:5.4.200@aar'
-    implementation 'com.taobao.android:sgmiddletieraar3:5.4.200@aar'
+    implementation 'com.taobao.android:securityguardaar3:5.4.171@aar'
+    implementation 'com.taobao.android:securitybodyaar3:5.4.99@aar'
+    implementation 'com.taobao.android:avmpaar3:5.4.36@aar'
+    implementation 'com.taobao.android:sgmiddletieraar3:5.4.9@aar'
 
     //mtop
     implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.2.5@jar'
